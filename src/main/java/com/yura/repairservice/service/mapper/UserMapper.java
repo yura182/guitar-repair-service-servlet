@@ -5,8 +5,10 @@ import com.yura.repairservice.entity.UserEntity;
 
 import java.util.Objects;
 
-public class UserMapper {
-    public User mapUserEntityToUser(UserEntity userEntity) {
+public class UserMapper implements EntityMapper<UserEntity, User> {
+
+    @Override
+    public User mapEntityToDomain(UserEntity userEntity) {
         return Objects.isNull(userEntity) ? null : User.builder()
                 .withId(userEntity.getId())
                 .withName(userEntity.getName())
@@ -18,7 +20,8 @@ public class UserMapper {
                 .build();
     }
 
-    public UserEntity mapUserToUserEntity(User user) {
+    @Override
+    public UserEntity mapDomainToEntity(User user) {
         return Objects.isNull(user) ? null : UserEntity.builder()
                 .withId(user.getId())
                 .withName(user.getName())

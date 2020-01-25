@@ -21,6 +21,16 @@ public class User {
         this.role = builder.role;
     }
 
+    public User(User user, String encodedPassword) {
+        this.id = user.id;
+        this.name = user.name;
+        this.surname = user.surname;
+        this.email = user.email;
+        this.password = encodedPassword;
+        this.phone = user.phone;
+        this.role = user.role;
+    }
+
     public Integer getId() {
         return id;
     }

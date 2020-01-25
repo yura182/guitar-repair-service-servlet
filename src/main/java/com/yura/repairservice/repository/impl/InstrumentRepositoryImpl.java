@@ -1,6 +1,5 @@
 package com.yura.repairservice.repository.impl;
 
-import com.yura.repairservice.domain.Instrument;
 import com.yura.repairservice.entity.InstrumentEntity;
 import com.yura.repairservice.repository.InstrumentRepository;
 import com.yura.repairservice.repository.connector.DBConnector;
@@ -17,7 +16,7 @@ public class InstrumentRepositoryImpl extends AbstractRepository<InstrumentEntit
     private static final String UPDATE_QUERY = "UPDATE instruments SET brand = ?, model = ?, manufacture_year = ? WHERE id = ?";
     private static final String DELETE_BY_ID_QUERY = "DELETE FROM instruments WHERE id = ?";
 
-    protected InstrumentRepositoryImpl(DBConnector connector) {
+    public InstrumentRepositoryImpl(DBConnector connector) {
         super(connector, SAVE_QUERY, FIND_BY_ID_QUERY, FIND_ALL_QUERY, UPDATE_QUERY, DELETE_BY_ID_QUERY);
     }
 

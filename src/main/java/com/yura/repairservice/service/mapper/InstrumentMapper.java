@@ -5,8 +5,10 @@ import com.yura.repairservice.entity.InstrumentEntity;
 
 import java.util.Objects;
 
-public class InstrumentMapper {
-    public Instrument mapInstrumentEntityToInstrument(InstrumentEntity instrumentEntity) {
+public class InstrumentMapper implements EntityMapper<InstrumentEntity, Instrument> {
+
+    @Override
+    public Instrument mapEntityToDomain(InstrumentEntity instrumentEntity) {
         return Objects.isNull(instrumentEntity) ? null : Instrument.builder()
                 .withId(instrumentEntity.getId())
                 .withBrand(instrumentEntity.getBrand())
@@ -15,7 +17,8 @@ public class InstrumentMapper {
                 .build();
     }
 
-    public InstrumentEntity mapInstrumentToInstrumentEntity(Instrument instrument) {
+    @Override
+    public InstrumentEntity mapDomainToEntity(Instrument instrument) {
         return Objects.isNull(instrument) ? null : InstrumentEntity.builder()
                 .withId(instrument.getId())
                 .withBrand(instrument.getBrand())

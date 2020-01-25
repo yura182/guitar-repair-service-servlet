@@ -16,29 +16,29 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
 
-    private final UserRepository userRepository;
+    private final UserRepository repository;
     private final UserMapper mapper;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper mapper) {
-        this.userRepository = userRepository;
+    public UserServiceImpl(UserRepository repository, UserMapper mapper) {
+        this.repository = repository;
         this.mapper = mapper;
     }
 
     @Override
     public void register(User user) {
        //TODO validate
-        userRepository.findByEmail(user.getEmail()).ifPresent(u -> {
+        repository.findByEmail(user.getEmail()).ifPresent(u -> {
             LOGGER.warn("User with such email already exist " + u.getEmail());
             throw new AlreadyRegisteredUserException("User with such email already exist " + u.getEmail());
         });
 
-        userRepository.save(mapper.mapUserToUserEntity(user));
+        repository.save(mapper.mapUserToUserEntity(user));
         LOGGER.info("User registered " + user.getEmail());
     }
 
     @Override
     public User login(String email, String password) {
-        return userRepository
+        return repository
                 .findByEmail(email)
                 .map(mapper::mapUserEntityToUser)
                 .filter(user -> Objects.equals(user.getPassword(), password))
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-        return userRepository
+        return repository
                 .findAll()
                 .stream()
                 .map(mapper::mapUserEntityToUser)

@@ -4,5 +4,7 @@ import com.yura.repairservice.domain.instrument.Instrument;
 
 public interface InstrumentService {
 
-    void add(Instrument instrument);
+    Integer add(Instrument instrument);
+
+    Instrument findById(Integer id);
 }

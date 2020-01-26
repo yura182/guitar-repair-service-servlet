@@ -1,5 +1,8 @@
 package com.yura.repairservice.entity;
 
+import com.yura.repairservice.domain.order.Comment;
+
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class CommentEntity {
@@ -7,12 +10,14 @@ public class CommentEntity {
     private final UserEntity client;
     private final OrderEntity order;
     private final String text;
+    private final LocalDateTime date;
 
     public CommentEntity(Builder builder) {
         this.id = builder.id;
         this.client = builder.client;
         this.order = builder.order;
         this.text = builder.text;
+        this.date = builder.date;
     }
 
     public Integer getId() {
@@ -31,6 +36,10 @@ public class CommentEntity {
         return text;
     }
 
+    public LocalDateTime getDate() {
+        return date;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -39,16 +48,17 @@ public class CommentEntity {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        CommentEntity comment = (CommentEntity) obj;
-        return Objects.equals(id, comment.id) &&
-                Objects.equals(client, comment.client) &&
-                Objects.equals(order, comment.order) &&
-                Objects.equals(text, comment.text);
+        CommentEntity that = (CommentEntity) obj;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(client, that.client) &&
+                Objects.equals(order, that.order) &&
+                Objects.equals(text, that.text) &&
+                Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, client, order, text);
+        return Objects.hash(id, client, order, text, date);
     }
 
     @Override
@@ -59,6 +69,7 @@ public class CommentEntity {
         result.append("id: ").append(id).append(", ");
         result.append("client: ").append(client).append(", ");
         result.append("order: ").append(order).append(", ");
+        result.append("date: ").append(date).append(", ");
         result.append("text: ").append(text);
 
         return result.toString();
@@ -73,6 +84,7 @@ public class CommentEntity {
         private UserEntity client;
         private OrderEntity order;
         private String text;
+        private LocalDateTime date;
 
         private Builder() {
         }
@@ -96,6 +108,14 @@ public class CommentEntity {
             this.text = text;
             return this;
         }
-    }
 
+        public Builder withDate(LocalDateTime date) {
+            this.date = date;
+            return this;
+        }
+
+        public CommentEntity build() {
+            return new CommentEntity(this);
+        }
+    }
 }

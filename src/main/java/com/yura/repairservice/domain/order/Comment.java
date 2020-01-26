@@ -2,6 +2,7 @@ package com.yura.repairservice.domain.order;
 
 import com.yura.repairservice.domain.user.User;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Comment {
@@ -9,12 +10,14 @@ public class Comment {
     private final User client;
     private final Order order;
     private final String text;
+    private final LocalDateTime date;
 
     public Comment(Builder builder) {
         this.id = builder.id;
         this.client = builder.client;
         this.order = builder.order;
         this.text = builder.text;
+        this.date = builder.date;
     }
 
     public Integer getId() {
@@ -33,6 +36,10 @@ public class Comment {
         return text;
     }
 
+    public LocalDateTime getDate() {
+        return date;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -45,12 +52,13 @@ public class Comment {
         return Objects.equals(id, comment.id) &&
                 Objects.equals(client, comment.client) &&
                 Objects.equals(order, comment.order) &&
-                Objects.equals(text, comment.text);
+                Objects.equals(text, comment.text) &&
+                Objects.equals(date, comment.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, client, order, text);
+        return Objects.hash(id, client, order, text, date);
     }
 
     @Override
@@ -61,6 +69,7 @@ public class Comment {
         result.append("id: ").append(id).append(", ");
         result.append("client: ").append(client).append(", ");
         result.append("order: ").append(order).append(", ");
+        result.append("date: ").append(date).append(", ");
         result.append("text: ").append(text);
 
         return result.toString();
@@ -75,6 +84,7 @@ public class Comment {
         private User client;
         private Order order;
         private String text;
+        private LocalDateTime date;
 
         private Builder() {
         }
@@ -97,6 +107,15 @@ public class Comment {
         public Builder withText(String text) {
             this.text = text;
             return this;
+        }
+
+        public Builder withDate(LocalDateTime date) {
+            this.date = date;
+            return this;
+        }
+
+        public Comment build() {
+            return new Comment(this);
         }
     }
 

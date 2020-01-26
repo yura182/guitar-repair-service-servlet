@@ -8,6 +8,8 @@ public interface UserService {
 
     void register(User user);
 
+    User findById(Integer id);
+
     User login(String email, String password);
 
     List<User> findAll();

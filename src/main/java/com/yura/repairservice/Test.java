@@ -2,46 +2,37 @@ package com.yura.repairservice;
 
 import com.yura.repairservice.context.ApplicationContextInjector;
 import com.yura.repairservice.domain.instrument.Instrument;
+import com.yura.repairservice.domain.order.Comment;
+import com.yura.repairservice.domain.order.Order;
 import com.yura.repairservice.domain.order.Status;
-import com.yura.repairservice.domain.user.Role;
 import com.yura.repairservice.domain.user.User;
-import com.yura.repairservice.entity.InstrumentEntity;
-import com.yura.repairservice.entity.OrderEntity;
-import com.yura.repairservice.entity.UserEntity;
-import com.yura.repairservice.repository.OrderRepository;
+import com.yura.repairservice.service.CommentService;
 import com.yura.repairservice.service.InstrumentService;
+import com.yura.repairservice.service.OrderService;
 import com.yura.repairservice.service.UserService;
-import com.yura.repairservice.service.mapper.InstrumentMapper;
-import com.yura.repairservice.service.mapper.UserMapper;
+import org.apache.logging.log4j.core.util.JsonUtils;
 
 import java.time.LocalDateTime;
 
 public class Test {
     public static void main(String[] args) {
         ApplicationContextInjector injector = ApplicationContextInjector.getInstance();
-        InstrumentService instrumentService = injector.getInstrumentService();
+        OrderService orderService = injector.getOrderService();
         UserService userService = injector.getUserService();
-        OrderRepository orderRepository = injector.getOrderRepository();
-        InstrumentEntity instrument = InstrumentEntity.builder()
-                .withId(10)
-                .build();
-        UserEntity user = UserEntity.builder()
-                .withId(2)
-                .build();
+        InstrumentService instrumentService = injector.getInstrumentService();
+        CommentService commentService = injector.getCommentService();
 
-        UserMapper userMapper = new UserMapper();
-        InstrumentMapper instrumentMapper = new InstrumentMapper();
+        User user = userService.findById(2);
+        Order order = orderService.findById(2);
 
-        OrderEntity orderEntity = OrderEntity.builder()
-                .withUser(user)
+        Comment comment = Comment.builder()
+                .withClient(user)
+                .withOrder(order)
+                .withText("Good")
                 .withDate(LocalDateTime.now())
-                .withInstrument(instrument)
-                .withService("Destroy")
-                .withStatus(Status.NEW)
                 .build();
 
-        orderRepository.save(orderEntity);
-
-
+//        commentService.add(comment);
+        commentService.findAllByOrder(2).forEach(System.out::println);
     }
 }

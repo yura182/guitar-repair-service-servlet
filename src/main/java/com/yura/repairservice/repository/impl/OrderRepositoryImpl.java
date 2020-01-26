@@ -1,6 +1,7 @@
 package com.yura.repairservice.repository.impl;
 
 import com.yura.repairservice.domain.order.Status;
+import com.yura.repairservice.domain.user.Role;
 import com.yura.repairservice.entity.InstrumentEntity;
 import com.yura.repairservice.entity.OrderEntity;
 import com.yura.repairservice.entity.UserEntity;
@@ -13,14 +14,37 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class OrderRepositoryImpl extends AbstractRepository<OrderEntity> implements OrderRepository {
-    private static final String SAVE_QUERY = "INSERT INTO orders(master_id, client_id, instrument_id, date, service, price, status, rejection_reason) VALUES (?,?,?,?,?,?,?,?)";
-    private static final String FIND_BY_ID_QUERY = "SELECT * FROM orders WHERE id = ?";
-    private static final String FIND_ALL_QUERY = "SELECT * FROM orders";
-    private static final String UPDATE_QUERY = "UPDATE orders SET master_id = ?, client_id = ?, instrument_id = ?, date = ?, service = ?, price = ?, status = ?, rejection_reason = ? WHERE id = ?";
+    private static final String SAVE_QUERY = "INSERT INTO orders(master_id, client_id, instrument_id, date, service," +
+            " price, status, rejection_reason) VALUES (?,?,?,?,?,?,?,?)";
+    private static final String FIND_BY_ID_QUERY = "SELECT " +
+            "o.id, o.date, o.service, o.price, o.status, o.rejection_reason, o.instrument_id, " +
+            "c.id as client_id, c.name as client_name, c.surname as client_surname, c.phone_number as " +
+            "client_phone_number, c.email as client_email, c.password as client_password, c.role as client_role, " +
+            "m.id as master_id, m.name as master_name, m.surname as master_surname, m.phone_number as " +
+            "master_phone_number, m.email as master_email, m.password as master_password, m.role as master_role," +
+            "i.brand, i.model, i.manufacture_year " +
+            "FROM orders as o " +
+            "LEFT JOIN users as c ON o.client_id = c.id " +
+            "LEFT JOIN users as m ON o.master_id = m.id " +
+            "LEFT JOIN instruments as i ON o.instrument_id = i.id " +
+            "WHERE o.id = ?";
+    private static final String FIND_ALL_QUERY = "SELECT " +
+            "o.id, o.date, o.service, o.price, o.status, o.rejection_reason, o.instrument_id, " +
+            "c.id as client_id, c.name as client_name, c.surname as client_surname, c.phone_number " +
+            "as client_phone_number, c.email as client_email, c.password as client_password, c.role as client_role, " +
+            "m.id as master_id, m.name as master_name, m.surname as master_surname, m.phone_number as " +
+            "master_phone_number, m.email as master_email, m.password as master_password, m.role as master_role, " +
+            "i.brand, i.model, i.manufacture_year " +
+            "FROM orders as o " +
+            "LEFT JOIN users as c ON o.client_id = c.id " +
+            "LEFT JOIN users as m ON o.master_id = m.id " +
+            "LEFT JOIN instruments as i ON o.instrument_id = i.id";
+    private static final String UPDATE_QUERY = "UPDATE orders SET master_id = ?, client_id = ?, instrument_id = ?," +
+            " date = ?, service = ?, price = ?, status = ?, rejection_reason = ? WHERE id = ?";
     private static final String DELETE_BY_ID_QUERY = "DELETE FROM orders WHERE id = ?";
-    private static final String FIND_ALL_BY_CLIENT = "SELECT * FROM orders WHERE client_id = ?";
-    private static final String FIND_ALL_BY_MASTER = "SELECT * FROM orders WHERE master_id = ?";
-    private static final String FIND_ALL_BY_STATUS = "SELECT * FROM orders WHERE status = ?";
+    private static final String FIND_ALL_BY_CLIENT = FIND_ALL_QUERY + " WHERE o.client_id = ?";
+    private static final String FIND_ALL_BY_MASTER = FIND_ALL_QUERY + " WHERE o.master_id = ?";
+    private static final String FIND_ALL_BY_STATUS = FIND_ALL_QUERY + " WHERE o.status = ?";
 
     public OrderRepositoryImpl(DBConnector connector) {
         super(connector, SAVE_QUERY, FIND_BY_ID_QUERY, FIND_ALL_QUERY, UPDATE_QUERY, DELETE_BY_ID_QUERY);
@@ -43,7 +67,6 @@ public class OrderRepositoryImpl extends AbstractRepository<OrderEntity> impleme
 
     @Override
     protected void insertStatementMapper(OrderEntity entity, PreparedStatement preparedStatement) throws SQLException {
-        System.out.println(entity);
         preparedStatement.setInt(2, entity.getClient().getId());
         preparedStatement.setInt(3, entity.getInstrument().getId());
         preparedStatement.setTimestamp(4, Timestamp.valueOf(entity.getDateTime()));
@@ -72,11 +95,31 @@ public class OrderRepositoryImpl extends AbstractRepository<OrderEntity> impleme
 
     @Override
     protected Optional<OrderEntity> mapResultSetToEntity(ResultSet resultSet) throws SQLException {
+
         return Optional.ofNullable(OrderEntity.builder()
                 .withId(resultSet.getInt("id"))
-                .withUser(UserEntity.builder().withId(resultSet.getInt("client_id")).build())
-                .withMaster(UserEntity.builder().withId(resultSet.getInt("master_id")).build())
-                .withInstrument(InstrumentEntity.builder().withId(resultSet.getInt("instrument_id")).build())
+                .withUser(UserEntity.builder()
+                        .withId(resultSet.getInt("client_id"))
+                        .withName(resultSet.getString("client_name"))
+                        .withSurname(resultSet.getString("client_surname"))
+                        .withEmail(resultSet.getString("client_email"))
+                        .withPhone(resultSet.getString("client_phone_number"))
+                        .withRole(Role.valueOf(resultSet.getString("client_role")))
+                        .build())
+                .withMaster(resultSet.getObject("master_id") == null ? null : UserEntity.builder()
+                        .withId(resultSet.getInt("master_id"))
+                        .withName(resultSet.getString("master_name"))
+                        .withSurname(resultSet.getString("master_surname"))
+                        .withEmail(resultSet.getString("master_email"))
+                        .withPhone(resultSet.getString("master_phone_number"))
+                        .withRole(Role.valueOf(resultSet.getString("master_role")))
+                        .build())
+                .withInstrument(InstrumentEntity.builder()
+                        .withId(resultSet.getInt("instrument_id"))
+                        .withBrand(resultSet.getString("brand"))
+                        .withModel(resultSet.getString("model"))
+                        .withYear(resultSet.getInt("manufacture_year"))
+                        .build())
                 .withDate(resultSet.getTimestamp("date").toLocalDateTime())
                 .withService(resultSet.getString("service"))
                 .withPrice(resultSet.getDouble("price"))

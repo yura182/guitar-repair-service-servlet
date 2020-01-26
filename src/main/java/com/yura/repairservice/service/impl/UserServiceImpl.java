@@ -56,6 +56,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findById(Integer id) {
+        return repository
+                .findById(id)
+                .map(mapper::mapEntityToDomain)
+                .orElseThrow(()->new EntityNotFoundException("Order not found with provided id " + id));
+    }
+
+    @Override
     public List<User> findAll() {
         return repository
                 .findAll()

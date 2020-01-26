@@ -6,10 +6,7 @@ import com.yura.repairservice.repository.connector.DBConnector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -94,7 +91,7 @@ public abstract class AbstractRepository<E> implements CrudRepository<E, Integer
         }
     }
 
-    public List<E> findAllById(Integer id, String query) {
+    protected List<E> findAllById(Integer id, String query) {
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
@@ -112,7 +109,22 @@ public abstract class AbstractRepository<E> implements CrudRepository<E, Integer
         }
     }
 
-    public List<E> findAllByStringParam(String parameter, String query) {
+    public Optional<Integer> saveAndReturnId(E entity) {
+        try (Connection connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(saveQuery, Statement.RETURN_GENERATED_KEYS)) {
+
+            insertStatementMapper(entity, preparedStatement);
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+
+            return resultSet.next() ? Optional.of(resultSet.getInt(1)) : Optional.empty();
+        } catch (SQLException e) {
+            LOGGER.error("Could not save entity to database", e);
+            throw new DBRuntimeException("Could not save entity to database", e);
+        }
+    }
+
+    protected List<E> findAllByStringParam(String parameter, String query) {
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 

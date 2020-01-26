@@ -1,4 +1,4 @@
-package com.yura.repairservice.domain;
+package com.yura.repairservice.domain.instrument;
 
 import java.util.Objects;
 
@@ -59,7 +59,7 @@ public class Instrument {
         result.append("id: ").append(id).append(", ");
         result.append("brand: ").append(brand).append(", ");
         result.append("model: ").append(model).append(", ");
-        result.append("manufacture year: ").append(manufactureYear).append(", ");
+        result.append("manufacture year: ").append(manufactureYear);
 
         return result.toString();
     }

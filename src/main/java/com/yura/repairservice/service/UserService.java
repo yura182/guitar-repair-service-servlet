@@ -1,6 +1,6 @@
 package com.yura.repairservice.service;
 
-import com.yura.repairservice.domain.User;
+import com.yura.repairservice.domain.user.User;
 
 import java.util.List;
 

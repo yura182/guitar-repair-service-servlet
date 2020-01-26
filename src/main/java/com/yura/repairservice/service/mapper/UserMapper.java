@@ -1,6 +1,6 @@
 package com.yura.repairservice.service.mapper;
 
-import com.yura.repairservice.domain.User;
+import com.yura.repairservice.domain.user.User;
 import com.yura.repairservice.entity.UserEntity;
 
 import java.util.Objects;

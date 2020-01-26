@@ -1,4 +1,4 @@
-package com.yura.repairservice.domain;
+package com.yura.repairservice.domain.user;
 
 import java.util.Objects;
 

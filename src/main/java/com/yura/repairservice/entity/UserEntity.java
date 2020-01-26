@@ -1,6 +1,6 @@
 package com.yura.repairservice.entity;
 
-import com.yura.repairservice.domain.Role;
+import com.yura.repairservice.domain.user.Role;
 
 import java.util.Objects;
 

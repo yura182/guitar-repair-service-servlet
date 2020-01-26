@@ -1,6 +1,6 @@
 package com.yura.repairservice.service.mapper;
 
-import com.yura.repairservice.domain.Instrument;
+import com.yura.repairservice.domain.instrument.Instrument;
 import com.yura.repairservice.entity.InstrumentEntity;
 
 import java.util.Objects;

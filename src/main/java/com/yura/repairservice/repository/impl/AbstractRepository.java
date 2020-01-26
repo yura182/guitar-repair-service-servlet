@@ -94,6 +94,42 @@ public abstract class AbstractRepository<E> implements CrudRepository<E, Integer
         }
     }
 
+    public List<E> findAllById(Integer id, String query) {
+        try (Connection connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<E> result = new ArrayList<>();
+
+            while (resultSet.next()) {
+                mapResultSetToEntity(resultSet).ifPresent(result::add);
+            }
+            return result;
+        } catch (SQLException e) {
+            LOGGER.error("Exception during fetching all entities by id");
+            throw new DBRuntimeException("Exception during fetching all entities by id");
+        }
+    }
+
+    public List<E> findAllByStringParam(String parameter, String query) {
+        try (Connection connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, parameter);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<E> result = new ArrayList<>();
+
+            while (resultSet.next()) {
+                mapResultSetToEntity(resultSet).ifPresent(result::add);
+            }
+            return result;
+        } catch (SQLException e) {
+            LOGGER.error("Exception during fetching all entities by string parameter");
+            throw new DBRuntimeException("Exception during fetching all entities by string parameter");
+        }
+    }
+
     @Override
     public boolean update(E entity) {
         try (Connection connection = connector.getConnection();

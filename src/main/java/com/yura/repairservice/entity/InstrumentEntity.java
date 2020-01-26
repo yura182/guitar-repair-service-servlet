@@ -59,7 +59,7 @@ public class InstrumentEntity {
         result.append("id: ").append(id).append(", ");
         result.append("brand: ").append(brand).append(", ");
         result.append("model: ").append(model).append(", ");
-        result.append("manufacture year: ").append(manufactureYear).append(", ");
+        result.append("manufacture year: ").append(manufactureYear);
 
         return result.toString();
     }

@@ -1,6 +1,6 @@
 package com.yura.repairservice.service.impl;
 
-import com.yura.repairservice.domain.User;
+import com.yura.repairservice.domain.user.User;
 import com.yura.repairservice.entity.UserEntity;
 import com.yura.repairservice.exception.AlreadyRegisteredUserException;
 import com.yura.repairservice.exception.EntityNotFoundException;
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
                 .findByEmail(email)
                 .map(mapper::mapEntityToDomain)
                 .filter(user -> Objects.equals(user.getPassword(), password))
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(() -> new EntityNotFoundException("User not found with provided email and password"));
     }
 
     @Override

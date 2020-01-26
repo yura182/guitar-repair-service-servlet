@@ -1,7 +1,7 @@
 package com.yura.repairservice.command;
 
-import com.yura.repairservice.domain.Role;
-import com.yura.repairservice.domain.User;
+import com.yura.repairservice.domain.user.Role;
+import com.yura.repairservice.domain.user.User;
 import com.yura.repairservice.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;

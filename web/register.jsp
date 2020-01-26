@@ -60,7 +60,7 @@
 
                             <div class="wrap-input100 validate-input m-b-16" data-validate = "Email is required">
                                 <input class="input100" type="email" id="email"  name="email"
-                                       pattern="(\w{2,})@(\w+\.)([a-z]{2,4})"
+                                       pattern="^\w+\.?\w{1,}@\w+\.[a-z]{2,4}$"
                                        placeholder=<fmt:message key="registration.field.email"/> required title=<fmt:message key="registration.email.error"/>
                                 <span class="focus-input100"></span>
                             </div>
@@ -81,7 +81,7 @@
 
                             <div class="wrap-input100 validate-input m-b-16" data-validate = "Phone number is required">
                                 <input class="input100" type="text" id="phone"  name="phone"
-                                       pattern="[0-9]{10}"
+                                       pattern="^[0-9]{10}$"
                                         placeholder=<fmt:message key="registration.field.phone"/> required title=<fmt:message key="registration.field.phone"/>
                                 <span class="focus-input100"></span>
                             </div>

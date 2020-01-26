@@ -25,6 +25,9 @@ public class CommentRepositoryImpl extends AbstractRepository<CommentEntity> imp
     private static final String DELETE_BY_ID_QUERY = "DELETE FROM comments WHERE id = ?";
     private static final String FIND_ALL_BY_ORDER = FIND_ALL_QUERY + " WHERE order_id = ?";
     private static final String FIND_ALL_BY_CLIENT = FIND_ALL_QUERY + " WHERE client_id = ?";
+    private static final String COUNT_ALL_QUERY = "SELECT COUNT(*) FROM comments";
+    private static final String COUNT_ALL_BY_ORDER_QUERY = "SELECT COUNT(*) FROM comments WHERE order_id = ?";
+    private static final String COUNT_ALL_BY_CLIENT_QUERY = "SELECT COUNT(*) FROM comments WHERE client_id = ?";
 
     public CommentRepositoryImpl(DBConnector connector) {
         super(connector, SAVE_QUERY, FIND_BY_ID_QUERY, FIND_ALL_QUERY, UPDATE_QUERY, DELETE_BY_ID_QUERY);
@@ -70,5 +73,20 @@ public class CommentRepositoryImpl extends AbstractRepository<CommentEntity> imp
                 .withText(resultSet.getString("text"))
                 .withDate(resultSet.getTimestamp("date").toLocalDateTime())
                 .build());
+    }
+
+    @Override
+    public Integer countAll() {
+        return count(COUNT_ALL_QUERY);
+    }
+
+    @Override
+    public Integer countByOrderId(Integer orderId) {
+        return countByIntegerParam(COUNT_ALL_BY_ORDER_QUERY, orderId);
+    }
+
+    @Override
+    public Integer countByClientId(Integer clientId) {
+        return countByIntegerParam(COUNT_ALL_BY_CLIENT_QUERY, clientId);
     }
 }

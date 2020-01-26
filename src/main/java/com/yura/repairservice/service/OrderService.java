@@ -12,7 +12,7 @@ public interface OrderService {
 
     Order findById(Integer id);
 
-    List<Order> findAll();
+    List<Order> findAll(Integer offset, Integer limit);
 
     List<Order> findByClient(Integer clientId);
 
@@ -29,4 +29,12 @@ public interface OrderService {
     void completeOrder(Order order);
 
     void setPrice(Order order, Double price);
+
+    Integer numberOfEntries();
+
+    Integer numberOfEntriesByClientId(Integer clientId);
+
+    Integer numberOfEntriesByMasterId(Integer masterId);
+
+    Integer numberOfEntriesByStatus(Status status);
 }

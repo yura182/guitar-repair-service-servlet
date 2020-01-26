@@ -34,4 +34,9 @@ public class InstrumentServiceImpl implements InstrumentService {
     public Instrument findById(Integer id) {
         return repository.findById(id).map(mapper::mapEntityToDomain).orElseThrow(() -> new EntityNotFoundException("Instrument not found"));
     }
+
+    @Override
+    public Integer numberOfEntries() {
+        return repository.countAll();
+    }
 }

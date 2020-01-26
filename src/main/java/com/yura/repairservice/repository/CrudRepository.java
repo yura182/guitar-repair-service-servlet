@@ -9,9 +9,11 @@ public interface CrudRepository<E, ID> {
 
     Optional<E> findById(ID id);
 
-    List<E> findAll();
+    List<E> findAll(Integer offset, Integer limit);
 
     boolean update(E entity);
 
     boolean deleteById(ID id);
+
+    Integer countAll();
 }

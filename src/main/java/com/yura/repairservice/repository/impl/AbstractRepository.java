@@ -74,9 +74,12 @@ public abstract class AbstractRepository<E> implements CrudRepository<E, Integer
     }
 
     @Override
-    public List<E> findAll() {
+    public List<E> findAll(Integer offset, Integer limit) {
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(findAllQuery)) {
+
+            preparedStatement.setInt(1, offset);
+            preparedStatement.setInt(2, limit);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             List<E> result = new ArrayList<>();
@@ -166,6 +169,47 @@ public abstract class AbstractRepository<E> implements CrudRepository<E, Integer
             LOGGER.error("Exception during searching entity by string param", e);
             e.printStackTrace();
             throw new DBRuntimeException("Exception during searching entity by string param", e);
+        }
+    }
+
+    protected Integer count(String query) {
+        try (Connection connection = connector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            ResultSet resultSet = statement.executeQuery();
+
+            return resultSet.next() ? resultSet.getInt(1) : 0;
+        } catch (SQLException e) {
+            LOGGER.error("Exception during counting entities", e);
+            throw new DBRuntimeException("Exception during counting entities", e);
+        }
+    }
+
+    protected Integer countByIntegerParam(String query, Integer parameter) {
+        try (Connection connection = connector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, parameter);
+            ResultSet resultSet = statement.executeQuery();
+
+            return resultSet.next() ? resultSet.getInt(1) : 0;
+        } catch (SQLException e) {
+            LOGGER.error("Exception during counting entities", e);
+            throw new DBRuntimeException("Exception during counting entities", e);
+        }
+    }
+
+    protected Integer countByStringParam(String query, String parameter) {
+        try (Connection connection = connector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, parameter);
+            ResultSet resultSet = statement.executeQuery();
+
+            return resultSet.next() ? resultSet.getInt(1) : 0;
+        } catch (SQLException e) {
+            LOGGER.error("Exception during counting entities", e);
+            throw new DBRuntimeException("Exception during counting entities", e);
         }
     }
 

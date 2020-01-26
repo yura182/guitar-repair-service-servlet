@@ -12,9 +12,15 @@ public interface CommentService {
 
     Comment findById(Integer id);
 
-    List<Comment> findAll();
+    List<Comment> findAll(Integer offset, Integer limit);
 
     List<Comment> findAllByOrder(Integer orderId);
 
     List<Comment> findAllByClient(Integer clientId);
+
+    Integer numberOfEntries();
+
+    Integer numberOfEntriesByOrderId(Integer orderId);
+
+    Integer numberOfEntriesByClientId(Integer clientId);
 }

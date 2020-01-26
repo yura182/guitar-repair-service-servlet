@@ -39,9 +39,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findAll() {
+    public List<Order> findAll(Integer offset, Integer limit) {
         return repository
-                .findAll()
+                .findAll(offset, limit)
                 .stream()
                 .map(mapper::mapEntityToDomain)
                 .collect(Collectors.toList());
@@ -97,5 +97,25 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void setPrice(Order order, Double price) {
         repository.update(mapper.mapDomainToEntity(new Order(order, price)));
+    }
+
+    @Override
+    public Integer numberOfEntries() {
+        return repository.countAll();
+    }
+
+    @Override
+    public Integer numberOfEntriesByClientId(Integer clientId) {
+        return repository.countByClientId(clientId);
+    }
+
+    @Override
+    public Integer numberOfEntriesByMasterId(Integer masterId) {
+        return repository.countByMasterId(masterId);
+    }
+
+    @Override
+    public Integer numberOfEntriesByStatus(Status status) {
+        return repository.countByStatus(status);
     }
 }

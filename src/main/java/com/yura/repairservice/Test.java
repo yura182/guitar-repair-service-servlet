@@ -32,7 +32,6 @@ public class Test {
                 .withDate(LocalDateTime.now())
                 .build();
 
-//        commentService.add(comment);
-        commentService.findAllByOrder(2).forEach(System.out::println);
+        userService.findAll(5, 2).forEach(System.out::println);
     }
 }

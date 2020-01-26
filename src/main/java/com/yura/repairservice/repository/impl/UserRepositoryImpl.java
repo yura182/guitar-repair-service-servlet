@@ -13,10 +13,11 @@ import java.util.Optional;
 public class UserRepositoryImpl extends AbstractRepository<UserEntity> implements UserRepository {
     private static final String SAVE_QUERY = "INSERT INTO users(name, surname, phone_number, email, password, role) VALUES (?,?,?,?,?,?)";
     private static final String FIND_BY_ID_QUERY = "SELECT * FROM users WHERE id = ?";
-    private static final String FIND_ALL_QUERY = "SELECT * FROM users";
+    private static final String FIND_ALL_QUERY = "SELECT * FROM users LIMIT ?, ?";
     private static final String UPDATE_QUERY = "UPDATE users SET name = ?, surname = ?, phone_number = ?, email = ?, password = ?, role = ? WHERE id = ?";
     private static final String DELETE_BY_ID_QUERY = "DELETE FROM users WHERE id = ?";
     private static final String FIND_BY_EMAIL_QUERY = "SELECT * FROM users WHERE email = ?";
+    private static final String COUNT_ALL_QUERY = "SELECT COUNT(*) FROM users";
 
     public UserRepositoryImpl(DBConnector connector) {
         super(connector, SAVE_QUERY, FIND_BY_ID_QUERY, FIND_ALL_QUERY, UPDATE_QUERY, DELETE_BY_ID_QUERY);
@@ -54,5 +55,10 @@ public class UserRepositoryImpl extends AbstractRepository<UserEntity> implement
                 .withPassword(resultSet.getString("password"))
                 .withRole(Role.valueOf(resultSet.getString("role")))
                 .build());
+    }
+
+    @Override
+    public Integer countAll() {
+        return count(COUNT_ALL_QUERY);
     }
 }

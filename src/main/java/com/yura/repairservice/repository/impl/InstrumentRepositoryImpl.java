@@ -15,6 +15,7 @@ public class InstrumentRepositoryImpl extends AbstractRepository<InstrumentEntit
     private static final String FIND_ALL_QUERY = "SELECT * FROM instruments";
     private static final String UPDATE_QUERY = "UPDATE instruments SET brand = ?, model = ?, manufacture_year = ? WHERE id = ?";
     private static final String DELETE_BY_ID_QUERY = "DELETE FROM instruments WHERE id = ?";
+    private static final String COUNT_ALL_QUERY = "SELECT COUNT(*) FROM instruments";
 
     public InstrumentRepositoryImpl(DBConnector connector) {
         super(connector, SAVE_QUERY, FIND_BY_ID_QUERY, FIND_ALL_QUERY, UPDATE_QUERY, DELETE_BY_ID_QUERY);
@@ -42,5 +43,10 @@ public class InstrumentRepositoryImpl extends AbstractRepository<InstrumentEntit
                 .withModel(resultSet.getString("model"))
                 .withYear(resultSet.getInt("manufacture_year"))
                 .build());
+    }
+
+    @Override
+    public Integer countAll() {
+        return count(COUNT_ALL_QUERY);
     }
 }

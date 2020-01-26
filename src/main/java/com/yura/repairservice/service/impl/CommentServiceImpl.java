@@ -43,9 +43,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> findAll() {
+    public List<Comment> findAll(Integer offset, Integer limit) {
         return repository
-                .findAll()
+                .findAll(offset, limit)
                 .stream()
                 .map(mapper::mapEntityToDomain)
                 .collect(Collectors.toList());
@@ -67,5 +67,20 @@ public class CommentServiceImpl implements CommentService {
                 .stream()
                 .map(mapper::mapEntityToDomain)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer numberOfEntries() {
+        return repository.countAll();
+    }
+
+    @Override
+    public Integer numberOfEntriesByOrderId(Integer orderId) {
+        return repository.countByOrderId(orderId);
+    }
+
+    @Override
+    public Integer numberOfEntriesByClientId(Integer clientId) {
+        return repository.countByClientId(clientId);
     }
 }

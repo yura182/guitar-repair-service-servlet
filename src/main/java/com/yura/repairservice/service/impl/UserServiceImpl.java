@@ -64,11 +64,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> findAll(Integer offset, Integer limit) {
         return repository
-                .findAll()
+                .findAll(offset, limit)
                 .stream()
                 .map(mapper::mapEntityToDomain)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer numberOfEntries() {
+        return repository.countAll();
     }
 }

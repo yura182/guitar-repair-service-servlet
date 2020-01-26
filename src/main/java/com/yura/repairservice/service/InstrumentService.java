@@ -7,4 +7,6 @@ public interface InstrumentService {
     Integer add(Instrument instrument);
 
     Instrument findById(Integer id);
+
+    Integer numberOfEntries();
 }

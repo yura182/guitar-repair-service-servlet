@@ -12,5 +12,7 @@ public interface UserService {
 
     User login(String email, String password);
 
-    List<User> findAll();
+    List<User> findAll(Integer offset, Integer limit);
+
+    Integer numberOfEntries();
 }

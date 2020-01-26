@@ -45,6 +45,10 @@ public class OrderRepositoryImpl extends AbstractRepository<OrderEntity> impleme
     private static final String FIND_ALL_BY_CLIENT = FIND_ALL_QUERY + " WHERE o.client_id = ?";
     private static final String FIND_ALL_BY_MASTER = FIND_ALL_QUERY + " WHERE o.master_id = ?";
     private static final String FIND_ALL_BY_STATUS = FIND_ALL_QUERY + " WHERE o.status = ?";
+    private static final String COUNT_ALL_QUERY = "SELECT COUNT(*) FROM orders";
+    private static final String COUNT_ALL_BY_CLIENT_QUERY = "SELECT COUNT(*) FROM orders WHERE client_id = ?";
+    private static final String COUNT_ALL_BY_MASTER_QUERY = "SELECT COUNT(*) FROM orders WHERE master_id = ?";
+    private static final String COUNT_ALL_BY_STATUS_QUERY = "SELECT COUNT(*) FROM orders WHERE status = ?";
 
     public OrderRepositoryImpl(DBConnector connector) {
         super(connector, SAVE_QUERY, FIND_BY_ID_QUERY, FIND_ALL_QUERY, UPDATE_QUERY, DELETE_BY_ID_QUERY);
@@ -126,5 +130,25 @@ public class OrderRepositoryImpl extends AbstractRepository<OrderEntity> impleme
                 .withStatus(Status.valueOf(resultSet.getString("status")))
                 .withRejectionReason(resultSet.getString("rejection_reason"))
                 .build());
+    }
+
+    @Override
+    public Integer countAll() {
+        return count(COUNT_ALL_QUERY);
+    }
+
+    @Override
+    public Integer countByClientId(Integer clientId) {
+        return countByIntegerParam(COUNT_ALL_BY_CLIENT_QUERY, clientId);
+    }
+
+    @Override
+    public Integer countByMasterId(Integer masterId) {
+        return countByIntegerParam(COUNT_ALL_BY_MASTER_QUERY, masterId);
+    }
+
+    @Override
+    public Integer countByStatus(Status status) {
+        return countByStringParam(COUNT_ALL_BY_STATUS_QUERY, status.toString());
     }
 }

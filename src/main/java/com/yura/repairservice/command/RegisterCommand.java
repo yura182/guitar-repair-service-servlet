@@ -15,7 +15,7 @@ public class RegisterCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request) {
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
         String phone = request.getParameter("phone");
@@ -32,7 +32,8 @@ public class RegisterCommand implements Command {
                 .build();
 
         userService.register(user);
+        request.getSession().setAttribute("justRegistered", "");
 
-        return "login";
+        return "login.jsp";
     }
 }

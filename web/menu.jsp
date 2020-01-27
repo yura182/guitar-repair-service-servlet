@@ -9,31 +9,43 @@
     <title>Header</title>
 </head>
 <body>
-<nav  class="navbar navbar-expand-lg navbar-dark fixed-top navbar-shrink" id="mainNav">
-    <div class="container menu-container" >
-        <a class="navbar-brand js-scroll-trigger" href="/">Guitar Service</a>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-shrink" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="index.jsp">Guitar Service</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ml-auto">
 
-        <div class="navbar-menu" id="navbarResponsive">
-<%--            <ul class="navbar-nav text-uppercase ml-auto">--%>
-<%--                <li class="nav-item" sec:authorize="!isAuthenticated()">--%>
-<%--                    <a class="nav-link js-scroll-trigger" th:href="@{/login}" th:text="#{menu.login}"></a>--%>
-<%--                </li>--%>
-<%--                <li class="nav-item" sec:authorize="!isAuthenticated()">--%>
-<%--                    <a class="nav-link js-scroll-trigger" th:href="@{/register}" th:text="#{menu.register}"></a>--%>
-<%--                </li>--%>
-<%--                <li class="nav-item" sec:authorize="hasAuthority('CLIENT')">--%>
-<%--                    <a class="nav-link js-scroll-trigger" th:href="@{/order}" th:text="#{menu.order}"></a>--%>
-<%--                </li>--%>
-<%--                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">--%>
-<%--                    <a class="nav-link js-scroll-trigger" th:href="@{/all-users(currentPage=1, recordsPerPage=4)}" th:text="#{menu.all.users}"></a>--%>
-<%--                </li>--%>
-<%--                <li class="nav-item" sec:authorize="hasAuthority('CLIENT')">--%>
-<%--                    <a class="nav-link js-scroll-trigger" th:href="@{/user-orders(currentPage=1, recordsPerPage=4)}" th:text="#{menu.user.orders}"></a>--%>
-<%--                </li>--%>
-<%--                <li class="nav-item" sec:authorize="isAuthenticated()">--%>
-<%--                    <a class="nav-link js-scroll-trigger" th:href="@{/logout}" th:text="#{menu.logout}"></a>--%>
-<%--                </li>--%>
-<%--            </ul>--%>
+                <c:if test="${sessionScope.user == null}">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="login.jsp"><fmt:message key="menu.login"/></a>
+                    </li>
+                </c:if>
+                <c:if test="${sessionScope.user == null}">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="register.jsp"><fmt:message key="menu.register"/></a>
+                    </li>
+                </c:if>
+                <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/admin-all-users(currentPage=1, recordsPerPage=4)"><fmt:message key="menu.all.users"/></a>
+                    </li>
+                </c:if>
+                <c:if test="${pageContext.request.isUserInRole('CLIENT')}">
+                    <li class="nav-item" >
+                        <a class="nav-link js-scroll-trigger" href="/user-all-orders(currentPage=1, recordsPerPage=4)"><fmt:message key="menu.user.orders"/></a>
+                    </li>
+                </c:if>
+
+                <c:if test="${sessionScope.user != null}">
+                    <li class="nav-item" >
+                        <a class="nav-link js-scroll-trigger" href="logout?command=logout"><fmt:message key="menu.logout"/></a>
+                    </li>
+                </c:if>
+            </ul>
 
             <ul class="navbar-nav text-uppercase ml-auto">
 
@@ -43,9 +55,12 @@
                 <li class="nav-item nav-lang">
                     <a class="nav-link js-scroll-trigger small-lang-link" href="?lang=ru">Ru</a>
                 </li>
-<%--                <li class="nav-item nav-lang" sec:authorize="isAuthenticated()">--%>
-<%--                    <a class="nav-link js-scroll-trigger small-name-link" th:href="@{/profile}" th:text="${#authentication.name}"></a>--%>
-<%--                </li>--%>
+                <c:if test="${sessionScope.user != null}">
+                    <li class="nav-item nav-lang">
+                        <a class="nav-link js-scroll-trigger small-name-link" href="profile.jsp">${sessionScope.user.email}</a>
+                    </li>
+                </c:if>
+
             </ul>
         </div>
     </div>

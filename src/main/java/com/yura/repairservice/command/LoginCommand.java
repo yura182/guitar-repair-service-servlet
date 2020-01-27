@@ -15,7 +15,7 @@ public class LoginCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request) {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
@@ -25,11 +25,11 @@ public class LoginCommand implements Command {
         Role role = user.getRole();
 
         if (role == Role.ADMIN) {
-            return "/admin.jsp";
+            return "/";
         } else if (role == Role.CLIENT) {
-            return "/user.jsp";
+            return "/";
         } else {
-            return "/index.jsp";
+            return "/";
         }
     }
 }

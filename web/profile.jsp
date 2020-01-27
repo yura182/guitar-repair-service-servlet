@@ -3,15 +3,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Yriy Petrashenko">
 
-    <title><fmt:message key="login.title"/></title>
+    <title><fmt:message key="profile.title"/></title>
 
     <link href="${pageContext.request.contextPath}/css/agency.css"  rel="stylesheet">
     <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css"  rel="stylesheet">
@@ -28,56 +28,40 @@
 <!-- Navigation -->
 <c:import url="menu.jsp"/>
 
-<!-- Login -->
+
 <section class="page-section" id="services">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase"><fmt:message key="login.title.body"/></h2>
-                <h3 class="section-subheading text-muted"><fmt:message key="login.body.subtitle"/></h3>
+                <h2 class="section-heading text-uppercase"><fmt:message key="profile.title.body"/></h2>
+                <h3 class="section-subheading text-muted"><fmt:message key="profile.body.subtitle"/></h3>
 
-                <c:if test="${sessionScope.justRegistered != null}">
-                    <p class="text-success" ><fmt:message key="login.just.registered"/></p>
-                </c:if>
-                <c:remove var="justRegistered" scope="session" />
-
-
-            </div>
-        </div>
-        <div class="row text-center">
-            <div class="limiter">
-                <div class="container-login100">
-                    <div class="wrap-login100 p-t-50 p-b-90">
-                        <form class="login100-form validate-form flex-sb flex-w" action="login" method="post">
-                            <input type="hidden" name="command" value="login">
-                            <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
-                                <input class="input100" type="email"  name="email" placeholder="Email" required >
-                                <span class="focus-input100"></span>
-                            </div>
-
-
-                            <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-                                <input class="input100" type="password"  name="password" placeholder=<fmt:message key="login.password"/> required>
-                                <span class="focus-input100"></span>
-                            </div>
+                <table class="table table-striped profile">
+                    <tbody>
+                    <tr>
+                        <td ><span class="profile-header" ><fmt:message key="profile.name"/></span> </td>
+                        <td th:text="${user.getName()}"></td>
+                    </tr>
+                    <tr>
+                        <td><span class="profile-header"><fmt:message key="profile.surname"/></span></td>
+                        <td th:text="${user.getSurname()}"></td>
+                    </tr>
+                    <tr>
+                        <td><span class="profile-header"><fmt:message key="profile.email"/></span></td>
+                        <td th:text="${user.getEmail()}"></td>
+                    </tr>
+                    <tr>
+                        <td><span class="profile-header" ><fmt:message key="profile.phone"/></span></td>
+                        <td th:text="${user.getPhone()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
 
 
-
-                            <div class="container-login100-form-btn m-t-17">
-                                <button class="login100-form-btn" type="submit" >
-                                    <fmt:message key="login.button"/>
-                                </button>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </section>
-
-
 
 <!-- Footer -->
 <footer class="bg-light footer">

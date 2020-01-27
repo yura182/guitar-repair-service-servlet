@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/*"})
-public class EncodingFilter implements Filter {
+public class LocaleFilter implements Filter {
     private static final String ENCODING = "UTF-8";
     private static final String LANG = "lang";
     private static final String CONTENT = "text/html";

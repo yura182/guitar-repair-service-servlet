@@ -1,8 +1,10 @@
 package com.yura.repairservice.service.impl;
 
+import com.yura.repairservice.domain.instrument.Instrument;
 import com.yura.repairservice.domain.order.Order;
 import com.yura.repairservice.domain.order.Status;
 import com.yura.repairservice.domain.user.User;
+import com.yura.repairservice.entity.InstrumentEntity;
 import com.yura.repairservice.entity.OrderEntity;
 import com.yura.repairservice.exception.EntityNotFoundException;
 import com.yura.repairservice.repository.OrderRepository;
@@ -15,26 +17,30 @@ import java.util.stream.Collectors;
 
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository repository;
-    private final EntityMapper<OrderEntity, Order> mapper;
-    private final Validator<Order> validator;
+    private final EntityMapper<OrderEntity, Order> orderMapper;
+    private final Validator<Order> orderValidator;
+    private final Validator<Instrument> instrumentValidator;
 
-    public OrderServiceImpl(OrderRepository repository, EntityMapper<OrderEntity, Order> mapper, Validator<Order> validator) {
+    public OrderServiceImpl(OrderRepository repository, EntityMapper<OrderEntity, Order> orderMapper,
+                            Validator<Order> OrderValidator, Validator<Instrument> instrumentValidator) {
         this.repository = repository;
-        this.mapper = mapper;
-        this.validator = validator;
+        this.orderMapper = orderMapper;
+        this.orderValidator = OrderValidator;
+        this.instrumentValidator = instrumentValidator;
     }
 
     @Override
     public void add(Order order) {
-        validator.validate(order);
-        repository.save(mapper.mapDomainToEntity(order));
+        instrumentValidator.validate(order.getInstrument());
+        orderValidator.validate(order);
+        repository.save(orderMapper.mapDomainToEntity(order));
     }
 
     @Override
     public Order findById(Integer id) {
         return repository
                 .findById(id)
-                .map(mapper::mapEntityToDomain)
+                .map(orderMapper::mapEntityToDomain)
                 .orElseThrow(()->new EntityNotFoundException("Order not found with provided id " + id));
     }
 
@@ -43,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
         return repository
                 .findAll(offset, limit)
                 .stream()
-                .map(mapper::mapEntityToDomain)
+                .map(orderMapper::mapEntityToDomain)
                 .collect(Collectors.toList());
     }
 
@@ -52,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
         return repository
                 .findAllByClientId(clientId)
                 .stream()
-                .map(mapper::mapEntityToDomain)
+                .map(orderMapper::mapEntityToDomain)
                 .collect(Collectors.toList());
     }
 
@@ -61,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
         return repository
                 .findAllByMasterId(masterId)
                 .stream()
-                .map(mapper::mapEntityToDomain)
+                .map(orderMapper::mapEntityToDomain)
                 .collect(Collectors.toList());
     }
 
@@ -70,33 +76,33 @@ public class OrderServiceImpl implements OrderService {
         return repository
                 .findAllByStatus(status)
                 .stream()
-                .map(mapper::mapEntityToDomain)
+                .map(orderMapper::mapEntityToDomain)
                 .collect(Collectors.toList());
     }
 
     @Override
     public void acceptOrder(Order order) {
-        repository.update(mapper.mapDomainToEntity(new Order(order, Status.ACCEPTED)));
+        repository.update(orderMapper.mapDomainToEntity(new Order(order, Status.ACCEPTED)));
     }
 
     @Override
     public void rejectOrder(Order order, String rejectionReason) {
-        repository.update(mapper.mapDomainToEntity(new Order(order, Status.REJECTED, rejectionReason)));
+        repository.update(orderMapper.mapDomainToEntity(new Order(order, Status.REJECTED, rejectionReason)));
     }
 
     @Override
     public void processOrder(Order order, User master) {
-        repository.update(mapper.mapDomainToEntity(new Order(order, Status.PROCESSING, master)));
+        repository.update(orderMapper.mapDomainToEntity(new Order(order, Status.PROCESSING, master)));
     }
 
     @Override
     public void completeOrder(Order order) {
-        repository.update(mapper.mapDomainToEntity(new Order(order, Status.COMPLETED)));
+        repository.update(orderMapper.mapDomainToEntity(new Order(order, Status.COMPLETED)));
     }
 
     @Override
     public void setPrice(Order order, Double price) {
-        repository.update(mapper.mapDomainToEntity(new Order(order, price)));
+        repository.update(orderMapper.mapDomainToEntity(new Order(order, price)));
     }
 
     @Override

@@ -8,5 +8,27 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.jsp</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>com.yura.repairservice.exception.EntityNotFoundException</exception-type>
+        <location>/loginError</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>com.yura.repairservice.exception.AlreadyRegisteredUserException</exception-type>
+        <location>/alreadyRegisteredError</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>com.yura.repairservice.exception.InvalidUserParameterException</exception-type>
+        <location>/registrationError</location>
+    </error-page>
+
+
+
 </web-app>
 

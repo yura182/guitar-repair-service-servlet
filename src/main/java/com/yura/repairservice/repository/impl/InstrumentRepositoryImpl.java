@@ -37,7 +37,7 @@ public class InstrumentRepositoryImpl extends AbstractRepository<InstrumentEntit
 
     @Override
     protected Optional<InstrumentEntity> mapResultSetToEntity(ResultSet resultSet) throws SQLException {
-        return Optional.ofNullable(InstrumentEntity.builder()
+        return Optional.of(InstrumentEntity.builder()
                 .withId(resultSet.getInt("id"))
                 .withBrand(resultSet.getString("brand"))
                 .withModel(resultSet.getString("model"))

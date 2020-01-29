@@ -5,8 +5,11 @@ import com.yura.repairservice.domain.user.Role;
 import com.yura.repairservice.entity.InstrumentEntity;
 import com.yura.repairservice.entity.OrderEntity;
 import com.yura.repairservice.entity.UserEntity;
+import com.yura.repairservice.exception.DBRuntimeException;
 import com.yura.repairservice.repository.OrderRepository;
 import com.yura.repairservice.repository.connector.DBConnector;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.List;
@@ -14,6 +17,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class OrderRepositoryImpl extends AbstractRepository<OrderEntity> implements OrderRepository {
+    private final static Logger LOGGER = LogManager.getLogger(OrderRepositoryImpl.class);
+
     private static final String SAVE_QUERY = "INSERT INTO orders(master_id, client_id, instrument_id, date, service," +
             " price, status, rejection_reason) VALUES (?,?,?,?,?,?,?,?)";
     private static final String FIND_BY_ID_QUERY = "SELECT " +
@@ -49,9 +54,44 @@ public class OrderRepositoryImpl extends AbstractRepository<OrderEntity> impleme
     private static final String COUNT_ALL_BY_CLIENT_QUERY = "SELECT COUNT(*) FROM orders WHERE client_id = ?";
     private static final String COUNT_ALL_BY_MASTER_QUERY = "SELECT COUNT(*) FROM orders WHERE master_id = ?";
     private static final String COUNT_ALL_BY_STATUS_QUERY = "SELECT COUNT(*) FROM orders WHERE status = ?";
+    private static final String SAVE_INSTRUMENT_QUERY = "INSERT INTO instruments(brand, model, manufacture_year) VALUES (?,?,?)";
 
     public OrderRepositoryImpl(DBConnector connector) {
         super(connector, SAVE_QUERY, FIND_BY_ID_QUERY, FIND_ALL_QUERY, UPDATE_QUERY, DELETE_BY_ID_QUERY);
+    }
+
+    @Override
+    public boolean save(OrderEntity entity) {
+        try (Connection connection = connector.getConnection()) {
+            try (PreparedStatement preparedStatementOrder = connection.prepareStatement(SAVE_QUERY);
+                 PreparedStatement preparedStatementInstrument = connection.prepareStatement(SAVE_INSTRUMENT_QUERY, Statement.RETURN_GENERATED_KEYS)) {
+
+                connection.setAutoCommit(false);
+
+                insertStatementMapper(entity.getInstrument(), preparedStatementInstrument);
+                preparedStatementInstrument.executeUpdate();
+                ResultSet resultSet = preparedStatementInstrument.getGeneratedKeys();
+                resultSet.next();
+
+                int instrumentId = resultSet.getInt(1);
+                OrderEntity orderEntity = new OrderEntity(entity, InstrumentEntity.builder().withId(instrumentId).build());
+                insertStatementMapper(orderEntity, preparedStatementOrder);
+                int result = preparedStatementOrder.executeUpdate();
+
+                connection.commit();
+                connection.setAutoCommit(true);
+
+                return result != 0;
+            } catch (Exception e) {
+                connection.rollback();
+                connection.setAutoCommit(true);
+                LOGGER.error("Could not save order to database", e);
+                throw new DBRuntimeException("Could not save order to database", e);
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Could not save order to database", e);
+            throw new DBRuntimeException("Could not save order to database", e);
+        }
     }
 
     @Override
@@ -100,7 +140,7 @@ public class OrderRepositoryImpl extends AbstractRepository<OrderEntity> impleme
     @Override
     protected Optional<OrderEntity> mapResultSetToEntity(ResultSet resultSet) throws SQLException {
 
-        return Optional.ofNullable(OrderEntity.builder()
+        return Optional.of(OrderEntity.builder()
                 .withId(resultSet.getInt("id"))
                 .withUser(UserEntity.builder()
                         .withId(resultSet.getInt("client_id"))
@@ -130,6 +170,12 @@ public class OrderRepositoryImpl extends AbstractRepository<OrderEntity> impleme
                 .withStatus(Status.valueOf(resultSet.getString("status")))
                 .withRejectionReason(resultSet.getString("rejection_reason"))
                 .build());
+    }
+
+    private void insertStatementMapper(InstrumentEntity entity, PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, entity.getBrand());
+        preparedStatement.setString(2, entity.getModel());
+        preparedStatement.setInt(3, entity.getManufactureYear());
     }
 
     @Override

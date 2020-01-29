@@ -4,9 +4,9 @@ import com.yura.repairservice.context.ApplicationContextInjector;
 
 import javax.servlet.annotation.WebServlet;
 
-@WebServlet(urlPatterns = {"/login", "/register", "/logout"})
+@WebServlet(urlPatterns = {"/login", "/register", "/logout", "/make-order"})
 public class UserServlet extends AbstractServlet {
     public UserServlet() {
-        super(ApplicationContextInjector.getInstance().getCommand());
+        super(ApplicationContextInjector.getInstance().getUserCommand());
     }
 }

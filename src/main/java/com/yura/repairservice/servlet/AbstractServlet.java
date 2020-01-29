@@ -30,8 +30,7 @@ public class AbstractServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String command = req.getParameter("command");
-        String page = commandNameToCommand.getOrDefault(command, request -> "error.jsp").execute(req);
-        System.out.println(command + " " + page);
+        String page = commandNameToCommand.getOrDefault(command, request -> "404.jsp").execute(req);
 
         if ("/".equals(page) || "login.jsp".equals(page)) {
             resp.sendRedirect(page);

@@ -29,9 +29,14 @@
                         <a class="nav-link js-scroll-trigger" href="register.jsp"><fmt:message key="menu.register"/></a>
                     </li>
                 </c:if>
-                <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+                <c:if test="${sessionScope.user.role.name() eq 'ADMIN'}">
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="/admin-all-users(currentPage=1, recordsPerPage=4)"><fmt:message key="menu.all.users"/></a>
+                        <a class="nav-link js-scroll-trigger" href="admin?command=allUsers&currentPage=1&recordsPerPage=5"><fmt:message key="menu.all.users"/></a>
+                    </li>
+                </c:if>
+                <c:if test="${sessionScope.user.role.name() eq 'CLIENT'}">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="user-add-order.jsp"><fmt:message key="menu.order"/></a>
                     </li>
                 </c:if>
                 <c:if test="${pageContext.request.isUserInRole('CLIENT')}">

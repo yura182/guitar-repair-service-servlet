@@ -46,7 +46,7 @@ public class UserRepositoryImpl extends AbstractRepository<UserEntity> implement
 
     @Override
     protected Optional<UserEntity> mapResultSetToEntity(ResultSet resultSet) throws SQLException {
-        return Optional.ofNullable(UserEntity.builder()
+        return Optional.of(UserEntity.builder()
                 .withId(resultSet.getInt("id"))
                 .withName(resultSet.getString("name"))
                 .withSurname(resultSet.getString("surname"))

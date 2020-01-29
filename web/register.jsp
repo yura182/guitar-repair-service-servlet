@@ -34,8 +34,13 @@
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase" ><fmt:message key="register.title.body"/></h2>
                 <h3 class="section-subheading text-muted" ><fmt:message key="register.body.subtitle"/></h3>
-<%--                <p th:if="${registerError}" class="text-danger" th:text="#{register.error}"></p>--%>
-<%--                <p th:if="${alreadyRegistered}" class="text-danger" th:text="#{register.error.already.registered}"></p>--%>
+                <c:if test="${alreadyRegisteredError}">
+                    <p class="text-danger" ><fmt:message key="register.error.already.registered"/></p>
+                </c:if>
+
+                <c:if test="${registrationError}">
+                    <p class="text-danger" ><fmt:message key="register.error"/></p>
+                </c:if>
             </div>
         </div>
         <div class="row text-center">
@@ -61,28 +66,21 @@
                             <div class="wrap-input100 validate-input m-b-16" data-validate = "Email is required">
                                 <input class="input100" type="email" id="email"  name="email"
                                        pattern="^\w+\.?\w{1,}@\w+\.[a-z]{2,4}$"
-                                       placeholder=<fmt:message key="registration.field.email"/> required title=<fmt:message key="registration.email.error"/>
+                                       placeholder=<fmt:message key="registration.field.email"/> required title=<fmt:message key="registration.email.error"/>>
                                 <span class="focus-input100"></span>
                             </div>
 
                             <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
                                 <input class="input100" type="password" id="password"  name="password"
                                        pattern="[A-Za-z0-9]{8,}"
-                                        placeholder=<fmt:message key="registration.field.password"/> required title=<fmt:message key="registration.password.error"/>
+                                        placeholder=<fmt:message key="registration.field.password"/> required title=<fmt:message key="registration.password.error"/>>
                                         <span class="focus-input100"></span>
                             </div>
-
-<%--                            <div class="wrap-input100 validate-input m-b-16" data-validate = "Password confirmation is required">--%>
-<%--                                <input class="input100" type="password"   name="passwordConfirmation"--%>
-<%--                                       th:placeholder="#{registration.field.password.confirmation}" required th:title="#{registration.password.confirmation.error}">--%>
-<%--                                <span class="focus-input100"></span>--%>
-<%--                                <label class="text-danger-form" th:if="${confirmationError}" th:text="#{registration.password.confirmation.error}"></label>--%>
-<%--                            </div>--%>
 
                             <div class="wrap-input100 validate-input m-b-16" data-validate = "Phone number is required">
                                 <input class="input100" type="text" id="phone"  name="phone"
                                        pattern="^[0-9]{10}$"
-                                        placeholder=<fmt:message key="registration.field.phone"/> required title=<fmt:message key="registration.field.phone"/>
+                                        placeholder=<fmt:message key="registration.field.phone"/> required title=<fmt:message key="registration.field.phone"/>>
                                 <span class="focus-input100"></span>
                             </div>
 

@@ -1,9 +1,11 @@
 package com.yura.repairservice.context;
 
 import com.yura.repairservice.command.Command;
-import com.yura.repairservice.command.LoginCommand;
-import com.yura.repairservice.command.LogoutCommand;
-import com.yura.repairservice.command.RegisterCommand;
+import com.yura.repairservice.command.admin.AllUsersCommand;
+import com.yura.repairservice.command.user.LoginCommand;
+import com.yura.repairservice.command.user.LogoutCommand;
+import com.yura.repairservice.command.user.MakeOrderCommand;
+import com.yura.repairservice.command.user.RegisterCommand;
 import com.yura.repairservice.domain.instrument.Instrument;
 import com.yura.repairservice.domain.order.Comment;
 import com.yura.repairservice.domain.order.Order;
@@ -61,18 +63,29 @@ public class ApplicationContextInjector {
 
     private static final UserService USER_SERVICE = new UserServiceImpl(USER_REPOSITORY, USER_MAPPER, USER_VALIDATOR, PASSWORD_ENCODER);
     private static final InstrumentService INSTRUMENT_SERVICE = new InstrumentServiceImpl(INSTRUMENT_REPOSITORY, INSTRUMENT_MAPPER, INSTRUMENT_VALIDATOR);
-    private static final OrderService ORDER_SERVICE = new OrderServiceImpl(ORDER_REPOSITORY, ORDER_MAPPER, ORDER_VALIDATOR);
+    private static final OrderService ORDER_SERVICE = new OrderServiceImpl(ORDER_REPOSITORY, ORDER_MAPPER, ORDER_VALIDATOR, INSTRUMENT_VALIDATOR);
     private static final CommentService COMMENT_SERVICE = new CommentServiceImpl(COMMENT_REPOSITORY, COMMENT_MAPPER, COMMENT_VALIDATOR);
 
     private static final Command LOGIN_COMMAND = new LoginCommand(USER_SERVICE);
     private static final Command REGISTER_COMMAND = new RegisterCommand(USER_SERVICE);
     private static final Command LOGOUT_COMMAND = new LogoutCommand();
-    private static final Map<String, Command> COMMAND_NAME_TO_COMMAND = new HashMap<>();
+    private static final Command ADD_ORDER_COMMAND = new MakeOrderCommand(INSTRUMENT_SERVICE, ORDER_SERVICE);
+
+    private static final Command All_USERS_COMMAND = new AllUsersCommand(USER_SERVICE);
+
+    private static final Map<String, Command> COMMAND_NAME_TO_USER_COMMAND = new HashMap<>();
+
+    private static final Map<String, Command> COMMAND_NAME_TO_ADMIN_COMMAND = new HashMap<>();
 
     static {
-        COMMAND_NAME_TO_COMMAND.put("login", LOGIN_COMMAND);
-        COMMAND_NAME_TO_COMMAND.put("register", REGISTER_COMMAND);
-        COMMAND_NAME_TO_COMMAND.put("logout", LOGOUT_COMMAND);
+        COMMAND_NAME_TO_USER_COMMAND.put("login", LOGIN_COMMAND);
+        COMMAND_NAME_TO_USER_COMMAND.put("register", REGISTER_COMMAND);
+        COMMAND_NAME_TO_USER_COMMAND.put("logout", LOGOUT_COMMAND);
+        COMMAND_NAME_TO_USER_COMMAND.put("make-order", ADD_ORDER_COMMAND);
+    }
+
+    static {
+        COMMAND_NAME_TO_ADMIN_COMMAND.put("allUsers", All_USERS_COMMAND);
     }
 
     private static volatile ApplicationContextInjector applicationContextInjector;
@@ -91,8 +104,12 @@ public class ApplicationContextInjector {
         return applicationContextInjector;
     }
 
-    public  Map<String, Command> getCommand() {
-        return COMMAND_NAME_TO_COMMAND;
+    public  Map<String, Command> getUserCommand() {
+        return COMMAND_NAME_TO_USER_COMMAND;
+    }
+
+    public Map<String, Command> getAdminCommand() {
+        return COMMAND_NAME_TO_ADMIN_COMMAND;
     }
 
     //TODO delete

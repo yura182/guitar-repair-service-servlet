@@ -59,7 +59,7 @@ public class CommentRepositoryImpl extends AbstractRepository<CommentEntity> imp
 
     @Override
     protected Optional<CommentEntity> mapResultSetToEntity(ResultSet resultSet) throws SQLException {
-        return Optional.ofNullable(CommentEntity.builder()
+        return Optional.of(CommentEntity.builder()
                 .withId(resultSet.getInt("comments_id"))
                 .withClient(UserEntity.builder()
                         .withId(resultSet.getInt("client_id"))

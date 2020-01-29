@@ -3,15 +3,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
-<html>
 
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Yriy Petrashenko">
 
-    <title><fmt:message key="profile.title"/></title>
+    <title><fmt:message key="error.title"/></title>
 
     <link href="${pageContext.request.contextPath}/css/agency.css"  rel="stylesheet">
     <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css"  rel="stylesheet">
@@ -33,36 +33,14 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase"><fmt:message key="profile.title.body"/></h2>
-                <h3 class="section-subheading text-muted"><fmt:message key="profile.body.subtitle"/></h3>
-
-                <table class="table table-striped profile">
-                    <tbody>
-                    <tr>
-                        <c:set var = "user" scope="page" value="${sessionScope.user}"/>
-                        <td ><span class="profile-header" ><fmt:message key="profile.name"/></span> </td>
-                        <td>${user.name}</td>
-                    </tr>
-                    <tr>
-                        <td><span class="profile-header"><fmt:message key="profile.surname"/></span></td>
-                        <td>${user.surname}</td>
-                    </tr>
-                    <tr>
-                        <td><span class="profile-header"><fmt:message key="profile.email"/></span></td>
-                        <td>${user.email}</td>
-                    </tr>
-                    <tr>
-                        <td><span class="profile-header" ><fmt:message key="profile.phone"/></span></td>
-                        <td>${user.phone}</td>
-                    </tr>
-                    </tbody>
-                </table>
-
+                <h1 class="section-heading text-uppercase error-big">404</h1>
+                <h3 class="section-subheading text-muted"><fmt:message key="error.body.subtitle"/></h3>
 
             </div>
         </div>
     </div>
 </section>
+
 
 <!-- Footer -->
 <footer class="bg-light footer">

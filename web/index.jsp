@@ -78,7 +78,7 @@
                 </li>
                 <c:if test="${sessionScope.user != null}">
                     <li class="nav-item nav-lang">
-                        <a class="nav-link js-scroll-trigger small-name-link" href="profile">${sessionScope.user.email}</a>
+                        <a class="nav-link js-scroll-trigger small-name-link" href="profile.jsp">${sessionScope.user.email}</a>
                     </li>
                 </c:if>
 

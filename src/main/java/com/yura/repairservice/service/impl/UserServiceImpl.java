@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         return repository
                 .findByEmail(email)
                 .map(mapper::mapEntityToDomain)
-                .filter(user -> Objects.equals(user.getPassword(), password))
+                .filter(user -> Objects.equals(user.getPassword(), passwordEncoder.encode(password)))
                 .orElseThrow(() -> new EntityNotFoundException("User not found with provided email and password"));
     }
 

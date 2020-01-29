@@ -28,6 +28,18 @@ public class OrderEntity {
         this.rejectionReason = builder.rejectionReason;
     }
 
+    public OrderEntity(OrderEntity orderEntity, InstrumentEntity instrumentEntity) {
+        this.id = orderEntity.id;
+        this.client = orderEntity.client;
+        this.master = orderEntity.master;
+        this.instrument = instrumentEntity;
+        this.dateTime = orderEntity.dateTime;
+        this.service = orderEntity.service;
+        this.price = orderEntity.price;
+        this.status = orderEntity.status;
+        this.rejectionReason = orderEntity.rejectionReason;
+    }
+
     public Integer getId() {
         return id;
     }

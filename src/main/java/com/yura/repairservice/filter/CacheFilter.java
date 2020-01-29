@@ -5,7 +5,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/*"})
+@WebFilter(urlPatterns = {"/login.jsp", "/register.jsp", "/profile.jsp"})
 public class CacheFilter implements Filter {
     private static final String PARAMETER = "Cache-Control";
     private static final String VALUE = "no-cache, no-store, must-revalidate";

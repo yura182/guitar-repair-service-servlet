@@ -32,7 +32,10 @@ public class InstrumentServiceImpl implements InstrumentService {
 
     @Override
     public Instrument findById(Integer id) {
-        return repository.findById(id).map(mapper::mapEntityToDomain).orElseThrow(() -> new EntityNotFoundException("Instrument not found"));
+        return repository
+                .findById(id)
+                .map(mapper::mapEntityToDomain)
+                .orElseThrow(() -> new EntityNotFoundException("Instrument not found"));
     }
 
     @Override

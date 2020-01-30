@@ -100,10 +100,6 @@
                         <td><span class="profile-header"><fmt:message key="user.orders.table.status"/></span></td>
                         <td>${order.status}</td>
                     </tr>
-                    <tr>
-                        <td><span class="profile-header"><fmt:message key="user.orders.table.rejection.reason"/></span></td>
-                        <td>${order.rejectionReason}</td>
-                    </tr>
                     </tbody>
                 </table>
                 <c:if test="${order.status.name() eq 'NEW'}">

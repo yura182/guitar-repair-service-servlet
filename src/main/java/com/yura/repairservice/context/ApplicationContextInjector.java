@@ -1,9 +1,9 @@
 package com.yura.repairservice.context;
 
 import com.yura.repairservice.command.Command;
-import com.yura.repairservice.command.admin.AdminOrderDetailsCommand;
-import com.yura.repairservice.command.admin.AllOrdersCommand;
-import com.yura.repairservice.command.admin.AllUsersCommand;
+import com.yura.repairservice.command.admin.*;
+import com.yura.repairservice.command.master.MasterAllAvailableOrdersCommand;
+import com.yura.repairservice.command.master.MasterOrderDetailsCommand;
 import com.yura.repairservice.command.user.*;
 import com.yura.repairservice.domain.instrument.Instrument;
 import com.yura.repairservice.domain.order.Comment;
@@ -73,12 +73,17 @@ public class ApplicationContextInjector {
     private static final Command USER_ORDER_DETAILS = new UserOrderDetailsCommand(ORDER_SERVICE);
 
     private static final Command All_USERS_COMMAND = new AllUsersCommand(USER_SERVICE);
-    private static final Command ALL_ORDERS_COMMAND = new AllOrdersCommand(ORDER_SERVICE);
+    private static final Command ALL_ORDERS_COMMAND = new AdminAllOrdersCommand(ORDER_SERVICE);
     private static final Command ADMIN_ORDER_DETAILS_COMMAND = new AdminOrderDetailsCommand(ORDER_SERVICE);
+    private static final Command ACCEPT_ORDER_COMMAND = new AcceptOrderCommand(ORDER_SERVICE);
+    private static final Command REJECT_ORDER_COMMAND = new RejectOrderCommand(ORDER_SERVICE);
+
+    private static final Command MASTER_AVAILABLE_ORDER_COMMAND = new MasterAllAvailableOrdersCommand(ORDER_SERVICE);
+    private static final Command MASTER_ORDER_DETAILS_COMMAND = new MasterOrderDetailsCommand(ORDER_SERVICE);
 
     private static final Map<String, Command> COMMAND_NAME_TO_USER_COMMAND = new HashMap<>();
-
     private static final Map<String, Command> COMMAND_NAME_TO_ADMIN_COMMAND = new HashMap<>();
+    private static final Map<String, Command> COMMAND_NAME_TO_MASTER_COMMAND = new HashMap<>();
 
     static {
         COMMAND_NAME_TO_USER_COMMAND.put("login", LOGIN_COMMAND);
@@ -93,6 +98,14 @@ public class ApplicationContextInjector {
         COMMAND_NAME_TO_ADMIN_COMMAND.put("allUsers", All_USERS_COMMAND);
         COMMAND_NAME_TO_ADMIN_COMMAND.put("adminAllOrders", ALL_ORDERS_COMMAND);
         COMMAND_NAME_TO_ADMIN_COMMAND.put("adminOrderDetails", ADMIN_ORDER_DETAILS_COMMAND);
+        COMMAND_NAME_TO_ADMIN_COMMAND.put("acceptOrder", ACCEPT_ORDER_COMMAND);
+        COMMAND_NAME_TO_ADMIN_COMMAND.put("rejectOrder", REJECT_ORDER_COMMAND);
+
+    }
+
+    static {
+        COMMAND_NAME_TO_MASTER_COMMAND.put("masterAllAvailableOrders", MASTER_AVAILABLE_ORDER_COMMAND);
+        COMMAND_NAME_TO_MASTER_COMMAND.put("masterOrderDetails", MASTER_ORDER_DETAILS_COMMAND);
     }
 
     private static volatile ApplicationContextInjector applicationContextInjector;
@@ -117,6 +130,10 @@ public class ApplicationContextInjector {
 
     public Map<String, Command> getAdminCommand() {
         return COMMAND_NAME_TO_ADMIN_COMMAND;
+    }
+
+    public Map<String, Command> getMasterCommand() {
+        return COMMAND_NAME_TO_MASTER_COMMAND;
     }
 
     //TODO delete

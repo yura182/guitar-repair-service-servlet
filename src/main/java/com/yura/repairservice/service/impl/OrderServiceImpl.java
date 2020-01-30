@@ -72,17 +72,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findByStatus(Status status) {
+    public List<Order> findByStatus(Status status, Integer offset, Integer limit) {
         return repository
-                .findAllByStatus(status)
+                .findAllByStatus(status, offset, limit)
                 .stream()
                 .map(orderMapper::mapEntityToDomain)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void acceptOrder(Order order) {
-        repository.update(orderMapper.mapDomainToEntity(new Order(order, Status.ACCEPTED)));
+    public void acceptOrder(Order order, Double price) {
+        repository.update(orderMapper.mapDomainToEntity(new Order(order, Status.ACCEPTED, price)));
     }
 
     @Override

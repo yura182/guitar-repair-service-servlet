@@ -1,18 +1,19 @@
-package com.yura.repairservice.command.admin;
+package com.yura.repairservice.command.master;
 
 import com.yura.repairservice.command.Command;
 import com.yura.repairservice.command.PaginationUtility;
 import com.yura.repairservice.domain.order.Order;
+import com.yura.repairservice.domain.order.Status;
 import com.yura.repairservice.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class AllOrdersCommand implements Command, PaginationUtility {
+public class MasterAllAvailableOrdersCommand implements Command, PaginationUtility {
 
     private final OrderService orderService;
 
-    public AllOrdersCommand(OrderService orderService) {
+    public MasterAllAvailableOrdersCommand(OrderService orderService) {
         this.orderService = orderService;
     }
 
@@ -21,9 +22,9 @@ public class AllOrdersCommand implements Command, PaginationUtility {
         int currentPage = getPaginationParameter(request.getParameter("currentPage"), DEFAULT_PAGINATION_PAGE);
         int recordsPerPage = getPaginationParameter(request.getParameter("recordsPerPage"), DEFAULT_PAGINATION_RECORDS);
 
-        List<Order> orders = orderService.findAll(currentPage, recordsPerPage);
-        paginate(currentPage, recordsPerPage, orderService.numberOfEntries(), orders, "adminAllOrders", request, "admin");
+        List<Order> orders = orderService.findByStatus(Status.ACCEPTED, currentPage * recordsPerPage - recordsPerPage, recordsPerPage);
+        paginate(currentPage, recordsPerPage, orderService.numberOfEntriesByStatus(Status.ACCEPTED), orders, "masterAllAvailableOrders", request, "master");
 
-        return "admin-all-orders.jsp";
+        return "master-all-available-orders.jsp";
     }
 }

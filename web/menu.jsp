@@ -49,6 +49,12 @@
                     </li>
                 </c:if>
 
+                <c:if test="${sessionScope.user.role.name() eq 'MASTER'}">
+                    <li class="nav-item" >
+                        <a class="nav-link js-scroll-trigger" href="master?command=masterAllAvailableOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.master.available.orders"/></a>
+                    </li>
+                </c:if>
+
                 <c:if test="${sessionScope.user != null}">
                     <li class="nav-item" >
                         <a class="nav-link js-scroll-trigger" href="logout?command=logout"><fmt:message key="menu.logout"/></a>

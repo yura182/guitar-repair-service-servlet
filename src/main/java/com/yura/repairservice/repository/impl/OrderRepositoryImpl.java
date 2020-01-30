@@ -40,7 +40,7 @@ public class OrderRepositoryImpl extends AbstractRepository<OrderEntity> impleme
     private static final String DELETE_BY_ID_QUERY = "DELETE FROM orders WHERE id = ?";
     private static final String FIND_ALL_BY_CLIENT = FIND_ALL + " WHERE client_id = ?" + LIMIT;
     private static final String FIND_ALL_BY_MASTER = FIND_ALL + " WHERE master_id = ?" + LIMIT;
-    private static final String FIND_ALL_BY_STATUS = FIND_ALL + " WHERE o.status = ?";
+    private static final String FIND_ALL_BY_STATUS = FIND_ALL + " WHERE o.status = ?" + LIMIT;
     private static final String COUNT_ALL_QUERY = "SELECT COUNT(*) FROM orders";
     private static final String COUNT_ALL_BY_CLIENT_QUERY = "SELECT COUNT(*) FROM orders WHERE client_id = ?";
     private static final String COUNT_ALL_BY_MASTER_QUERY = "SELECT COUNT(*) FROM orders WHERE master_id = ?";
@@ -96,8 +96,8 @@ public class OrderRepositoryImpl extends AbstractRepository<OrderEntity> impleme
     }
 
     @Override
-    public List<OrderEntity> findAllByStatus(Status status) {
-        return findAllByStringParam(status.toString(), FIND_ALL_BY_STATUS);
+    public List<OrderEntity> findAllByStatus(Status status, Integer offset, Integer limit) {
+        return findAllByStringParam(status.toString(), FIND_ALL_BY_STATUS, offset, limit);
     }
 
     @Override

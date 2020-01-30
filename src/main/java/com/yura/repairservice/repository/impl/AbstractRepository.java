@@ -129,11 +129,13 @@ public abstract class AbstractRepository<E> implements CrudRepository<E, Integer
         }
     }
 
-    protected List<E> findAllByStringParam(String parameter, String query) {
+    protected List<E> findAllByStringParam(String parameter, String query, Integer offset, Integer limit) {
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, parameter);
+            preparedStatement.setInt(2, offset);
+            preparedStatement.setInt(3, limit);
             ResultSet resultSet = preparedStatement.executeQuery();
             List<E> result = new ArrayList<>();
 

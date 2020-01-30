@@ -29,6 +29,18 @@ public class Order {
         this.rejectionReason = builder.rejectionReason;
     }
 
+    public Order(Order order, Status status, Double price) {
+        this.id = order.id;
+        this.client = order.client;
+        this.master = order.master;
+        this.instrument = order.instrument;
+        this.dateTime = order.dateTime;
+        this.service = order.service;
+        this.price = price;
+        this.status = status;
+        this.rejectionReason = order.rejectionReason;
+    }
+
     public Order(Order order, Status status) {
         this.id = order.id;
         this.client = order.client;
@@ -40,6 +52,7 @@ public class Order {
         this.status = status;
         this.rejectionReason = order.rejectionReason;
     }
+
 
     public Order(Order order, Status status, String rejectionReason) {
         this.id = order.id;

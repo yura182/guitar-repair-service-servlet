@@ -12,7 +12,7 @@ public interface OrderRepository extends CrudRepository<OrderEntity, Integer> {
 
     List<OrderEntity> findAllByMasterId(Integer masterId, Integer offset, Integer limit);
 
-    List<OrderEntity> findAllByStatus(Status status);
+    List<OrderEntity> findAllByStatus(Status status, Integer offset, Integer limit);
 
     Integer countByClientId(Integer clientId);
 

@@ -18,9 +18,9 @@ public interface OrderService {
 
     List<Order> findByMaster(Integer masterId, Integer offset, Integer limit);
 
-    List<Order> findByStatus(Status status);
+    List<Order> findByStatus(Status status, Integer offset, Integer limit);
 
-    void acceptOrder(Order order);
+    void acceptOrder(Order order, Double price);
 
     void rejectOrder(Order order, String rejectionReason);
 

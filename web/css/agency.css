@@ -1171,6 +1171,18 @@ textarea.input100 {
   color: #212529!important;
 }
 
+.order-details-input {
+  float: left!important;
+  width: 60%!important;
+  border: none!important;
+  margin: 0!important;
+}
+
+.order-details-button {
+  margin: 1px;
+  width: 35%;
+}
+
 
 
 /*//////////////////////////////////////////////////////////////////

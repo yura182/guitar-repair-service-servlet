@@ -59,6 +59,13 @@
                         <a class="nav-link js-scroll-trigger" href="admin?command=adminAllOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.user.orders"/></a>
                     </li>
                 </c:if>
+
+                <c:if test="${sessionScope.user.role.name() eq 'MASTER'}">
+                    <li class="nav-item" >
+                        <a class="nav-link js-scroll-trigger" href="master?command=masterAllAvailableOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.master.available.orders"/></a>
+                    </li>
+                </c:if>
+
                 <c:if test="${sessionScope.user.role.name() eq 'CLIENT'}">
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="user-add-order.jsp"><fmt:message key="menu.order"/></a>

@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface CommentRepository extends CrudRepository<CommentEntity, Integer> {
 
-    List<CommentEntity> findAllByOrder(Integer orderId);
+    List<CommentEntity> findAllByOrder(Integer orderId, Integer offset, Integer limit);
 
-    List<CommentEntity> findAllByClient(Integer clientId);
+    List<CommentEntity> findAllByClient(Integer clientId, Integer offset, Integer limit);
 
     Integer countByOrderId(Integer orderId);
 

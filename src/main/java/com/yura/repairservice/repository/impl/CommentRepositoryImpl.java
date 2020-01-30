@@ -34,13 +34,13 @@ public class CommentRepositoryImpl extends AbstractRepository<CommentEntity> imp
     }
 
     @Override
-    public List<CommentEntity> findAllByOrder(Integer orderId) {
-        return findAllById(orderId, FIND_ALL_BY_ORDER);
+    public List<CommentEntity> findAllByOrder(Integer orderId, Integer offset, Integer limit) {
+        return findAllById(orderId, FIND_ALL_BY_ORDER, offset, limit);
     }
 
     @Override
-    public List<CommentEntity> findAllByClient(Integer clientId) {
-        return findAllById(clientId, FIND_ALL_BY_CLIENT);
+    public List<CommentEntity> findAllByClient(Integer clientId, Integer offset, Integer limit) {
+        return findAllById(clientId, FIND_ALL_BY_CLIENT, offset, limit);
     }
 
     @Override

@@ -54,18 +54,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findByClient(Integer clientId) {
+    public List<Order> findByClient(Integer clientId, Integer offset, Integer limit) {
         return repository
-                .findAllByClientId(clientId)
+                .findAllByClientId(clientId, offset, limit)
                 .stream()
                 .map(orderMapper::mapEntityToDomain)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Order> findByMaster(Integer masterId) {
+    public List<Order> findByMaster(Integer masterId, Integer offset, Integer limit) {
         return repository
-                .findAllByMasterId(masterId)
+                .findAllByMasterId(masterId, offset, limit)
                 .stream()
                 .map(orderMapper::mapEntityToDomain)
                 .collect(Collectors.toList());

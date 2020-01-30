@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface OrderRepository extends CrudRepository<OrderEntity, Integer> {
 
-    List<OrderEntity> findAllByClientId(Integer clientId);
+    List<OrderEntity> findAllByClientId(Integer clientId, Integer offset, Integer limit);
 
-    List<OrderEntity> findAllByMasterId(Integer masterId);
+    List<OrderEntity> findAllByMasterId(Integer masterId, Integer offset, Integer limit);
 
     List<OrderEntity> findAllByStatus(Status status);
 

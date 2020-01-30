@@ -14,9 +14,9 @@ public interface OrderService {
 
     List<Order> findAll(Integer offset, Integer limit);
 
-    List<Order> findByClient(Integer clientId);
+    List<Order> findByClient(Integer clientId, Integer offset, Integer limit);
 
-    List<Order> findByMaster(Integer masterId);
+    List<Order> findByMaster(Integer masterId, Integer offset, Integer limit);
 
     List<Order> findByStatus(Status status);
 

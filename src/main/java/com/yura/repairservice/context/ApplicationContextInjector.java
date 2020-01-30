@@ -1,11 +1,10 @@
 package com.yura.repairservice.context;
 
 import com.yura.repairservice.command.Command;
+import com.yura.repairservice.command.admin.AdminOrderDetailsCommand;
+import com.yura.repairservice.command.admin.AllOrdersCommand;
 import com.yura.repairservice.command.admin.AllUsersCommand;
-import com.yura.repairservice.command.user.LoginCommand;
-import com.yura.repairservice.command.user.LogoutCommand;
-import com.yura.repairservice.command.user.MakeOrderCommand;
-import com.yura.repairservice.command.user.RegisterCommand;
+import com.yura.repairservice.command.user.*;
 import com.yura.repairservice.domain.instrument.Instrument;
 import com.yura.repairservice.domain.order.Comment;
 import com.yura.repairservice.domain.order.Order;
@@ -70,8 +69,12 @@ public class ApplicationContextInjector {
     private static final Command REGISTER_COMMAND = new RegisterCommand(USER_SERVICE);
     private static final Command LOGOUT_COMMAND = new LogoutCommand();
     private static final Command ADD_ORDER_COMMAND = new MakeOrderCommand(INSTRUMENT_SERVICE, ORDER_SERVICE);
+    private static final Command USER_ALL_ORDERS = new UserOrdersCommand(ORDER_SERVICE);
+    private static final Command USER_ORDER_DETAILS = new UserOrderDetailsCommand(ORDER_SERVICE);
 
     private static final Command All_USERS_COMMAND = new AllUsersCommand(USER_SERVICE);
+    private static final Command ALL_ORDERS_COMMAND = new AllOrdersCommand(ORDER_SERVICE);
+    private static final Command ADMIN_ORDER_DETAILS_COMMAND = new AdminOrderDetailsCommand(ORDER_SERVICE);
 
     private static final Map<String, Command> COMMAND_NAME_TO_USER_COMMAND = new HashMap<>();
 
@@ -81,11 +84,15 @@ public class ApplicationContextInjector {
         COMMAND_NAME_TO_USER_COMMAND.put("login", LOGIN_COMMAND);
         COMMAND_NAME_TO_USER_COMMAND.put("register", REGISTER_COMMAND);
         COMMAND_NAME_TO_USER_COMMAND.put("logout", LOGOUT_COMMAND);
-        COMMAND_NAME_TO_USER_COMMAND.put("make-order", ADD_ORDER_COMMAND);
+        COMMAND_NAME_TO_USER_COMMAND.put("makeOrder", ADD_ORDER_COMMAND);
+        COMMAND_NAME_TO_USER_COMMAND.put("userAllOrders", USER_ALL_ORDERS);
+        COMMAND_NAME_TO_USER_COMMAND.put("userOrderDetails", USER_ORDER_DETAILS);
     }
 
     static {
         COMMAND_NAME_TO_ADMIN_COMMAND.put("allUsers", All_USERS_COMMAND);
+        COMMAND_NAME_TO_ADMIN_COMMAND.put("adminAllOrders", ALL_ORDERS_COMMAND);
+        COMMAND_NAME_TO_ADMIN_COMMAND.put("adminOrderDetails", ADMIN_ORDER_DETAILS_COMMAND);
     }
 
     private static volatile ApplicationContextInjector applicationContextInjector;

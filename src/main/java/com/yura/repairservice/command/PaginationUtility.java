@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 public interface PaginationUtility {
+    int DEFAULT_PAGINATION_PAGE = 1;
+    int DEFAULT_PAGINATION_RECORDS = 5;
 
     default <T> void paginate(int currentPage, int recordsPerPage, int entries, List<T> entities, String command, HttpServletRequest request, String page) {
         int numberOfPages = (int) Math.ceil((double) entries / recordsPerPage);

@@ -14,9 +14,9 @@ public interface CommentService {
 
     List<Comment> findAll(Integer offset, Integer limit);
 
-    List<Comment> findAllByOrder(Integer orderId);
+    List<Comment> findAllByOrder(Integer orderId, Integer offset, Integer limit);
 
-    List<Comment> findAllByClient(Integer clientId);
+    List<Comment> findAllByClient(Integer clientId, Integer offset, Integer limit);
 
     Integer numberOfEntries();
 

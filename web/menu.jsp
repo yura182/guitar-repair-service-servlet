@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
+<%@ taglib prefix="loc" tagdir="/WEB-INF/tags" %>
 
 <html>
 <head>
@@ -33,15 +34,18 @@
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="admin?command=allUsers&currentPage=1&recordsPerPage=5"><fmt:message key="menu.all.users"/></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="admin?command=adminAllOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.user.orders"/></a>
+                    </li>
+
                 </c:if>
+
                 <c:if test="${sessionScope.user.role.name() eq 'CLIENT'}">
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="user-add-order.jsp"><fmt:message key="menu.order"/></a>
                     </li>
-                </c:if>
-                <c:if test="${pageContext.request.isUserInRole('CLIENT')}">
                     <li class="nav-item" >
-                        <a class="nav-link js-scroll-trigger" href="/user-all-orders(currentPage=1, recordsPerPage=4)"><fmt:message key="menu.user.orders"/></a>
+                        <a class="nav-link js-scroll-trigger" href="user?command=userAllOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.user.orders"/></a>
                     </li>
                 </c:if>
 
@@ -53,13 +57,13 @@
             </ul>
 
             <ul class="navbar-nav text-uppercase ml-auto">
+                <li class="nav-item nav-lang">
+                    <a class="nav-link js-scroll-trigger small-lang-link" href="<loc:replaceParam name="lang" value="en"/>">Eng</a>
+                </li>
+                <li class="nav-item nav-lang">
+                    <a class="nav-link js-scroll-trigger small-lang-link" href="<loc:replaceParam name="lang" value="ru"/>">Ru</a>
+                </li>
 
-                <li class="nav-item nav-lang">
-                    <a class="nav-link js-scroll-trigger small-lang-link" href="?lang=en">Eng</a>
-                </li>
-                <li class="nav-item nav-lang">
-                    <a class="nav-link js-scroll-trigger small-lang-link" href="?lang=ru">Ru</a>
-                </li>
                 <c:if test="${sessionScope.user != null}">
                     <li class="nav-item nav-lang">
                         <a class="nav-link js-scroll-trigger small-name-link" href="profile.jsp">${sessionScope.user.email}</a>

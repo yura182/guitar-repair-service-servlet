@@ -52,18 +52,18 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> findAllByOrder(Integer orderId) {
+    public List<Comment> findAllByOrder(Integer orderId, Integer offset, Integer limit) {
         return repository
-                .findAllByOrder(orderId)
+                .findAllByOrder(orderId, offset, limit)
                 .stream()
                 .map(mapper::mapEntityToDomain)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Comment> findAllByClient(Integer clientId) {
+    public List<Comment> findAllByClient(Integer clientId, Integer offset, Integer limit) {
         return repository
-                .findAllByClient(clientId)
+                .findAllByClient(clientId, offset, limit)
                 .stream()
                 .map(mapper::mapEntityToDomain)
                 .collect(Collectors.toList());

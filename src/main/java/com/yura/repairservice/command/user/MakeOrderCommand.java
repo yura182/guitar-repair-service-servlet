@@ -22,22 +22,17 @@ public class MakeOrderCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        Integer instrumentId = instrumentService.add(Instrument.builder()
-                .withBrand(request.getParameter("brand"))
-                .withModel(request.getParameter("model"))
-                .withYear(Integer.parseInt(request.getParameter("year")))
-                .build());
-
         Order order = Order.builder()
                 .withInstrument(Instrument.builder()
-                        .withId(instrumentId)
+                        .withBrand(request.getParameter("brand"))
+                        .withModel(request.getParameter("model"))
+                        .withYear(Integer.parseInt(request.getParameter("year")))
                         .build())
                 .withStatus(Status.NEW)
                 .withDate(LocalDateTime.now())
                 .withUser((User) request.getSession().getAttribute("user"))
-                .withService((String) request.getParameter("service"))
+                .withService(request.getParameter("service"))
                 .build();
-        System.out.println(order);
         orderService.add(order);
         request.setAttribute("orderSuccess", true);
 

@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class AllUsersCommand implements Command, PaginationUtility {
-    private static final int DEFAULT_PAGINATION_PAGE = 1;
-    private static final int DEFAULT_PAGINATION_RECORDS = 5;
 
     private final UserService userService;
 

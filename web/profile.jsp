@@ -55,6 +55,10 @@
                         <td><span class="profile-header" ><fmt:message key="profile.phone"/></span></td>
                         <td>${user.phone}</td>
                     </tr>
+                    <tr>
+                        <td><span class="profile-header" ><fmt:message key="profile.role"/></span></td>
+                        <td>${user.role}</td>
+                    </tr>
                     </tbody>
                 </table>
 

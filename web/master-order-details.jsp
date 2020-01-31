@@ -36,11 +36,11 @@
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase"><fmt:message key="admin.order.details.title.body"/></h2>
                 <h3 class="section-subheading text-muted"><fmt:message key="admin.order.details.body.subtitle"/></h3>
-                <c:if test="${acceptSuccess}">
-                    <p class="text-success" ><fmt:message key="accept.success"/></p>
+                <c:if test="${processSuccess}">
+                    <p class="text-success" ><fmt:message key="process.success"/></p>
                 </c:if>
-                <c:if test="${rejectSuccess}">
-                    <p class="text-success" ><fmt:message key="reject.success"/></p>
+                <c:if test="${completeSuccess}">
+                    <p class="text-success" ><fmt:message key="complete.success"/></p>
                 </c:if>
 
                 <table class="table table-striped profile">
@@ -87,14 +87,7 @@
                     </tr>
                     <tr>
                         <td><span class="profile-header"><fmt:message key="user.orders.table.price"/></span></td>
-                        <c:choose>
-                            <c:when test="${order.price eq 0.0}">
-                                <td> </td>
-                            </c:when>
-                            <c:otherwise>
-                                <td>${order.price}</td>
-                            </c:otherwise>
-                        </c:choose>
+                        <td>${order.price}</td>
                     </tr>
                     <tr>
                         <td><span class="profile-header"><fmt:message key="user.orders.table.status"/></span></td>
@@ -102,24 +95,19 @@
                     </tr>
                     </tbody>
                 </table>
-                <c:if test="${order.status.name() eq 'NEW'}">
+
+                <c:if test="${order.status.name() eq 'ACCEPTED'}">
                     <div class="row text-center">
                         <div class="limiter">
                             <div class="container-login100">
                                 <div class="wrap-login100 p-t-50 p-b-90">
-                                    <form class="login100-form validate-form flex-sb flex-w" action="accept-order" method="post">
-                                        <input type="hidden" name="command" value="acceptOrder">
+                                    <form class="login100-form validate-form flex-sb flex-w" action="process-order" method="post">
+                                        <input type="hidden" name="command" value="processOrder">
                                         <input type="hidden" name="orderId" value="${order.id}">
 
-                                        <div class="wrap-input100 validate-input m-b-16 order-details-input" data-validate = "Price is required">
-                                            <input class="input100" type="text"  name="price" placeholder=<fmt:message key="user.orders.table.price"/>  required
-                                            pattern="^[0-9]+(\.[0-9]+)?$">
-                                            <span class="focus-input100"></span>
-
-                                        </div>
-                                        <div class="container-login100-form-btn m-t-17 order-details-button">
+                                        <div class="container-login100-form-btn m-t-17 order-details-button-master">
                                             <button class="login100-form-btn" type="submit" >
-                                                <fmt:message key="accept.button"/>
+                                                <fmt:message key="process.button"/>
                                             </button>
                                         </div>
 
@@ -128,23 +116,19 @@
                             </div>
                         </div>
                     </div>
-
+                </c:if>
+                <c:if test="${order.status.name() eq 'PROCESSING'}">
                     <div class="row text-center">
                         <div class="limiter">
                             <div class="container-login100">
                                 <div class="wrap-login100 p-t-50 p-b-90">
-                                    <form class="login100-form validate-form flex-sb flex-w" action="reject-order" method="post">
-                                        <input type="hidden" name="command" value="rejectOrder">
+                                    <form class="login100-form validate-form flex-sb flex-w" action="complete-order" method="post">
+                                        <input type="hidden" name="command" value="completeOrder">
                                         <input type="hidden" name="orderId" value="${order.id}">
 
-                                        <div class="wrap-input100 validate-input m-b-16 order-details-input" data-validate = "Reason is required">
-                                            <input class="input100" type="text"  name="reason" placeholder=<fmt:message key="admin.order.details.reason"/>  required >
-                                            <span class="focus-input100"></span>
-
-                                        </div>
-                                        <div class="container-login100-form-btn m-t-17 order-details-button">
+                                        <div class="container-login100-form-btn m-t-17 order-details-button-master">
                                             <button class="login100-form-btn" type="submit" >
-                                                <fmt:message key="reject.button"/>
+                                                <fmt:message key="complete.button"/>
                                             </button>
                                         </div>
 

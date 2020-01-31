@@ -2,8 +2,10 @@ package com.yura.repairservice.context;
 
 import com.yura.repairservice.command.Command;
 import com.yura.repairservice.command.admin.*;
+import com.yura.repairservice.command.master.CompleteOrderCommand;
 import com.yura.repairservice.command.master.MasterAllAvailableOrdersCommand;
 import com.yura.repairservice.command.master.MasterOrderDetailsCommand;
+import com.yura.repairservice.command.master.ProcessOrderCommand;
 import com.yura.repairservice.command.user.*;
 import com.yura.repairservice.domain.instrument.Instrument;
 import com.yura.repairservice.domain.order.Comment;
@@ -80,6 +82,8 @@ public class ApplicationContextInjector {
 
     private static final Command MASTER_AVAILABLE_ORDER_COMMAND = new MasterAllAvailableOrdersCommand(ORDER_SERVICE);
     private static final Command MASTER_ORDER_DETAILS_COMMAND = new MasterOrderDetailsCommand(ORDER_SERVICE);
+    private static final Command MASTER_PROCESS_ORDER_COMMAND = new ProcessOrderCommand(ORDER_SERVICE);
+    private static final Command MASTER_COMPLETE_ORDER_COMMAND = new CompleteOrderCommand(ORDER_SERVICE);
 
     private static final Map<String, Command> COMMAND_NAME_TO_USER_COMMAND = new HashMap<>();
     private static final Map<String, Command> COMMAND_NAME_TO_ADMIN_COMMAND = new HashMap<>();
@@ -106,6 +110,8 @@ public class ApplicationContextInjector {
     static {
         COMMAND_NAME_TO_MASTER_COMMAND.put("masterAllAvailableOrders", MASTER_AVAILABLE_ORDER_COMMAND);
         COMMAND_NAME_TO_MASTER_COMMAND.put("masterOrderDetails", MASTER_ORDER_DETAILS_COMMAND);
+        COMMAND_NAME_TO_MASTER_COMMAND.put("processOrder", MASTER_PROCESS_ORDER_COMMAND);
+        COMMAND_NAME_TO_MASTER_COMMAND.put("completeOrder", MASTER_COMPLETE_ORDER_COMMAND);
     }
 
     private static volatile ApplicationContextInjector applicationContextInjector;

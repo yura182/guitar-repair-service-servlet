@@ -58,7 +58,7 @@
                             <td>${order.master.name} ${order.master.surname}</td>
                             <td>${order.instrument.brand}</td>
                             <td>${order.service}</td>
-                            <td>${order.status}</td>
+                            <td><fmt:message key="${order.status.localeDescription}"/></td>
                             <td>
                                 <form method="post" action="admin-order-details">
                                     <input type="hidden" name="orderId" id="orderId" value="${order.id}" />

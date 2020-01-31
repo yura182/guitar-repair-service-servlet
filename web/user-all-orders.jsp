@@ -54,7 +54,7 @@
                             <td><tags:localDateTime date="${order.dateTime}" /></td>
                             <td>${order.instrument.brand}</td>
                             <td>${order.service}</td>
-                            <td>${order.status}</td>
+                            <td><fmt:message key="${order.status.localeDescription}"/></td>
                             <td>
                                 <form method="post" action="order-details">
                                     <input type="hidden" name="orderId" id="orderId" value="${order.id}" />

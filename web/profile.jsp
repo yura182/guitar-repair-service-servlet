@@ -57,7 +57,7 @@
                     </tr>
                     <tr>
                         <td><span class="profile-header" ><fmt:message key="profile.role"/></span></td>
-                        <td>${user.role}</td>
+                        <td><fmt:message key="${user.role.localeDescription}"/></td>
                     </tr>
                     </tbody>
                 </table>

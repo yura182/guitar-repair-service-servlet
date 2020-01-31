@@ -1191,6 +1191,15 @@ textarea.input100 {
 
 
 
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(230,230,230, .7) !important;
+}
+
+.table td {
+  border: none!important;
+}
+
+
 
 /*//////////////////////////////////////////////////////////////////
 [ Responsive ]*/

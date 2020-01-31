@@ -98,7 +98,7 @@
                     </tr>
                     <tr>
                         <td><span class="profile-header"><fmt:message key="user.orders.table.status"/></span></td>
-                        <td>${order.status}</td>
+                        <td><fmt:message key="${order.status.localeDescription}"/></td>
                     </tr>
                     <tr>
                         <td><span class="profile-header"><fmt:message key="user.orders.table.rejection.reason"/></span></td>

@@ -53,7 +53,7 @@
                             <td >${user.surname}</td>
                             <td>${user.email}</td>
                             <td>${user.phone}</td>
-                            <td>${user.role}</td>
+                            <td><fmt:message key="${user.role.localeDescription}"/></td>
                         </tr>
                         </c:forEach>
 

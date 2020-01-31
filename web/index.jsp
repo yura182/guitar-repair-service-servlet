@@ -75,11 +75,6 @@
                     </li>
                 </c:if>
 
-                <c:if test="${sessionScope.user != null}">
-                    <li class="nav-item" >
-                        <a class="nav-link js-scroll-trigger" href="logout?command=logout"><fmt:message key="menu.logout"/></a>
-                    </li>
-                </c:if>
             </ul>
 
             <ul class="navbar-nav text-uppercase ml-auto">
@@ -93,6 +88,10 @@
                 <c:if test="${sessionScope.user != null}">
                     <li class="nav-item nav-lang">
                         <a class="nav-link js-scroll-trigger small-name-link" href="profile.jsp">${sessionScope.user.email}</a>
+                    </li>
+
+                    <li class="nav-item nav-lang" >
+                        <a class="nav-link js-scroll-trigger small-name-link" href="logout?command=logout"><fmt:message key="menu.logout"/></a>
                     </li>
                 </c:if>
 

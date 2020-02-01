@@ -1,16 +1,13 @@
 package com.yura.repairservice;
 
 import com.yura.repairservice.context.ApplicationContextInjector;
-import com.yura.repairservice.domain.instrument.Instrument;
-import com.yura.repairservice.domain.order.Comment;
+import com.yura.repairservice.domain.order.Review;
 import com.yura.repairservice.domain.order.Order;
-import com.yura.repairservice.domain.order.Status;
 import com.yura.repairservice.domain.user.User;
-import com.yura.repairservice.service.CommentService;
+import com.yura.repairservice.service.ReviewService;
 import com.yura.repairservice.service.InstrumentService;
 import com.yura.repairservice.service.OrderService;
 import com.yura.repairservice.service.UserService;
-import org.apache.logging.log4j.core.util.JsonUtils;
 
 import java.time.LocalDateTime;
 
@@ -20,12 +17,12 @@ public class Test {
         OrderService orderService = injector.getOrderService();
         UserService userService = injector.getUserService();
         InstrumentService instrumentService = injector.getInstrumentService();
-        CommentService commentService = injector.getCommentService();
+        ReviewService reviewService = injector.getCommentService();
 
         User user = userService.findById(2);
         Order order = orderService.findById(2);
 
-        Comment comment = Comment.builder()
+        Review review = Review.builder()
                 .withClient(user)
                 .withOrder(order)
                 .withText("Good")

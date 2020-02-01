@@ -1,40 +1,40 @@
 package com.yura.repairservice.service.impl;
 
-import com.yura.repairservice.domain.order.Comment;
-import com.yura.repairservice.entity.CommentEntity;
+import com.yura.repairservice.domain.order.Review;
+import com.yura.repairservice.entity.ReviewEntity;
 import com.yura.repairservice.exception.EntityNotFoundException;
-import com.yura.repairservice.repository.CommentRepository;
-import com.yura.repairservice.service.CommentService;
+import com.yura.repairservice.repository.ReviewRepository;
+import com.yura.repairservice.service.ReviewService;
 import com.yura.repairservice.service.mapper.EntityMapper;
 import com.yura.repairservice.service.validator.Validator;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CommentServiceImpl implements CommentService {
-    private final CommentRepository repository;
-    private final EntityMapper<CommentEntity, Comment> mapper;
-    private final Validator<Comment> validator;
+public class ReviewServiceImpl implements ReviewService {
+    private final ReviewRepository repository;
+    private final EntityMapper<ReviewEntity, Review> mapper;
+    private final Validator<Review> validator;
 
-    public CommentServiceImpl(CommentRepository repository, EntityMapper<CommentEntity, Comment> mapper, Validator<Comment> validator) {
+    public ReviewServiceImpl(ReviewRepository repository, EntityMapper<ReviewEntity, Review> mapper, Validator<Review> validator) {
         this.repository = repository;
         this.mapper = mapper;
         this.validator = validator;
     }
 
     @Override
-    public void add(Comment comment) {
-        validator.validate(comment);
+    public void add(Review review) {
+        validator.validate(review);
 
-        repository.save(mapper.mapDomainToEntity(comment));
+        repository.save(mapper.mapDomainToEntity(review));
     }
 
     @Override
-    public Comment findById(Integer id) {
+    public Review findById(Integer id) {
         return repository
                 .findById(id)
                 .map(mapper::mapEntityToDomain)
-                .orElseThrow(()->new EntityNotFoundException("Comment not found with provided id " + id));
+                .orElseThrow(()->new EntityNotFoundException("Review not found with provided id " + id));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> findAll(Integer offset, Integer limit) {
+    public List<Review> findAll(Integer offset, Integer limit) {
         return repository
                 .findAll(offset, limit)
                 .stream()
@@ -52,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> findAllByOrder(Integer orderId, Integer offset, Integer limit) {
+    public List<Review> findAllByOrder(Integer orderId, Integer offset, Integer limit) {
         return repository
                 .findAllByOrder(orderId, offset, limit)
                 .stream()
@@ -61,7 +61,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> findAllByClient(Integer clientId, Integer offset, Integer limit) {
+    public List<Review> findAllByClient(Integer clientId, Integer offset, Integer limit) {
         return repository
                 .findAllByClient(clientId, offset, limit)
                 .stream()

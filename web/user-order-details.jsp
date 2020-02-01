@@ -36,6 +36,9 @@
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase"><fmt:message key="order.details.title.body"/></h2>
                 <h3 class="section-subheading text-muted"><fmt:message key="order.details.body.subtitle"/></h3>
+                <c:if test="${reviewSuccess}">
+                    <p class="text-success" ><fmt:message key="user.order.details.review.success"/></p>
+                </c:if>
 
                 <table class="table table-striped profile">
                     <tbody>
@@ -78,12 +81,43 @@
                         <td><span class="profile-header"><fmt:message key="user.orders.table.status"/></span></td>
                         <td><fmt:message key="${order.status.localeDescription}"/></td>
                     </tr>
+
+                        <c:if test="${order.status.name() eq 'REJECTED'}">
                     <tr>
-                        <td><span class="profile-header"><fmt:message key="user.orders.table.rejection.reason"/></span></td>
-                        <td>${order.rejectionReason}</td>
+                            <td><span class="profile-header"><fmt:message key="user.orders.table.rejection.reason"/></span></td>
+                            <td>${order.rejectionReason}</td>
                     </tr>
+                        </c:if>
+
                     </tbody>
                 </table>
+
+                <c:if test="${order.status.name() eq 'COMPLETED'}">
+                <div class="row text-center">
+                    <div class="limiter">
+                        <div class="container-login100">
+                            <div class="wrap-login100 p-t-50 p-b-90">
+                                <form class="login100-form validate-form flex-sb flex-w" action="leave-review" method="post">
+                                    <input type="hidden" name="command" value="leaveReview">
+                                    <input type="hidden" name="orderId" value="${order.id}">
+
+                                    <div class="wrap-input100 validate-input m-b-16 " data-validate = "Text is required">
+                                        <label class="review-label">
+                                            <textarea  class="input100" type="text" name="text" placeholder='<fmt:message key="user.order.details.review"/>'  required></textarea>
+                                            <span class="focus-input100"></span>
+                                        </label>
+                                    </div>
+                                    <div class="container-login100-form-btn m-t-17 leave-review">
+                                        <button class="login100-form-btn" type="submit" >
+                                            <fmt:message key="leave.review.button"/>
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
 
 
             </div>

@@ -1,18 +1,16 @@
-package com.yura.repairservice.domain.order;
-
-import com.yura.repairservice.domain.user.User;
+package com.yura.repairservice.entity;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Comment {
+public class ReviewEntity {
     private final Integer id;
-    private final User client;
-    private final Order order;
+    private final UserEntity client;
+    private final OrderEntity order;
     private final String text;
     private final LocalDateTime date;
 
-    public Comment(Builder builder) {
+    public ReviewEntity(Builder builder) {
         this.id = builder.id;
         this.client = builder.client;
         this.order = builder.order;
@@ -24,11 +22,11 @@ public class Comment {
         return id;
     }
 
-    public User getClient() {
+    public UserEntity getClient() {
         return client;
     }
 
-    public Order getOrder() {
+    public OrderEntity getOrder() {
         return order;
     }
 
@@ -48,12 +46,12 @@ public class Comment {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        Comment comment = (Comment) obj;
-        return Objects.equals(id, comment.id) &&
-                Objects.equals(client, comment.client) &&
-                Objects.equals(order, comment.order) &&
-                Objects.equals(text, comment.text) &&
-                Objects.equals(date, comment.date);
+        ReviewEntity that = (ReviewEntity) obj;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(client, that.client) &&
+                Objects.equals(order, that.order) &&
+                Objects.equals(text, that.text) &&
+                Objects.equals(date, that.date);
     }
 
     @Override
@@ -65,7 +63,7 @@ public class Comment {
     public String toString() {
         StringBuilder result = new StringBuilder();
 
-        result.append("Comment - ");
+        result.append("ReviewEntity - ");
         result.append("id: ").append(id).append(", ");
         result.append("client: ").append(client).append(", ");
         result.append("order: ").append(order).append(", ");
@@ -81,8 +79,8 @@ public class Comment {
 
     public static class Builder {
         private Integer id;
-        private User client;
-        private Order order;
+        private UserEntity client;
+        private OrderEntity order;
         private String text;
         private LocalDateTime date;
 
@@ -94,12 +92,12 @@ public class Comment {
             return this;
         }
 
-        public Builder withClient(User user) {
+        public Builder withClient(UserEntity user) {
             this.client = user;
             return this;
         }
 
-        public Builder withOrder(Order order) {
+        public Builder withOrder(OrderEntity order) {
             this.order = order;
             return this;
         }
@@ -114,9 +112,8 @@ public class Comment {
             return this;
         }
 
-        public Comment build() {
-            return new Comment(this);
+        public ReviewEntity build() {
+            return new ReviewEntity(this);
         }
     }
-
 }

@@ -11,6 +11,6 @@ public class LogoutCommand implements Command {
         if (request.getSession().getAttribute("user") != null) {
             request.getSession().removeAttribute("user");
         }
-        return "/";
+        return "redirect:/";
     }
 }

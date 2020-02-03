@@ -26,11 +26,11 @@ public class LoginCommand implements Command {
         Role role = user.getRole();
 
         if (role == Role.ADMIN) {
-            return "/";
+            return "redirect:/";
         } else if (role == Role.CLIENT) {
-            return "/";
+            return "redirect:/";
         } else {
-            return "/";
+            return "redirect:/";
         }
     }
 }

@@ -22,6 +22,8 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon">
 
 </head>
 
@@ -35,8 +37,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase"><fmt:message key="all.orders.title.body"/></h2>
-                <h3 class="section-subheading text-muted"><fmt:message key="all.orders.body.subtitle"/></h3>
+                <h2 class="section-heading text-uppercase"><fmt:message key="all.available.orders.title.body"/></h2>
+                <h3 class="section-subheading text-muted"><fmt:message key="all.available.orders.body.subtitle"/></h3>
 
                 <table class="table table-striped">
                     <thead>
@@ -58,12 +60,8 @@
                             <td>${order.service}</td>
                             <td><fmt:message key="${order.status.localeDescription}"/></td>
                             <td>
-                                <form method="post" action="master-order-details">
-                                    <input type="hidden" name="orderId" id="orderId" value="${order.id}" />
-                                    <input type="hidden"  name="command" value="masterOrderDetails" />
-
-                                    <button type="submit" name="submit" value="value" class="link-button"><fmt:message key="user.orders.details"/></button>
-                                </form>
+                                <a class="details-link" href="${pageContext.request.contextPath}/master?command=masterOrderDetails&orderId=${order.id}"><fmt:message key="user.orders.details"/></a>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -11,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="Yriy Petrashenko">
 
-    <title><fmt:message key="profile.title"/></title>
+    <title><fmt:message key="reviews.title"/></title>
 
     <link href="${pageContext.request.contextPath}/css/agency.css"  rel="stylesheet">
     <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css"  rel="stylesheet">
@@ -35,36 +36,45 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase"><fmt:message key="profile.title.body"/></h2>
-                <h3 class="section-subheading text-muted"><fmt:message key="profile.body.subtitle"/></h3>
+                <h2 class="section-heading text-uppercase"><fmt:message key="review.title.body"/></h2>
+                <h3 class="section-subheading text-muted"><fmt:message key="review.body.subtitle"/></h3>
 
-                <table class="table table-striped profile">
-                    <tbody>
-                    <tr>
-                        <c:set var = "user" scope="page" value="${sessionScope.user}"/>
-                        <td ><span class="profile-header" ><fmt:message key="profile.name"/></span> </td>
-                        <td>${user.name}</td>
-                    </tr>
-                    <tr>
-                        <td><span class="profile-header"><fmt:message key="profile.surname"/></span></td>
-                        <td>${user.surname}</td>
-                    </tr>
-                    <tr>
-                        <td><span class="profile-header"><fmt:message key="profile.email"/></span></td>
-                        <td>${user.email}</td>
-                    </tr>
-                    <tr>
-                        <td><span class="profile-header" ><fmt:message key="profile.phone"/></span></td>
-                        <td>${user.phone}</td>
-                    </tr>
-                    <tr>
-                        <td><span class="profile-header" ><fmt:message key="profile.role"/></span></td>
-                        <td><fmt:message key="${user.role.localeDescription}"/></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <c:if test="${sessionScope.deleteSuccess}">
+                    <p class="text-success" ><fmt:message key="all.reviews.delete.success"/></p>
+                </c:if>
+                <c:remove var="deleteSuccess" scope="session" />
 
 
+
+                <c:forEach var="review" items="${entities}">
+                    <div class="blockquote-wrapper">
+                        <div class="blockquote">
+                            <div class="review-admin-info-wrapper">
+                                <div class="info-left">
+                                    <a class="details-link" href="${pageContext.request.contextPath}/admin?command=adminOrderDetails&orderId=${review.order.id}">Order id ${review.order.id}</a>
+                                </div>
+
+                                <div class="info-right">
+                                    <form method="post" action="delete-review">
+                                        <input type="hidden" name="reviewId" value="${review.id}" />
+                                        <input type="hidden"  name="command" value="deleteReview" />
+
+                                        <button type="submit" name="submit" value="value" class="link-button"><fmt:message key="reviews.delete"/></button>
+                                    </form>
+                                </div>
+
+                            </div>
+                            <h1>
+                                    ${review.text} current knowledge is the same as the target knowledge.
+                            </h1>
+                            <h4>&mdash; ${review.client.name} ${review.client.surname}<br><em><tags:localDateTime date="${review.date}"/></em><br>
+                                <em>${review.client.email}</em>
+                            </h4>
+                        </div>
+                    </div>
+                </c:forEach>
+
+                <c:import url="pagination.jsp"/>
             </div>
         </div>
     </div>

@@ -28,8 +28,8 @@ public class RegisterCommand implements Command {
 
         userService.register(user);
 
-        request.getSession().setAttribute("justRegistered", "");
+        request.getSession().setAttribute("justRegistered", true);
 
-        return "login.jsp";
+        return "redirect:login.jsp";
     }
 }

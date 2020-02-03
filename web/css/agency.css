@@ -1242,7 +1242,7 @@ textarea.input100 {
 .blockquote h1 {
   position: relative; /* for pseudos */
   color: #212529;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: normal;
   line-height: 1;
   margin: 0;
@@ -1279,7 +1279,7 @@ textarea.input100 {
 /* increase header size after 600px */
 @media all and (min-width: 600px) {
   .blockquote h1 {
-    font-size: 18px;
+    font-size: 17px;
     line-height: 1.2;
   }
 
@@ -1295,13 +1295,51 @@ textarea.input100 {
   padding-top: 15px;
   z-index: 1;
   margin-left:10px;
-  padding-left:12px;
+  padding-left:2px;
 }
 
 
 .blockquote h4:first-letter {
   margin-left:-12px;
 }
+
+.review-admin-info-wrapper {
+  font-size: 14px;
+  font-weight: 400;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.review-admin-info-wrapper .link-button {
+  font-style: italic;
+  color: #212529;
+}
+
+.info-left {
+  text-align: left;
+  float: left;
+}
+
+.info-right {
+  text-align: right;
+}
+
+.details-link {
+  font-size: 16px;
+  color: #212529;
+}
+
+.details-link:hover {
+  font-size: 16px;
+  color: #000000;
+}
+
+.review-admin-info-wrapper .details-link {
+  font-style: italic;
+  color: #212529;
+  font-size: 14px;
+}
+
 
 
 /*//////////////////////////////////////////////////////////////////

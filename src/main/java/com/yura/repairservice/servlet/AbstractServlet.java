@@ -32,8 +32,8 @@ public class AbstractServlet extends HttpServlet {
         String command = req.getParameter("command");
         String page = commandNameToCommand.getOrDefault(command, request -> "404.jsp").execute(req);
 
-        if ("/".equals(page) || "login.jsp".equals(page)) {
-            resp.sendRedirect(page);
+        if (page.contains("redirect:")) {
+            resp.sendRedirect(page.replaceAll("redirect:", ""));
         } else {
             req.getRequestDispatcher(page).forward(req, resp);
         }

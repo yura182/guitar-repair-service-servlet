@@ -1,4 +1,4 @@
-package com.yura.repairservice.command.user;
+package com.yura.repairservice.command.admin;
 
 import com.yura.repairservice.command.Command;
 import com.yura.repairservice.command.PaginationUtility;
@@ -6,13 +6,12 @@ import com.yura.repairservice.domain.order.Review;
 import com.yura.repairservice.service.ReviewService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Comparator;
 import java.util.List;
 
-public class AllReviewsCommand implements Command, PaginationUtility {
+public class AdminAllReviewsCommand implements Command, PaginationUtility {
     private final ReviewService reviewService;
 
-    public AllReviewsCommand(ReviewService reviewService) {
+    public AdminAllReviewsCommand(ReviewService reviewService) {
         this.reviewService = reviewService;
     }
 
@@ -24,8 +23,8 @@ public class AllReviewsCommand implements Command, PaginationUtility {
 
         List<Review> reviews = reviewService.findAll(currentPage * recordsPerPage - recordsPerPage, recordsPerPage);
 
-        paginate(currentPage, recordsPerPage, reviewService.numberOfEntries(), reviews, "allReviews", request, "reviews");
+        paginate(currentPage, recordsPerPage, reviewService.numberOfEntries(), reviews, "adminAllReviews", request, "admin");
 
-        return "user-reviews.jsp";
+        return "admin-reviews.jsp";
     }
 }

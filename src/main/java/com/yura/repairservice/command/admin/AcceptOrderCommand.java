@@ -22,10 +22,8 @@ public class AcceptOrderCommand implements Command {
 
         orderService.acceptOrder(order, price);
 
-        Order updatedOrder = orderService.findById(orderId);
-        request.setAttribute("acceptSuccess", true);
-        request.setAttribute("order", updatedOrder);
+        request.getSession().setAttribute("acceptSuccess", true);
 
-        return "admin-order-details.jsp";
+        return "redirect:admin?command=adminOrderDetails&orderId=" + orderId;
     }
 }

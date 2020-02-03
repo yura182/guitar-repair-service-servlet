@@ -39,9 +39,9 @@ public class LeaveReviewCommand implements Command {
 
         Order updatedOrder = orderService.findById(order.getId());
 
-        request.setAttribute("order", updatedOrder);
-        request.setAttribute("reviewSuccess", true);
+        request.getSession().setAttribute("order", updatedOrder);
+        request.getSession().setAttribute("reviewSuccess", true);
 
-        return "user-order-details.jsp";
+        return "redirect:user-order-details.jsp";
     }
 }

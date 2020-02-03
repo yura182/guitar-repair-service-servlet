@@ -34,8 +34,9 @@ public class MakeOrderCommand implements Command {
                 .withService(request.getParameter("service"))
                 .build();
         orderService.add(order);
-        request.setAttribute("orderSuccess", true);
 
-        return "user-add-order.jsp";
+        request.getSession().setAttribute("orderSuccess", true);
+
+        return "redirect:user-add-order.jsp";
     }
 }

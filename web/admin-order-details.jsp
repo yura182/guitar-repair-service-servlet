@@ -21,6 +21,8 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon">
 
 </head>
 
@@ -36,12 +38,14 @@
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase"><fmt:message key="admin.order.details.title.body"/></h2>
                 <h3 class="section-subheading text-muted"><fmt:message key="admin.order.details.body.subtitle"/></h3>
-                <c:if test="${acceptSuccess}">
+                <c:if test="${sessionScope.acceptSuccess}">
                     <p class="text-success" ><fmt:message key="accept.success"/></p>
                 </c:if>
-                <c:if test="${rejectSuccess}">
+                <c:remove var="acceptSuccess" scope="session" />
+                <c:if test="${sessionScope.rejectSuccess}">
                     <p class="text-success" ><fmt:message key="reject.success"/></p>
                 </c:if>
+                <c:remove var="rejectSuccess" scope="session" />
 
                 <table class="table table-striped profile">
                     <tbody>
@@ -100,10 +104,13 @@
                         <td><span class="profile-header"><fmt:message key="user.orders.table.status"/></span></td>
                         <td><fmt:message key="${order.status.localeDescription}"/></td>
                     </tr>
-                    <tr>
-                        <td><span class="profile-header"><fmt:message key="user.orders.table.rejection.reason"/></span></td>
-                        <td>${order.rejectionReason}</td>
-                    </tr>
+
+                    <c:if test="${order.status.name() eq 'REJECTED'}">
+                        <tr>
+                            <td><span class="profile-header"><fmt:message key="user.orders.table.rejection.reason"/></span></td>
+                            <td>${order.rejectionReason}</td>
+                        </tr>
+                    </c:if>
                     </tbody>
                 </table>
                 <c:if test="${order.status.name() eq 'NEW'}">

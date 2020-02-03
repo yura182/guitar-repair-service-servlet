@@ -22,10 +22,8 @@ public class CompleteOrderCommand implements Command {
 
         orderService.completeOrder(order);
 
-        Order updatedOrder = orderService.findById(orderId);
-        request.setAttribute("completeSuccess", true);
-        request.setAttribute("order", updatedOrder);
+        request.getSession().setAttribute("completeSuccess", true);
 
-        return "master-order-details.jsp";
+        return "redirect:master?command=masterOrderDetails&orderId=" + orderId;
     }
 }

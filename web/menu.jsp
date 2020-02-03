@@ -41,7 +41,7 @@
                         <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin?command=adminAllOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.admin.orders"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin?command=adminAllReviews&currentPage=1&recordsPerPage=5"><fmt:message key="menu.reviews"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin?command=adminAllReviews&currentPage=1&recordsPerPage=3"><fmt:message key="menu.reviews"/></a>
                     </li>
 
                 </c:if>

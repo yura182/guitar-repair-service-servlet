@@ -65,7 +65,7 @@
 
                             </div>
                             <h1>
-                                    ${review.text} current knowledge is the same as the target knowledge.
+                                    ${review.text}
                             </h1>
                             <h4>&mdash; ${review.client.name} ${review.client.surname}<br><em><tags:localDateTime date="${review.date}"/></em><br>
                                 <em>${review.client.email}</em>

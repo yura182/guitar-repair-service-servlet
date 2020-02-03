@@ -91,7 +91,8 @@
                     </tr>
                     <tr>
                         <td><span class="profile-header"><fmt:message key="user.orders.table.price"/></span></td>
-                        <td>${order.price}</td>
+                        <td>$<fmt:formatNumber value = "${order.price}" type = "number" maxFractionDigits = "2" minFractionDigits="2"/></td>
+
                     </tr>
                     <tr>
                         <td><span class="profile-header"><fmt:message key="user.orders.table.status"/></span></td>

@@ -76,7 +76,7 @@
                                 <td> </td>
                             </c:when>
                             <c:otherwise>
-                                <td>${order.price}</td>
+                                <td>$<fmt:formatNumber value = "${order.price}" type = "number" maxFractionDigits = "2" minFractionDigits="2"/></td>
                             </c:otherwise>
                         </c:choose>
                     </tr>

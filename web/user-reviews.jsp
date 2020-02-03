@@ -45,7 +45,7 @@
                     <div class="blockquote-wrapper">
                         <div class="blockquote">
                             <h1>
-                                    ${review.text} current knowledge is the same as the target knowledge.
+                                    ${review.text}
                             </h1>
                             <h4>&mdash; ${review.client.name} ${review.client.surname}<br><em><tags:localDateTime date="${review.date}"/></em></h4>
                         </div>

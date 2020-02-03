@@ -38,7 +38,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase"><fmt:message key="all.processing.orders.title.body"/></h2>
-                <h3 class="section-subheading text-muted"><fmt:message key="all.proceccing.orders.body.subtitle"/></h3>
+                <h3 class="section-subheading text-muted"><fmt:message key="all.processing.orders.body.subtitle"/></h3>
 
                 <table class="table table-striped">
                     <thead>

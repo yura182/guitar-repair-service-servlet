@@ -2,12 +2,18 @@
 
 Option №3  
 ```
-Repair agency system. The user can create a request for product repair. The manager can accept the request indicating the price, or reject the request, indicating the reason. The master can complete the order accepted by the Manager. The user can leave feedback on completed order.
+Repair agency system. The user can create a request for product repair. 
+The manager can accept the request indicating the price, or reject the request, indicating the reason. 
+The master can complete the order accepted by the Manager. 
+The user can leave feedback on completed order.
 ```
 
 Вариант №3  
 ```
-Система Ремонтное Агенство. Пользователь может создать заявку на ремонт изделия. Менеджер может принять заявку указав цену, либо отклонить заявку, указав причину. Мастер может выполнить принятую Менеджером заявку. Пользователь может оставить Отзыв о выполненных работах. 
+Система Ремонтное Агенство. Пользователь может создать заявку на ремонт изделия. 
+Менеджер может принять заявку указав цену, либо отклонить заявку, указав причину. 
+Мастер может выполнить принятую Менеджером заявку. 
+Пользователь может оставить Отзыв о выполненных работах. 
 ```
 ## Installation and running
 **Prerequisites**

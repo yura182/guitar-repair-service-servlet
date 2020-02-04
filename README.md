@@ -27,8 +27,12 @@ MySQL
 **Running the project**
 ```
 Clone project to your local repository
-Run scripts from /resources/db/ folder to create database and tables (dbCreation.sql) and to insert data (dbInsertion.sql)
+
+Run scripts from /resources/db/ folder to create database and tables (dbCreation.sql) 
+and to insert data (dbInsertion.sql)
+
 From project root folder run - mvn Tomcat7:run
+
 Use http://localhost:8080/ to view website
 ```
 **Default users**

@@ -14,6 +14,7 @@ public class OrderValidator implements Validator<Order> {
         validateNotNull(order.getInstrument(), "Instrument is null", LOGGER);
         validateNotNull(order.getDateTime(), "Date is null", LOGGER);
         validateNotNull(order.getService(), "Service is null", LOGGER);
+        validateNotEmpty(order.getService(), "Service is empty", LOGGER);
         validateNotNull(order.getStatus(), "Status is null", LOGGER);
     }
 }

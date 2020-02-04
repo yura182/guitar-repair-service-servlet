@@ -1,6 +1,5 @@
 package com.yura.repairservice.service.validator;
 
-import com.yura.repairservice.exception.InvalidInstrumentParameterException;
 import com.yura.repairservice.exception.InvalidParameterException;
 import org.apache.logging.log4j.Logger;
 
@@ -12,6 +11,13 @@ public interface Validator<E> {
 
     default <T> void validateNotNull(T parameter, String message, Logger logger) {
         if (Objects.isNull(parameter)) {
+            logger.warn(message);
+            throw new InvalidParameterException(message);
+        }
+    }
+
+    default void validateNotEmpty(String parameter, String message, Logger logger) {
+        if (parameter.isEmpty()) {
             logger.warn(message);
             throw new InvalidParameterException(message);
         }

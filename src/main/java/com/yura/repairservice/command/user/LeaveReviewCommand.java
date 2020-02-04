@@ -12,13 +12,10 @@ import java.time.LocalDateTime;
 
 public class LeaveReviewCommand implements Command {
     private final ReviewService reviewService;
-    private final OrderService orderService;
 
-    public LeaveReviewCommand(ReviewService reviewService, OrderService orderService) {
+    public LeaveReviewCommand(ReviewService reviewService) {
         this.reviewService = reviewService;
-        this.orderService = orderService;
     }
-
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -37,11 +34,8 @@ public class LeaveReviewCommand implements Command {
 
         reviewService.add(review);
 
-        Order updatedOrder = orderService.findById(order.getId());
+        request.getSession().setAttribute("successMessage", "user.order.details.review.success");
 
-        request.getSession().setAttribute("order", updatedOrder);
-        request.getSession().setAttribute("reviewSuccess", true);
-
-        return "redirect:user-order-details.jsp";
+        return "redirect:user?command=userOrderDetails&orderId=" + order.getId();
     }
 }

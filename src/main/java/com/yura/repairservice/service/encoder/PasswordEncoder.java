@@ -1,7 +1,6 @@
 package com.yura.repairservice.service.encoder;
 
 import com.yura.repairservice.exception.PasswordEncodeException;
-import com.yura.repairservice.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

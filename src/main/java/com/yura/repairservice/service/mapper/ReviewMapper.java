@@ -1,10 +1,10 @@
 package com.yura.repairservice.service.mapper;
 
-import com.yura.repairservice.domain.order.Review;
 import com.yura.repairservice.domain.order.Order;
+import com.yura.repairservice.domain.order.Review;
 import com.yura.repairservice.domain.user.User;
-import com.yura.repairservice.entity.ReviewEntity;
 import com.yura.repairservice.entity.OrderEntity;
+import com.yura.repairservice.entity.ReviewEntity;
 import com.yura.repairservice.entity.UserEntity;
 
 import java.util.Objects;

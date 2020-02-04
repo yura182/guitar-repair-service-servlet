@@ -38,10 +38,10 @@
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase"><fmt:message key="order.details.title.body"/></h2>
                 <h3 class="section-subheading text-muted"><fmt:message key="order.details.body.subtitle"/></h3>
-                <c:if test="${sessionScope.reviewSuccess}">
-                    <p class="text-success" ><fmt:message key="user.order.details.review.success"/></p>
+                <c:if test="${not empty sessionScope.successMessage}">
+                    <p class="text-success" ><fmt:message key="${sessionScope.successMessage}"/></p>
                 </c:if>
-                <c:remove var="reviewSuccess" scope="session" />
+                <c:remove var="successMessage" scope="session" />
 
                 <table class="table table-striped profile">
                     <tbody>

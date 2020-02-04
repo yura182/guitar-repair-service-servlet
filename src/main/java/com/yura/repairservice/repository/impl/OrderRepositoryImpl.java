@@ -6,6 +6,7 @@ import com.yura.repairservice.entity.InstrumentEntity;
 import com.yura.repairservice.entity.OrderEntity;
 import com.yura.repairservice.entity.UserEntity;
 import com.yura.repairservice.exception.DBRuntimeException;
+import com.yura.repairservice.exception.OrderSaveException;
 import com.yura.repairservice.repository.OrderRepository;
 import com.yura.repairservice.repository.connector.DBConnector;
 import org.apache.logging.log4j.LogManager;
@@ -34,7 +35,7 @@ public class OrderRepositoryImpl extends AbstractRepository<OrderEntity> impleme
             "LEFT JOIN instruments as i ON o.instrument_id = i.id";
     private static final String FIND_BY_ID_QUERY = FIND_ALL + " WHERE o.id = ?";
     private static final String LIMIT = " LIMIT ?, ?";
-    private static final String FIND_ALL_QUERY = FIND_ALL + " ORDER BY o.id DESC "+ LIMIT;
+    private static final String FIND_ALL_QUERY = FIND_ALL + " ORDER BY o.id DESC " + LIMIT;
     private static final String UPDATE_QUERY = "UPDATE orders SET master_id = ?, client_id = ?, instrument_id = ?," +
             " date = ?, service = ?, price = ?, status = ?, rejection_reason = ? WHERE id = ?";
     private static final String DELETE_BY_ID_QUERY = "DELETE FROM orders WHERE id = ?";
@@ -73,15 +74,15 @@ public class OrderRepositoryImpl extends AbstractRepository<OrderEntity> impleme
                 connection.setAutoCommit(true);
 
                 return result != 0;
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 connection.rollback();
                 connection.setAutoCommit(true);
                 LOGGER.error("Could not save order to database", e);
-                throw new DBRuntimeException("Could not save order to database", e);
+                throw new OrderSaveException("Could not save order to database", e);
             }
         } catch (SQLException e) {
             LOGGER.error("Could not save order to database", e);
-            throw new DBRuntimeException("Could not save order to database", e);
+            throw new OrderSaveException("Could not save order to database", e);
         }
     }
 

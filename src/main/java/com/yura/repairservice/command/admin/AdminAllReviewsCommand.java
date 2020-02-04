@@ -18,10 +18,10 @@ public class AdminAllReviewsCommand implements Command, PaginationUtility {
 
     @Override
     public String execute(HttpServletRequest request) {
-        int currentPage = getPaginationParameter(request.getParameter("currentPage"), DEFAULT_PAGINATION_PAGE);
-        int recordsPerPage = getPaginationParameter(request.getParameter("recordsPerPage"), DEFAULT_PAGINATION_RECORDS);
+        int currentPage = getCurrentPage(request);
+        int recordsPerPage = getRecordsPerPage(request);
 
-        List<Review> reviews = reviewService.findAll(currentPage * recordsPerPage - recordsPerPage, recordsPerPage);
+        List<Review> reviews = reviewService.findAll(getOffset(currentPage, recordsPerPage), recordsPerPage);
 
         paginate(currentPage, recordsPerPage, reviewService.numberOfEntries(), reviews, "adminAllReviews", request, "admin");
 

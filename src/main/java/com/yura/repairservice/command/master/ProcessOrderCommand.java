@@ -23,7 +23,7 @@ public class ProcessOrderCommand implements Command {
 
         orderService.processOrder(order, master);
 
-        request.getSession().setAttribute("processSuccess", true);
+        request.getSession().setAttribute("successMessage", "process.success");
 
         return "redirect:master?command=masterOrderDetails&orderId=" + orderId;
     }

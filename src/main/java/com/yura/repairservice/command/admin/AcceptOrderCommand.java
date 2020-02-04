@@ -22,7 +22,7 @@ public class AcceptOrderCommand implements Command {
 
         orderService.acceptOrder(order, price);
 
-        request.getSession().setAttribute("acceptSuccess", true);
+        request.getSession().setAttribute("successMessage", "accept.success");
 
         return "redirect:admin?command=adminOrderDetails&orderId=" + orderId;
     }

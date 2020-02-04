@@ -18,11 +18,10 @@ public class AllUsersCommand implements Command, PaginationUtility {
 
     @Override
     public String execute(HttpServletRequest request) {
-        int currentPage = getPaginationParameter(request.getParameter("currentPage"), DEFAULT_PAGINATION_PAGE);
-        int recordsPerPage = getPaginationParameter(request.getParameter("recordsPerPage"), DEFAULT_PAGINATION_RECORDS);
+        int currentPage = getCurrentPage(request);
+        int recordsPerPage = getRecordsPerPage(request);
 
-
-        List<User> users = userService.findAll(currentPage * recordsPerPage - recordsPerPage, recordsPerPage);
+        List<User> users = userService.findAll(getOffset(currentPage, recordsPerPage), recordsPerPage);
 
         paginate(currentPage, recordsPerPage, userService.numberOfEntries(), users, "allUsers", request, "admin");
 

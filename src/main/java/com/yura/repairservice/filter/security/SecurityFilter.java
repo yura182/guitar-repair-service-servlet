@@ -1,10 +1,9 @@
-package com.yura.repairservice.filter;
+package com.yura.repairservice.filter.security;
 
 import com.yura.repairservice.domain.user.Role;
 import com.yura.repairservice.domain.user.User;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;

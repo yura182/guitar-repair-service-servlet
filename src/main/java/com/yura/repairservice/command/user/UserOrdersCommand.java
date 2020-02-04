@@ -19,13 +19,13 @@ public class UserOrdersCommand implements Command, PaginationUtility {
 
     @Override
     public String execute(HttpServletRequest request) {
-        int currentPage = getPaginationParameter(request.getParameter("currentPage"), DEFAULT_PAGINATION_PAGE);
-        int recordsPerPage = getPaginationParameter(request.getParameter("recordsPerPage"), DEFAULT_PAGINATION_RECORDS);
+        int currentPage = getCurrentPage(request);
+        int recordsPerPage = getRecordsPerPage(request);
         User user = (User) request.getSession().getAttribute("user");
-        int userId = user.getId();
 
-        List<Order> orders = orderService.findByClient(userId,currentPage * recordsPerPage - recordsPerPage, recordsPerPage);
-        paginate(currentPage, recordsPerPage, orderService.numberOfEntriesByClientId(userId), orders, "userAllOrders", request, "user");
+        List<Order> orders = orderService.findByClient(user.getId(), getOffset(currentPage, recordsPerPage), recordsPerPage);
+
+        paginate(currentPage, recordsPerPage, orderService.numberOfEntriesByClientId(user.getId()), orders, "userAllOrders", request, "user");
 
         return "user-all-orders.jsp";
     }

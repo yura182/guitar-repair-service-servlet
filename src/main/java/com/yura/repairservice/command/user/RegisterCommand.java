@@ -6,7 +6,6 @@ import com.yura.repairservice.domain.user.User;
 import com.yura.repairservice.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public class RegisterCommand implements Command {
     private final UserService userService;
@@ -28,7 +27,7 @@ public class RegisterCommand implements Command {
 
         userService.register(user);
 
-        request.getSession().setAttribute("justRegistered", true);
+        request.getSession().setAttribute("successMessage", "login.just.registered");
 
         return "redirect:login.jsp";
     }

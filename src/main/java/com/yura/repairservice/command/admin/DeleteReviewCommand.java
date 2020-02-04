@@ -16,12 +16,7 @@ public class DeleteReviewCommand implements Command {
     public String execute(HttpServletRequest request) {
         reviewService.delete(Integer.parseInt(request.getParameter("reviewId")));
 
-        request.getSession().setAttribute("deleteSuccess", true);
-        System.out.println(request.getContextPath());
-        System.out.println(request.getRequestURI());
-        System.out.println(request.getRequestURL());
-        System.out.println(request.getServletPath());
-        System.out.println(request.getPathInfo());
+        request.getSession().setAttribute("successMessage", "all.reviews.delete.success");
 
         return "redirect:admin?command=adminAllReviews&recordsPerPage=3&currentPage=1";
     }

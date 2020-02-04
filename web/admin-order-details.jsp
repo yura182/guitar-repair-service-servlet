@@ -38,14 +38,11 @@
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase"><fmt:message key="admin.order.details.title.body"/></h2>
                 <h3 class="section-subheading text-muted"><fmt:message key="admin.order.details.body.subtitle"/></h3>
-                <c:if test="${sessionScope.acceptSuccess}">
-                    <p class="text-success" ><fmt:message key="accept.success"/></p>
+
+                <c:if test="${not empty sessionScope.successMessage}">
+                    <p class="text-success" ><fmt:message key="${sessionScope.successMessage}"/></p>
                 </c:if>
-                <c:remove var="acceptSuccess" scope="session" />
-                <c:if test="${sessionScope.rejectSuccess}">
-                    <p class="text-success" ><fmt:message key="reject.success"/></p>
-                </c:if>
-                <c:remove var="rejectSuccess" scope="session" />
+                <c:remove var="successMessage" scope="session" />
 
                 <table class="table table-striped profile">
                     <tbody>

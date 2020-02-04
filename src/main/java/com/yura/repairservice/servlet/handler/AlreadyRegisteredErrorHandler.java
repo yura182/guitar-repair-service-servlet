@@ -5,6 +5,6 @@ import javax.servlet.annotation.WebServlet;
 @WebServlet(urlPatterns = "/alreadyRegisteredError")
 public class AlreadyRegisteredErrorHandler extends ErrorHandlerServlet {
     public AlreadyRegisteredErrorHandler() {
-        super("register", "alreadyRegisteredError");
+        super("register", "errorMessage", "register.error.already.registered");
     }
 }

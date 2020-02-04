@@ -22,13 +22,7 @@ public class RejectOrderCommand implements Command {
 
         orderService.rejectOrder(order, reason);
 
-        System.out.println(request.getContextPath());
-        System.out.println(request.getRequestURI());
-        System.out.println(request.getRequestURL());
-        System.out.println(request.getServletPath());
-        System.out.println(request.getPathInfo());
-
-        request.getSession().setAttribute("rejectSuccess", true);
+        request.getSession().setAttribute("successMessage", "reject.success");
 
         return "redirect:admin?command=adminOrderDetails&orderId=" + orderId;
     }

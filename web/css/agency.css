@@ -1232,7 +1232,7 @@ textarea.input100 {
 /* Blockquote main style */
 .blockquote {
   position: relative;
-
+  min-width: 380px;
   max-width: 400px;
   margin: 20px auto;
   align-self: center;

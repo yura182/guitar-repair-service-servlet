@@ -58,7 +58,7 @@
                             <td>${order.service}</td>
                             <td><fmt:message key="${order.status.localeDescription}"/></td>
                             <td>
-                                <a class="details-link" href="${pageContext.request.contextPath}/user?command=userOrderDetails&orderId=${order.id}&userId=${order.client.id}"><fmt:message key="user.orders.details"/></a>
+                                <a class="details-link" href="${pageContext.request.contextPath}/user?command=userOrderDetails&orderId=${order.id}"><fmt:message key="user.orders.details"/></a>
                         </tr>
                     </c:forEach>
                     </tbody>

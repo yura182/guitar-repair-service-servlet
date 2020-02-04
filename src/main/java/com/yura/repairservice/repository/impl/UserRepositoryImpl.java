@@ -1,9 +1,9 @@
 package com.yura.repairservice.repository.impl;
 
-import com.yura.repairservice.repository.UserRepository;
-import com.yura.repairservice.repository.connector.DBConnector;
 import com.yura.repairservice.domain.user.Role;
 import com.yura.repairservice.entity.UserEntity;
+import com.yura.repairservice.repository.UserRepository;
+import com.yura.repairservice.repository.connector.DBConnector;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

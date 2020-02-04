@@ -1,7 +1,6 @@
 package com.yura.repairservice.servlet;
 
 import com.yura.repairservice.command.Command;
-import com.yura.repairservice.domain.user.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

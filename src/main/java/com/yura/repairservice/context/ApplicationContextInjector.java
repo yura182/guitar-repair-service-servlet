@@ -5,30 +5,30 @@ import com.yura.repairservice.command.admin.*;
 import com.yura.repairservice.command.master.*;
 import com.yura.repairservice.command.user.*;
 import com.yura.repairservice.domain.instrument.Instrument;
-import com.yura.repairservice.domain.order.Review;
 import com.yura.repairservice.domain.order.Order;
+import com.yura.repairservice.domain.order.Review;
 import com.yura.repairservice.domain.user.User;
-import com.yura.repairservice.entity.ReviewEntity;
 import com.yura.repairservice.entity.InstrumentEntity;
 import com.yura.repairservice.entity.OrderEntity;
+import com.yura.repairservice.entity.ReviewEntity;
 import com.yura.repairservice.entity.UserEntity;
-import com.yura.repairservice.repository.ReviewRepository;
 import com.yura.repairservice.repository.InstrumentRepository;
 import com.yura.repairservice.repository.OrderRepository;
+import com.yura.repairservice.repository.ReviewRepository;
 import com.yura.repairservice.repository.UserRepository;
 import com.yura.repairservice.repository.connector.DBConnector;
-import com.yura.repairservice.repository.impl.ReviewRepositoryImpl;
 import com.yura.repairservice.repository.impl.InstrumentRepositoryImpl;
 import com.yura.repairservice.repository.impl.OrderRepositoryImpl;
+import com.yura.repairservice.repository.impl.ReviewRepositoryImpl;
 import com.yura.repairservice.repository.impl.UserRepositoryImpl;
-import com.yura.repairservice.service.ReviewService;
 import com.yura.repairservice.service.InstrumentService;
 import com.yura.repairservice.service.OrderService;
+import com.yura.repairservice.service.ReviewService;
 import com.yura.repairservice.service.UserService;
 import com.yura.repairservice.service.encoder.PasswordEncoder;
-import com.yura.repairservice.service.impl.ReviewServiceImpl;
 import com.yura.repairservice.service.impl.InstrumentServiceImpl;
 import com.yura.repairservice.service.impl.OrderServiceImpl;
+import com.yura.repairservice.service.impl.ReviewServiceImpl;
 import com.yura.repairservice.service.impl.UserServiceImpl;
 import com.yura.repairservice.service.mapper.*;
 import com.yura.repairservice.service.validator.*;
@@ -70,7 +70,7 @@ public class ApplicationContextInjector {
     private static final Command ADD_ORDER_COMMAND = new MakeOrderCommand(INSTRUMENT_SERVICE, ORDER_SERVICE);
     private static final Command USER_ALL_ORDERS = new UserOrdersCommand(ORDER_SERVICE);
     private static final Command USER_ORDER_DETAILS_COMMAND = new UserOrderDetailsCommand(ORDER_SERVICE);
-    private static final Command LEAVE_REVIEW_COMMAND = new LeaveReviewCommand(REVIEW_SERVICE, ORDER_SERVICE);
+    private static final Command LEAVE_REVIEW_COMMAND = new LeaveReviewCommand(REVIEW_SERVICE);
     private static final Command ALL_REVIEWS = new AllReviewsCommand(REVIEW_SERVICE);
 
     private static final Command All_USERS_COMMAND = new AllUsersCommand(USER_SERVICE);
@@ -136,7 +136,7 @@ public class ApplicationContextInjector {
         return applicationContextInjector;
     }
 
-    public  Map<String, Command> getUserCommand() {
+    public Map<String, Command> getUserCommand() {
         return COMMAND_NAME_TO_USER_COMMAND;
     }
 
@@ -146,30 +146,5 @@ public class ApplicationContextInjector {
 
     public Map<String, Command> getMasterCommand() {
         return COMMAND_NAME_TO_MASTER_COMMAND;
-    }
-
-    //TODO delete
-    public InstrumentService getInstrumentService() {
-        return INSTRUMENT_SERVICE;
-    }
-
-    //TODO delte
-    public UserService getUserService() {
-        return USER_SERVICE;
-    }
-
-    //TODO delete
-    public OrderRepository getOrderRepository() {
-        return ORDER_REPOSITORY;
-    }
-
-    // TODO delete
-    public OrderService getOrderService() {
-        return ORDER_SERVICE;
-    }
-
-    // TODO delete
-    public ReviewService getCommentService() {
-        return REVIEW_SERVICE;
     }
 }

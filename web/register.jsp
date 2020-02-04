@@ -35,12 +35,8 @@
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase" ><fmt:message key="register.title.body"/></h2>
                 <h3 class="section-subheading text-muted" ><fmt:message key="register.body.subtitle"/></h3>
-                <c:if test="${alreadyRegisteredError}">
-                    <p class="text-danger" ><fmt:message key="register.error.already.registered"/></p>
-                </c:if>
-
-                <c:if test="${registrationError}">
-                    <p class="text-danger" ><fmt:message key="register.error"/></p>
+                <c:if test="${not empty errorMessage}">
+                    <p class="text-danger" ><fmt:message key="${errorMessage}"/></p>
                 </c:if>
             </div>
         </div>

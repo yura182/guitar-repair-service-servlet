@@ -9,10 +9,12 @@ import java.io.IOException;
 public class ErrorHandlerServlet extends HttpServlet {
     private final String page;
     private final String attribute;
+    private final String message;
 
-    public ErrorHandlerServlet(String page, String attribute) {
+    public ErrorHandlerServlet(String page, String attribute, String message) {
         this.page = page;
         this.attribute = attribute;
+        this.message = message;
     }
 
     @Override
@@ -26,7 +28,7 @@ public class ErrorHandlerServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute(attribute, true);
+        req.setAttribute(attribute, message);
         req.getRequestDispatcher("/" + page + ".jsp").forward(req, resp);
     }
 }

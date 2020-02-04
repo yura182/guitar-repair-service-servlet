@@ -1,7 +1,7 @@
 package com.yura.repairservice.repository.impl;
 
-import com.yura.repairservice.entity.ReviewEntity;
 import com.yura.repairservice.entity.OrderEntity;
+import com.yura.repairservice.entity.ReviewEntity;
 import com.yura.repairservice.entity.UserEntity;
 import com.yura.repairservice.repository.ReviewRepository;
 import com.yura.repairservice.repository.connector.DBConnector;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public class ReviewRepositoryImpl extends AbstractRepository<ReviewEntity> implements ReviewRepository {
     private static final String SAVE_QUERY = "INSERT INTO reviews(client_id, order_id, text, date) VALUES (?,?,?,?)";
-    private static final String FIND_ALL= "SELECT " +
+    private static final String FIND_ALL = "SELECT " +
             "r.id as review_id, r.client_id, r.order_id, r.text, r.date, " +
             "u.name, u.surname, u.email " +
             "FROM reviews as r " +

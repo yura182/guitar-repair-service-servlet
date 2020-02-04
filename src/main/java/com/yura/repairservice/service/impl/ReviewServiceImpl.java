@@ -2,7 +2,7 @@ package com.yura.repairservice.service.impl;
 
 import com.yura.repairservice.domain.order.Review;
 import com.yura.repairservice.entity.ReviewEntity;
-import com.yura.repairservice.exception.EntityNotFoundException;
+import com.yura.repairservice.exception.UserNotFoundException;
 import com.yura.repairservice.repository.ReviewRepository;
 import com.yura.repairservice.service.ReviewService;
 import com.yura.repairservice.service.mapper.EntityMapper;
@@ -34,7 +34,7 @@ public class ReviewServiceImpl implements ReviewService {
         return repository
                 .findById(id)
                 .map(mapper::mapEntityToDomain)
-                .orElseThrow(()->new EntityNotFoundException("Review not found with provided id " + id));
+                .orElseThrow(() -> new UserNotFoundException("Review not found with provided id " + id));
     }
 
     @Override

@@ -5,7 +5,6 @@ import com.yura.repairservice.exception.InvalidUserParameterException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

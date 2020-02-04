@@ -18,10 +18,11 @@ public class AdminAllOrdersCommand implements Command, PaginationUtility {
 
     @Override
     public String execute(HttpServletRequest request) {
-        int currentPage = getPaginationParameter(request.getParameter("currentPage"), DEFAULT_PAGINATION_PAGE);
-        int recordsPerPage = getPaginationParameter(request.getParameter("recordsPerPage"), DEFAULT_PAGINATION_RECORDS);
+        int currentPage = getCurrentPage(request);
+        int recordsPerPage = getRecordsPerPage(request);
 
-        List<Order> orders = orderService.findAll(currentPage * recordsPerPage - recordsPerPage, recordsPerPage);
+        List<Order> orders = orderService.findAll(getOffset(currentPage, recordsPerPage), recordsPerPage);
+
         paginate(currentPage, recordsPerPage, orderService.numberOfEntries(), orders, "adminAllOrders", request, "admin");
 
         return "admin-all-orders.jsp";

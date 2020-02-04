@@ -3,7 +3,7 @@ package com.yura.repairservice.service.impl;
 import com.yura.repairservice.domain.user.User;
 import com.yura.repairservice.entity.UserEntity;
 import com.yura.repairservice.exception.AlreadyRegisteredUserException;
-import com.yura.repairservice.exception.EntityNotFoundException;
+import com.yura.repairservice.exception.UserNotFoundException;
 import com.yura.repairservice.repository.UserRepository;
 import com.yura.repairservice.service.UserService;
 import com.yura.repairservice.service.encoder.PasswordEncoder;
@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
         validator.validate(user);
 
         repository.findByEmail(user.getEmail()).ifPresent(u -> {
-            LOGGER.warn("User with such email already exist " + u.getEmail());
             throw new AlreadyRegisteredUserException("User with such email already exist " + u.getEmail());
         });
 
@@ -52,7 +51,7 @@ public class UserServiceImpl implements UserService {
                 .findByEmail(email)
                 .map(mapper::mapEntityToDomain)
                 .filter(user -> Objects.equals(user.getPassword(), passwordEncoder.encode(password)))
-                .orElseThrow(() -> new EntityNotFoundException("User not found with provided email and password"));
+                .orElseThrow(() -> new UserNotFoundException("User not found with " + email + " email and provided password"));
     }
 
     @Override
@@ -60,7 +59,7 @@ public class UserServiceImpl implements UserService {
         return repository
                 .findById(id)
                 .map(mapper::mapEntityToDomain)
-                .orElseThrow(()->new EntityNotFoundException("Order not found with provided id " + id));
+                .orElseThrow(() -> new UserNotFoundException("Order not found with provided id " + id));
     }
 
     @Override

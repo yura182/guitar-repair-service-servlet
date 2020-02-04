@@ -19,6 +19,14 @@ public interface PaginationUtility {
         request.setAttribute("page", page);
     }
 
+    default int getCurrentPage(HttpServletRequest request) {
+        return getPaginationParameter(request.getParameter("currentPage"), DEFAULT_PAGINATION_PAGE);
+    }
+
+    default int getRecordsPerPage(HttpServletRequest request) {
+        return getPaginationParameter(request.getParameter("recordsPerPage"), DEFAULT_PAGINATION_RECORDS);
+    }
+
     default int getPaginationParameter(String parameter, int defaultParameter) {
         int result;
 
@@ -33,5 +41,9 @@ public interface PaginationUtility {
         }
 
         return result > 0 ? result : defaultParameter;
+    }
+
+    default int getOffset(int currentPage, int recordsPerPage) {
+        return currentPage * recordsPerPage - recordsPerPage;
     }
 }

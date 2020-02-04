@@ -39,12 +39,10 @@
                 <h2 class="section-heading text-uppercase"><fmt:message key="review.title.body"/></h2>
                 <h3 class="section-subheading text-muted"><fmt:message key="review.body.subtitle"/></h3>
 
-                <c:if test="${sessionScope.deleteSuccess}">
-                    <p class="text-success" ><fmt:message key="all.reviews.delete.success"/></p>
+                <c:if test="${not empty sessionScope.successMessage}">
+                    <p class="text-success" ><fmt:message key="${sessionScope.successMessage}"/></p>
                 </c:if>
-                <c:remove var="deleteSuccess" scope="session" />
-
-
+                <c:remove var="successMessage" scope="session" />
 
                 <c:forEach var="review" items="${entities}">
                     <div class="blockquote-wrapper">

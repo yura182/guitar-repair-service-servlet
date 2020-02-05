@@ -1,5 +1,6 @@
 package com.yura.repairservice.command.user;
 
+import com.yura.repairservice.domain.user.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -26,6 +27,17 @@ public class LogoutCommandTest {
     @Test
     public void executeShouldReturnPage() {
         when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(User.builder().build());
+        String expected = "redirect:/";
+        String actual = command.execute(request);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void executeShouldReturnPageWithUserNull() {
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(null);
         String expected = "redirect:/";
         String actual = command.execute(request);
 

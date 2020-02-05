@@ -44,4 +44,46 @@ public class UserOrdersCommandTest {
 
         assertEquals(expectedPage, actualPage);
     }
+
+    @Test
+    public void executeShouldReturnPageWithIncorrectPaginationParameter() {
+        when(request.getParameter(anyString())).thenReturn("-1");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(User.builder().withId(1).build());
+        when(orderService.findByClient(anyInt(), anyInt(), anyInt())).thenReturn(Collections.emptyList());
+        when(orderService.numberOfEntriesByClientId(anyInt())).thenReturn(1);
+
+        String expectedPage = "user-all-orders.jsp";
+        String actualPage = userOrdersCommand.execute(request);
+
+        assertEquals(expectedPage, actualPage);
+    }
+
+    @Test
+    public void executeShouldReturnPageWithNullPaginationParameter() {
+        when(request.getParameter(anyString())).thenReturn(null);
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(User.builder().withId(1).build());
+        when(orderService.findByClient(anyInt(), anyInt(), anyInt())).thenReturn(Collections.emptyList());
+        when(orderService.numberOfEntriesByClientId(anyInt())).thenReturn(1);
+
+        String expectedPage = "user-all-orders.jsp";
+        String actualPage = userOrdersCommand.execute(request);
+
+        assertEquals(expectedPage, actualPage);
+    }
+
+    @Test
+    public void executeShouldReturnPageWithNotNumberPaginationParameter() {
+        when(request.getParameter(anyString())).thenReturn("hello");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(User.builder().withId(1).build());
+        when(orderService.findByClient(anyInt(), anyInt(), anyInt())).thenReturn(Collections.emptyList());
+        when(orderService.numberOfEntriesByClientId(anyInt())).thenReturn(1);
+
+        String expectedPage = "user-all-orders.jsp";
+        String actualPage = userOrdersCommand.execute(request);
+
+        assertEquals(expectedPage, actualPage);
+    }
 }

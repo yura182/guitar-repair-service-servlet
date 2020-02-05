@@ -55,9 +55,28 @@ public class UserOrderDetailsCommandTest {
     @Test
     public void executeShouldReturnErrorPage() {
         when(request.getSession()).thenReturn(session);
-        when(session.getAttribute(anyString())).thenReturn(null);
-        when(request.getParameter(anyString())).thenReturn("1");
-        when(orderService.findById(anyInt())).thenReturn(Order.builder().withId(1).build());
+        when(session.getAttribute("user")).thenReturn(User.builder().withId(2).build());
+        when(request.getParameter("orderId")).thenReturn("1");
+        when(orderService.findById(anyInt())).thenReturn(Order.builder()
+                .withId(1)
+                .withUser(User.builder().withId(1).build())
+                .build());
+
+        String expected = "404.jsp";
+        String actual = command.execute(request);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void executeShouldReturnErrorPageWithNullUser() {
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(null);
+        when(request.getParameter("orderId")).thenReturn("1");
+        when(orderService.findById(anyInt())).thenReturn(Order.builder()
+                .withId(1)
+                .withUser(User.builder().withId(1).build())
+                .build());
 
         String expected = "404.jsp";
         String actual = command.execute(request);

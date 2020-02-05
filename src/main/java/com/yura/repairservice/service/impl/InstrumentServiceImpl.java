@@ -3,6 +3,7 @@ package com.yura.repairservice.service.impl;
 import com.yura.repairservice.domain.instrument.Instrument;
 import com.yura.repairservice.entity.InstrumentEntity;
 import com.yura.repairservice.exception.EntityNotFoundException;
+import com.yura.repairservice.exception.UserNotFoundException;
 import com.yura.repairservice.exception.EntitySavingException;
 import com.yura.repairservice.repository.InstrumentRepository;
 import com.yura.repairservice.service.InstrumentService;

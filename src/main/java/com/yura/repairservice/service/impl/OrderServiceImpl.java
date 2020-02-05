@@ -4,9 +4,8 @@ import com.yura.repairservice.domain.instrument.Instrument;
 import com.yura.repairservice.domain.order.Order;
 import com.yura.repairservice.domain.order.Status;
 import com.yura.repairservice.domain.user.User;
-import com.yura.repairservice.entity.InstrumentEntity;
 import com.yura.repairservice.entity.OrderEntity;
-import com.yura.repairservice.exception.EntityNotFoundException;
+import com.yura.repairservice.exception.OrderNotFoundException;
 import com.yura.repairservice.repository.OrderRepository;
 import com.yura.repairservice.service.OrderService;
 import com.yura.repairservice.service.mapper.EntityMapper;
@@ -31,8 +30,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void add(Order order) {
-        instrumentValidator.validate(order.getInstrument());
         orderValidator.validate(order);
+        instrumentValidator.validate(order.getInstrument());
         repository.save(orderMapper.mapDomainToEntity(order));
     }
 
@@ -41,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
         return repository
                 .findById(id)
                 .map(orderMapper::mapEntityToDomain)
-                .orElseThrow(()->new EntityNotFoundException("Order not found with provided id " + id));
+                .orElseThrow(() -> new OrderNotFoundException("Order not found with provided id " + id));
     }
 
     @Override

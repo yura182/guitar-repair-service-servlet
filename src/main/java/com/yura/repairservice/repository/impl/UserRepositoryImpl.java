@@ -1,9 +1,9 @@
 package com.yura.repairservice.repository.impl;
 
-import com.yura.repairservice.repository.UserRepository;
-import com.yura.repairservice.repository.connector.DBConnector;
 import com.yura.repairservice.domain.user.Role;
 import com.yura.repairservice.entity.UserEntity;
+import com.yura.repairservice.repository.UserRepository;
+import com.yura.repairservice.repository.connector.DBConnector;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +13,7 @@ import java.util.Optional;
 public class UserRepositoryImpl extends AbstractRepository<UserEntity> implements UserRepository {
     private static final String SAVE_QUERY = "INSERT INTO users(name, surname, phone_number, email, password, role) VALUES (?,?,?,?,?,?)";
     private static final String FIND_BY_ID_QUERY = "SELECT * FROM users WHERE id = ?";
-    private static final String FIND_ALL_QUERY = "SELECT * FROM users LIMIT ?, ?";
+    private static final String FIND_ALL_QUERY = "SELECT * FROM users ORDER BY id DESC LIMIT ?, ?";
     private static final String UPDATE_QUERY = "UPDATE users SET name = ?, surname = ?, phone_number = ?, email = ?, password = ?, role = ? WHERE id = ?";
     private static final String DELETE_BY_ID_QUERY = "DELETE FROM users WHERE id = ?";
     private static final String FIND_BY_EMAIL_QUERY = "SELECT * FROM users WHERE email = ?";

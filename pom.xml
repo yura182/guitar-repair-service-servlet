@@ -50,7 +50,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
 
@@ -79,7 +79,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.2.3</version>
                 <configuration>
-                    <webXml>web\WEB-INF\web.xml</webXml>
+                    <webXml>${basedir}\web\WEB-INF\web.xml</webXml>
                 </configuration>
             </plugin>
 
@@ -88,6 +88,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
+                    <warSourceDirectory>${basedir}\web\</warSourceDirectory>
                     <port>8080</port>
                     <path>/</path>
                 </configuration>
@@ -99,7 +100,13 @@
                 <version>0.7.7.201606060606</version>
                 <configuration>
                     <excludes>
-<!--                        TODO-->
+                        <exclude>com/yura/repairservice/domain/**/*</exclude>
+                        <exclude>com/yura/repairservice/context/*</exclude>
+                        <exclude>com/yura/repairservice/entity/*</exclude>
+                        <exclude>com/yura/repairservice/exception/*</exclude>
+                        <exclude>com/yura/repairservice/filter/**/*</exclude>
+                        <exclude>com/yura/repairservice/repository/**/*</exclude>
+                        <exclude>com/yura/repairservice/servlet/**/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -120,5 +127,8 @@
         </plugins>
     </build>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
 </project>

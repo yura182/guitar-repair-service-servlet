@@ -19,10 +19,10 @@ public class MasterAllAvailableOrdersCommand implements Command, PaginationUtili
 
     @Override
     public String execute(HttpServletRequest request) {
-        int currentPage = getPaginationParameter(request.getParameter("currentPage"), DEFAULT_PAGINATION_PAGE);
-        int recordsPerPage = getPaginationParameter(request.getParameter("recordsPerPage"), DEFAULT_PAGINATION_RECORDS);
+        int currentPage = getCurrentPage(request);
+        int recordsPerPage = getRecordsPerPage(request);
 
-        List<Order> orders = orderService.findByStatus(Status.ACCEPTED, currentPage * recordsPerPage - recordsPerPage, recordsPerPage);
+        List<Order> orders = orderService.findByStatus(Status.ACCEPTED, getOffset(currentPage, recordsPerPage), recordsPerPage);
         paginate(currentPage, recordsPerPage, orderService.numberOfEntriesByStatus(Status.ACCEPTED), orders, "masterAllAvailableOrders", request, "master");
 
         return "master-all-available-orders.jsp";

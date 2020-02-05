@@ -1,7 +1,5 @@
 package com.yura.repairservice.filter;
 
-import sun.awt.X11.XQueryTree;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +8,6 @@ import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/*"})
 public class LocaleFilter implements Filter {
-    private static final String ENCODING = "UTF-8";
-    private static final String LANG = "lang";
-    private static final String CONTENT = "text/html";
 
     @Override
     public void init(FilterConfig filterConfig) {
@@ -26,12 +21,12 @@ public class LocaleFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        request.setCharacterEncoding(ENCODING);
-        response.setCharacterEncoding(ENCODING);
-        response.setContentType(CONTENT);
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html");
 
-        if (request.getParameter(LANG) != null) {
-            request.getSession().setAttribute(LANG, request.getParameter(LANG));
+        if (request.getParameter("lang") != null) {
+            request.getSession().setAttribute("lang", request.getParameter("lang"));
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

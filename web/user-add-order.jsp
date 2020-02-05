@@ -20,6 +20,8 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon">
 
 </head>
 
@@ -36,13 +38,14 @@
                 <h2 class="section-heading text-uppercase" ><fmt:message key="order.title.body"/></h2>
                 <h3 class="section-subheading text-muted" ><fmt:message key="order.body.subtitle"/></h3>
 
-                <c:if test="${orderError}">
-                    <p class="text-danger" ><fmt:message key="order.error"/></p>
+                <c:if test="${not empty errorMessage}">
+                    <p class="text-danger" ><fmt:message key="${errorMessage}"/></p>
                 </c:if>
 
-                <c:if test="${orderSuccess}">
-                    <p class="text-success" ><fmt:message key="order.success"/></p>
+                <c:if test="${not empty sessionScope.successMessage}">
+                    <p class="text-success" ><fmt:message key="${sessionScope.successMessage}"/></p>
                 </c:if>
+                <c:remove var="successMessage" scope="session" />
             </div>
         </div>
         <div class="row text-center">
@@ -66,13 +69,14 @@
 
                             <div class="wrap-input100 validate-input m-b-16" data-validate = "Year is required">
                                 <input class="input100" type="text" id="year"  name="year"
-                                       placeholder=<fmt:message key="order.field.manufactureYear"/> title=<fmt:message key="order.manufactureYear.error"/>>
+                                       pattern="^[0-9]{4}$"
+                                       placeholder=<fmt:message key="order.field.manufactureYear"/> required title=<fmt:message key="order.manufactureYear.error"/>>
                                 <span class="focus-input100"></span>
                             </div>
 
                             <div class="wrap-input100 validate-input m-b-16" data-validate = "Service is required">
                                 <input class="input100" type="text" id="service"  name="service"
-                                       placeholder=<fmt:message key="order.field.service"/> required title=<fmt:message key="order.service.error"/>>
+                                       placeholder=<fmt:message key="order.field.service"/>  required title=<fmt:message key="order.service.error"/>>
                                 <span class="focus-input100"></span>
                             </div>
 

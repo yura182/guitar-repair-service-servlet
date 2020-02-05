@@ -1,7 +1,6 @@
 package com.yura.repairservice.servlet;
 
 import com.yura.repairservice.command.Command;
-import com.yura.repairservice.domain.user.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,8 +31,8 @@ public class AbstractServlet extends HttpServlet {
         String command = req.getParameter("command");
         String page = commandNameToCommand.getOrDefault(command, request -> "404.jsp").execute(req);
 
-        if ("/".equals(page) || "login.jsp".equals(page)) {
-            resp.sendRedirect(page);
+        if (page.contains("redirect:")) {
+            resp.sendRedirect(page.replaceAll("redirect:", ""));
         } else {
             req.getRequestDispatcher(page).forward(req, resp);
         }

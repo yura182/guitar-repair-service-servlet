@@ -21,6 +21,8 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon">
 
 </head>
 
@@ -36,6 +38,10 @@
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase"><fmt:message key="order.details.title.body"/></h2>
                 <h3 class="section-subheading text-muted"><fmt:message key="order.details.body.subtitle"/></h3>
+                <c:if test="${not empty sessionScope.successMessage}">
+                    <p class="text-success" ><fmt:message key="${sessionScope.successMessage}"/></p>
+                </c:if>
+                <c:remove var="successMessage" scope="session" />
 
                 <table class="table table-striped profile">
                     <tbody>
@@ -70,7 +76,7 @@
                                 <td> </td>
                             </c:when>
                             <c:otherwise>
-                                <td>${order.price}</td>
+                                <td>$<fmt:formatNumber value = "${order.price}" type = "number" maxFractionDigits = "2" minFractionDigits="2"/></td>
                             </c:otherwise>
                         </c:choose>
                     </tr>
@@ -78,12 +84,44 @@
                         <td><span class="profile-header"><fmt:message key="user.orders.table.status"/></span></td>
                         <td><fmt:message key="${order.status.localeDescription}"/></td>
                     </tr>
+
+                        <c:if test="${order.status.name() eq 'REJECTED'}">
                     <tr>
-                        <td><span class="profile-header"><fmt:message key="user.orders.table.rejection.reason"/></span></td>
-                        <td>${order.rejectionReason}</td>
+                            <td><span class="profile-header"><fmt:message key="user.orders.table.rejection.reason"/></span></td>
+                            <td>${order.rejectionReason}</td>
                     </tr>
+                        </c:if>
+
                     </tbody>
                 </table>
+
+                <c:if test="${order.status.name() eq 'COMPLETED'}">
+                <div class="row text-center">
+                    <div class="limiter">
+                        <div class="container-login100">
+                            <div class="wrap-login100 p-t-50 p-b-90">
+                                <form class="login100-form validate-form flex-sb flex-w" action="leave-review" method="post">
+                                    <input type="hidden" name="command" value="leaveReview">
+                                    <input type="hidden" name="orderId" value="${order.id}">
+
+                                    <div class="wrap-input100 validate-input m-b-16 " data-validate = "Text is required">
+                                        <label class="review-label">
+                                            <textarea  class="input100" type="text" name="text" placeholder='<fmt:message key="user.order.details.review"/>'  required></textarea>
+                                            <span class="focus-input100"></span>
+                                        </label>
+                                    </div>
+                                    <div class="container-login100-form-btn m-t-17 leave-review">
+                                        <button class="login100-form-btn" type="submit" >
+                                            <fmt:message key="leave.review.button"/>
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+
 
 
             </div>

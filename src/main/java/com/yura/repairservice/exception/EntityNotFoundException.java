@@ -1,7 +1,9 @@
 package com.yura.repairservice.exception;
 
 public class EntityNotFoundException extends RuntimeException {
+
     public EntityNotFoundException() {
+
     }
 
     public EntityNotFoundException(String message) {

@@ -22,10 +22,8 @@ public class RejectOrderCommand implements Command {
 
         orderService.rejectOrder(order, reason);
 
-        Order updatedOrder = orderService.findById(orderId);
-        request.setAttribute("rejectSuccess", true);
-        request.setAttribute("order", updatedOrder);
+        request.getSession().setAttribute("successMessage", "reject.success");
 
-        return "admin-order-details.jsp";
+        return "redirect:admin?command=adminOrderDetails&orderId=" + orderId;
     }
 }

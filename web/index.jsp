@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
+<%@ taglib prefix="loc" tagdir="/WEB-INF/tags" %>
 
 <html>
 <head>
@@ -42,56 +43,71 @@
                 </li>
                 <c:if test="${sessionScope.user == null}">
                     <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="login.jsp"><fmt:message key="menu.login"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/login.jsp"><fmt:message key="menu.login"/></a>
                     </li>
-                </c:if>
-                <c:if test="${sessionScope.user == null}">
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="register.jsp"><fmt:message key="menu.register"/></a>
-                    </li>
-                </c:if>
 
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/register.jsp"><fmt:message key="menu.register"/></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/reviews?command=allReviews&currentPage=1&recordsPerPage=3"><fmt:message key="menu.reviews"/></a>
+                    </li>
+                </c:if>
                 <c:if test="${sessionScope.user.role.name() eq 'ADMIN'}">
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="admin?command=allUsers&currentPage=1&recordsPerPage=5"><fmt:message key="menu.all.users"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin?command=allUsers&currentPage=1&recordsPerPage=5"><fmt:message key="menu.all.users"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="admin?command=adminAllOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.user.orders"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin?command=adminAllOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.admin.orders"/></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin?command=adminAllReviews&currentPage=1&recordsPerPage=3"><fmt:message key="menu.reviews"/></a>
+                    </li>
+
+                </c:if>
+
+                <c:if test="${sessionScope.user.role.name() eq 'CLIENT'}">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/user-add-order.jsp"><fmt:message key="menu.order"/></a>
+                    </li>
+                    <li class="nav-item" >
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/user?command=userAllOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.user.orders"/></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/reviews?command=allReviews&currentPage=1&recordsPerPage=3"><fmt:message key="menu.reviews"/></a>
                     </li>
                 </c:if>
 
                 <c:if test="${sessionScope.user.role.name() eq 'MASTER'}">
                     <li class="nav-item" >
-                        <a class="nav-link js-scroll-trigger" href="master?command=masterAllAvailableOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.master.available.orders"/></a>
-                    </li>
-                </c:if>
-
-                <c:if test="${sessionScope.user.role.name() eq 'CLIENT'}">
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="user-add-order.jsp"><fmt:message key="menu.order"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/master?command=masterAllAvailableOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.master.available.orders"/></a>
                     </li>
                     <li class="nav-item" >
-                        <a class="nav-link js-scroll-trigger" href="user?command=userAllOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.user.orders"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/master?command=masterProcessingOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.master.processing.orders"/></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/reviews?command=allReviews&currentPage=1&recordsPerPage=3"><fmt:message key="menu.reviews"/></a>
                     </li>
                 </c:if>
 
             </ul>
 
             <ul class="navbar-nav text-uppercase ml-auto">
+                <li class="nav-item nav-lang">
+                    <a class="nav-link js-scroll-trigger small-lang-link" href="<loc:replaceParam name="lang" value="en"/>">Eng</a>
+                </li>
+                <li class="nav-item nav-lang">
+                    <a class="nav-link js-scroll-trigger small-lang-link" href="<loc:replaceParam name="lang" value="ru"/>">Ru</a>
+                </li>
 
-                <li class="nav-item nav-lang">
-                    <a class="nav-link js-scroll-trigger small-lang-link" href="?lang=en">Eng</a>
-                </li>
-                <li class="nav-item nav-lang">
-                    <a class="nav-link js-scroll-trigger small-lang-link" href="?lang=ru">Ru</a>
-                </li>
                 <c:if test="${sessionScope.user != null}">
                     <li class="nav-item nav-lang">
-                        <a class="nav-link js-scroll-trigger small-name-link" href="profile.jsp">${sessionScope.user.email}</a>
+                        <a class="nav-link js-scroll-trigger small-name-link" href="${pageContext.request.contextPath}/profile.jsp">${sessionScope.user.email}</a>
                     </li>
 
                     <li class="nav-item nav-lang" >
-                        <a class="nav-link js-scroll-trigger small-name-link" href="logout?command=logout"><fmt:message key="menu.logout"/></a>
+                        <a class="nav-link js-scroll-trigger small-name-link" href="${pageContext.request.contextPath}/logout?command=logout"><fmt:message key="menu.logout"/></a>
                     </li>
                 </c:if>
 
@@ -106,7 +122,7 @@
         <div class="intro-text">
             <div class="intro-lead-in"><fmt:message key="main.body.welcome"/></div>
             <div class="intro-heading text-uppercase"><fmt:message key="main.body.since"/></div>
-            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/order"><fmt:message key="main.body.make"/></a>
+            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="${pageContext.request.contextPath}/user-add-order.jsp"><fmt:message key="main.body.make"/></a>
         </div>
     </div>
 </header>

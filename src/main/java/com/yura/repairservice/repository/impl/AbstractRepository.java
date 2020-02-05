@@ -144,8 +144,8 @@ public abstract class AbstractRepository<E> implements CrudRepository<E, Integer
             }
             return result;
         } catch (SQLException e) {
-            LOGGER.error("Exception during fetching all entities by string parameter");
-            throw new DBRuntimeException("Exception during fetching all entities by string parameter");
+            LOGGER.error("Exception during fetching all entities by string parameter", e);
+            throw new DBRuntimeException("Exception during fetching all entities by string parameter", e);
         }
     }
 

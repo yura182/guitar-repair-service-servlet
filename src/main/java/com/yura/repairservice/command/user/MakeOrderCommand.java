@@ -5,6 +5,7 @@ import com.yura.repairservice.domain.instrument.Instrument;
 import com.yura.repairservice.domain.order.Order;
 import com.yura.repairservice.domain.order.Status;
 import com.yura.repairservice.domain.user.User;
+import com.yura.repairservice.exception.InvalidParameterException;
 import com.yura.repairservice.service.InstrumentService;
 import com.yura.repairservice.service.OrderService;
 
@@ -33,9 +34,16 @@ public class MakeOrderCommand implements Command {
                 .withUser((User) request.getSession().getAttribute("user"))
                 .withService(request.getParameter("service"))
                 .build();
-        orderService.add(order);
-        request.setAttribute("orderSuccess", true);
 
-        return "user-add-order.jsp";
+        try {
+            orderService.add(order);
+        } catch (InvalidParameterException e) {
+            request.setAttribute("errorMessage", "order.error");
+            return "user-add-order.jsp";
+        }
+
+        request.getSession().setAttribute("successMessage", "order.success");
+
+        return "redirect:user-add-order.jsp";
     }
 }

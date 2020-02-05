@@ -20,6 +20,8 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon">
 
 </head>
 
@@ -36,13 +38,13 @@
                 <h2 class="section-heading text-uppercase"><fmt:message key="login.title.body"/></h2>
                 <h3 class="section-subheading text-muted"><fmt:message key="login.body.subtitle"/></h3>
 
-                <c:if test="${sessionScope.justRegistered != null}">
-                    <p class="text-success" ><fmt:message key="login.just.registered"/></p>
+                <c:if test="${not empty sessionScope.successMessage}">
+                    <p class="text-success" ><fmt:message key="${sessionScope.successMessage}"/></p>
                 </c:if>
-                <c:remove var="justRegistered" scope="session" />
+                <c:remove var="successMessage" scope="session" />
 
-                <c:if test="${loginError}">
-                    <p class="text-danger" ><fmt:message key="login.error"/></p>
+                <c:if test="${not empty errorMessage}">
+                    <p class="text-danger" ><fmt:message key="${errorMessage}"/></p>
                 </c:if>
 
             </div>

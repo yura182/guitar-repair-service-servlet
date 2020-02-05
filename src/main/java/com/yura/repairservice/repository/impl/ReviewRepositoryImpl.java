@@ -1,9 +1,9 @@
 package com.yura.repairservice.repository.impl;
 
-import com.yura.repairservice.entity.CommentEntity;
 import com.yura.repairservice.entity.OrderEntity;
+import com.yura.repairservice.entity.ReviewEntity;
 import com.yura.repairservice.entity.UserEntity;
-import com.yura.repairservice.repository.CommentRepository;
+import com.yura.repairservice.repository.ReviewRepository;
 import com.yura.repairservice.repository.connector.DBConnector;
 
 import java.sql.PreparedStatement;
@@ -13,38 +13,40 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
-public class CommentRepositoryImpl extends AbstractRepository<CommentEntity> implements CommentRepository {
-    private static final String SAVE_QUERY = "INSERT INTO comments(client_id, order_id, text, date) VALUES (?,?,?,?)";
-    private static final String FIND_ALL_QUERY = "SELECT " +
-            "c.id as comments_id, c.client_id, c.order_id, c.text, c.date, " +
+public class ReviewRepositoryImpl extends AbstractRepository<ReviewEntity> implements ReviewRepository {
+    private static final String SAVE_QUERY = "INSERT INTO reviews(client_id, order_id, text, date) VALUES (?,?,?,?)";
+    private static final String FIND_ALL = "SELECT " +
+            "r.id as review_id, r.client_id, r.order_id, r.text, r.date, " +
             "u.name, u.surname, u.email " +
-            "FROM comments as c " +
-            "LEFT JOIN users as u ON c.client_id = u.id";
-    private static final String FIND_BY_ID_QUERY = FIND_ALL_QUERY + " WHERE c.id = ?";
-    private static final String UPDATE_QUERY = "UPDATE comments SET client_id = ?, order_id = ?, text = ?, date = ? WHERE id = ?";
-    private static final String DELETE_BY_ID_QUERY = "DELETE FROM comments WHERE id = ?";
+            "FROM reviews as r " +
+            "LEFT JOIN users as u ON r.client_id = u.id ORDER BY r.id DESC";
+    private static final String LIMIT = " LIMIT ?, ?";
+    private static final String FIND_ALL_QUERY = FIND_ALL + LIMIT;
+    private static final String FIND_BY_ID_QUERY = FIND_ALL_QUERY + " WHERE r.id = ?";
+    private static final String UPDATE_QUERY = "UPDATE reviews SET client_id = ?, order_id = ?, text = ?, date = ? WHERE id = ?";
+    private static final String DELETE_BY_ID_QUERY = "DELETE FROM reviews WHERE id = ?";
     private static final String FIND_ALL_BY_ORDER = FIND_ALL_QUERY + " WHERE order_id = ?";
     private static final String FIND_ALL_BY_CLIENT = FIND_ALL_QUERY + " WHERE client_id = ?";
-    private static final String COUNT_ALL_QUERY = "SELECT COUNT(*) FROM comments";
-    private static final String COUNT_ALL_BY_ORDER_QUERY = "SELECT COUNT(*) FROM comments WHERE order_id = ?";
-    private static final String COUNT_ALL_BY_CLIENT_QUERY = "SELECT COUNT(*) FROM comments WHERE client_id = ?";
+    private static final String COUNT_ALL_QUERY = "SELECT COUNT(*) FROM reviews";
+    private static final String COUNT_ALL_BY_ORDER_QUERY = "SELECT COUNT(*) FROM reviews WHERE order_id = ?";
+    private static final String COUNT_ALL_BY_CLIENT_QUERY = "SELECT COUNT(*) FROM reviews WHERE client_id = ?";
 
-    public CommentRepositoryImpl(DBConnector connector) {
+    public ReviewRepositoryImpl(DBConnector connector) {
         super(connector, SAVE_QUERY, FIND_BY_ID_QUERY, FIND_ALL_QUERY, UPDATE_QUERY, DELETE_BY_ID_QUERY);
     }
 
     @Override
-    public List<CommentEntity> findAllByOrder(Integer orderId, Integer offset, Integer limit) {
+    public List<ReviewEntity> findAllByOrder(Integer orderId, Integer offset, Integer limit) {
         return findAllById(orderId, FIND_ALL_BY_ORDER, offset, limit);
     }
 
     @Override
-    public List<CommentEntity> findAllByClient(Integer clientId, Integer offset, Integer limit) {
+    public List<ReviewEntity> findAllByClient(Integer clientId, Integer offset, Integer limit) {
         return findAllById(clientId, FIND_ALL_BY_CLIENT, offset, limit);
     }
 
     @Override
-    protected void insertStatementMapper(CommentEntity entity, PreparedStatement preparedStatement) throws SQLException {
+    protected void insertStatementMapper(ReviewEntity entity, PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setInt(1, entity.getClient().getId());
         preparedStatement.setInt(2, entity.getOrder().getId());
         preparedStatement.setString(3, entity.getText());
@@ -52,15 +54,15 @@ public class CommentRepositoryImpl extends AbstractRepository<CommentEntity> imp
     }
 
     @Override
-    protected void updateStatementMapper(CommentEntity entity, PreparedStatement preparedStatement) throws SQLException {
+    protected void updateStatementMapper(ReviewEntity entity, PreparedStatement preparedStatement) throws SQLException {
         insertStatementMapper(entity, preparedStatement);
         preparedStatement.setInt(5, entity.getId());
     }
 
     @Override
-    protected Optional<CommentEntity> mapResultSetToEntity(ResultSet resultSet) throws SQLException {
-        return Optional.of(CommentEntity.builder()
-                .withId(resultSet.getInt("comments_id"))
+    protected Optional<ReviewEntity> mapResultSetToEntity(ResultSet resultSet) throws SQLException {
+        return Optional.of(ReviewEntity.builder()
+                .withId(resultSet.getInt("review_id"))
                 .withClient(UserEntity.builder()
                         .withId(resultSet.getInt("client_id"))
                         .withName(resultSet.getString("name"))

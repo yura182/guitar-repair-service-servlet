@@ -5,9 +5,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter("/login.jsp")
-public class LoginFilter implements Filter {
-    private final static String ATTRIBUTE = "user";
+@WebFilter(urlPatterns = {"/login.jsp", "/register.jsp"})
+public class LogoutFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -18,8 +17,8 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
 
-        if (req.getSession().getAttribute(ATTRIBUTE) != null) {
-            req.getSession().removeAttribute(ATTRIBUTE);
+        if (req.getSession().getAttribute("user") != null) {
+            req.getSession().removeAttribute("user");
         }
         chain.doFilter(request, response);
     }

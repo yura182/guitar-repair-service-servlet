@@ -8,7 +8,6 @@ import com.yura.repairservice.service.OrderService;
 import javax.servlet.http.HttpServletRequest;
 
 public class ProcessOrderCommand implements Command {
-
     private final OrderService orderService;
 
     public ProcessOrderCommand(OrderService orderService) {
@@ -23,10 +22,8 @@ public class ProcessOrderCommand implements Command {
 
         orderService.processOrder(order, master);
 
-        Order updatedOrder = orderService.findById(orderId);
-        request.setAttribute("processSuccess", true);
-        request.setAttribute("order", updatedOrder);
+        request.getSession().setAttribute("successMessage", "process.success");
 
-        return "master-order-details.jsp";
+        return "redirect:master?command=masterOrderDetails&orderId=" + orderId;
     }
 }

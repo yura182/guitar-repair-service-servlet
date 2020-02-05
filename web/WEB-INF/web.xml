@@ -10,7 +10,7 @@
 
 
     <error-page>
-        <exception-type>com.yura.repairservice.exception.EntityNotFoundException</exception-type>
+        <exception-type>com.yura.repairservice.exception.UserNotFoundException</exception-type>
         <location>/loginError</location>
     </error-page>
 
@@ -25,6 +25,23 @@
     </error-page>
 
     <error-page>
+        <exception-type>com.yura.repairservice.exception.OrderSaveException</exception-type>
+        <location>/orderError</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>com.yura.repairservice.exception.OrderNotFoundException</exception-type>
+        <location>/404.jsp</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>com.yura.repairservice.exception.InvalidUserParameterException</exception-type>
+        <location>/404.jsp</location>
+    </error-page>
+
+
+
+    <error-page>
         <location>/404.jsp</location>
     </error-page>
 
@@ -33,6 +50,10 @@
         <location>/404.jsp</location>
     </error-page>
 
+    <error-page>
+        <error-code>500</error-code>
+        <location>/404.jsp</location>
+    </error-page>
 
 
 

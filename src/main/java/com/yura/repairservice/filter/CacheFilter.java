@@ -7,8 +7,6 @@ import java.io.IOException;
 
 @WebFilter(urlPatterns = "/*")
 public class CacheFilter implements Filter {
-    private static final String PARAMETER = "Cache-Control";
-    private static final String VALUE = "no-cache, no-store, must-revalidate";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -18,7 +16,7 @@ public class CacheFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse resp = (HttpServletResponse) response;
 
-        resp.setHeader(PARAMETER, VALUE);
+        resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
         chain.doFilter(request, response);
     }

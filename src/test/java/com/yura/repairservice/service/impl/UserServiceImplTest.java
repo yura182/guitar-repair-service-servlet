@@ -74,6 +74,7 @@ public class UserServiceImplTest {
 
         userService.register(null);
     }
+
     @Test
     public void registerShouldThrowAlreadyRegisteredException() {
         exception.expect(AlreadyRegisteredUserException.class);

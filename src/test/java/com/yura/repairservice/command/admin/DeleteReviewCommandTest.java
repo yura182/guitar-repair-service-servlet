@@ -1,7 +1,6 @@
-package com.yura.repairservice.command.master;
+package com.yura.repairservice.command.admin;
 
-import com.yura.repairservice.domain.order.Order;
-import com.yura.repairservice.service.OrderService;
+import com.yura.repairservice.service.ReviewService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,9 +15,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CompleteOrderCommandTest {
+public class DeleteReviewCommandTest {
     @Mock
-    private OrderService orderService;
+    private ReviewService reviewService;
 
     @Mock
     private HttpServletRequest request;
@@ -27,18 +26,17 @@ public class CompleteOrderCommandTest {
     private HttpSession session;
 
     @InjectMocks
-    private CompleteOrderCommand command;
+    private DeleteReviewCommand command;
 
     @Test
     public void executeShouldReturnPage() {
-        when(request.getParameter("orderId")).thenReturn("1");
-        when(orderService.findById(1)).thenReturn(Order.builder().build());
+        when(request.getParameter("reviewId")).thenReturn("1");
         when(request.getSession()).thenReturn(session);
 
-        String expected = "redirect:master?command=masterOrderDetails&orderId=1";
+        String expected = "redirect:admin?command=adminAllReviews&recordsPerPage=3&currentPage=1";
         String actual = command.execute(request);
 
-        verify(session).setAttribute("successMessage", "complete.success");
+        verify(session).setAttribute("successMessage", "all.reviews.delete.success");
         assertEquals(expected, actual);
     }
 }

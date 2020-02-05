@@ -267,8 +267,6 @@ public class OrderServiceImplTest {
     }
 
 
-
-
     private static Order getOrder() {
         return Order.builder()
                 .withInstrument(Instrument.builder()

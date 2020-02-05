@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class UserValidatorTest {
-    private final Validator<User> userValidator= new UserValidator();
+    private final Validator<User> userValidator = new UserValidator();
 
     @Rule
     public ExpectedException exception = ExpectedException.none();

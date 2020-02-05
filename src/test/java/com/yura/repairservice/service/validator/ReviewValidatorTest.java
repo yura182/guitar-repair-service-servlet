@@ -74,5 +74,4 @@ public class ReviewValidatorTest {
                 .withDate(LocalDateTime.of(1900, 12, 12, 12, 12))
                 .build());
     }
-
 }

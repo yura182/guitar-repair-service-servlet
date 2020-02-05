@@ -8,7 +8,6 @@ import com.yura.repairservice.service.OrderService;
 import javax.servlet.http.HttpServletRequest;
 
 public class ProcessOrderCommand implements Command {
-
     private final OrderService orderService;
 
     public ProcessOrderCommand(OrderService orderService) {

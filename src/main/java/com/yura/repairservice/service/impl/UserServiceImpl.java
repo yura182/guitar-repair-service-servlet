@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
         return repository
                 .findById(id)
                 .map(mapper::mapEntityToDomain)
-                .orElseThrow(() -> new UserNotFoundException("Order not found with provided id " + id));
+                .orElseThrow(() -> new UserNotFoundException("User not found with provided id " + id));
     }
 
     @Override

@@ -11,6 +11,8 @@ public class InstrumentValidator implements Validator<Instrument> {
     public void validate(Instrument instrument) {
         validateNotNull(instrument, "Instrument is null", LOGGER);
         validateNotNull(instrument.getBrand(), "Brand is null", LOGGER);
+        validateNotEmpty(instrument.getBrand(), "Brand is empty", LOGGER);
         validateNotNull(instrument.getModel(), "Model is null", LOGGER);
+        validateNotEmpty(instrument.getModel(), "Model is empty", LOGGER);
     }
 }

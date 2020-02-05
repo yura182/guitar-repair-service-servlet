@@ -2,6 +2,7 @@ package com.yura.repairservice.service.impl;
 
 import com.yura.repairservice.domain.instrument.Instrument;
 import com.yura.repairservice.entity.InstrumentEntity;
+import com.yura.repairservice.exception.EntityNotFoundException;
 import com.yura.repairservice.exception.UserNotFoundException;
 import com.yura.repairservice.exception.EntitySavingException;
 import com.yura.repairservice.repository.InstrumentRepository;
@@ -35,7 +36,7 @@ public class InstrumentServiceImpl implements InstrumentService {
         return repository
                 .findById(id)
                 .map(mapper::mapEntityToDomain)
-                .orElseThrow(() -> new UserNotFoundException("Instrument not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Instrument not found"));
     }
 
     @Override

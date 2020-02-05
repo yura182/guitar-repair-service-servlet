@@ -21,7 +21,6 @@ public class InstrumentRepositoryImpl extends AbstractRepository<InstrumentEntit
         super(connector, SAVE_QUERY, FIND_BY_ID_QUERY, FIND_ALL_QUERY, UPDATE_QUERY, DELETE_BY_ID_QUERY);
     }
 
-
     @Override
     protected void insertStatementMapper(InstrumentEntity entity, PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setString(1, entity.getBrand());

@@ -7,6 +7,7 @@ import com.yura.repairservice.domain.user.User;
 import com.yura.repairservice.entity.InstrumentEntity;
 import com.yura.repairservice.entity.OrderEntity;
 import com.yura.repairservice.entity.UserEntity;
+import com.yura.repairservice.exception.InvalidParameterException;
 import com.yura.repairservice.exception.OrderNotFoundException;
 import com.yura.repairservice.repository.OrderRepository;
 import com.yura.repairservice.service.mapper.EntityMapper;
@@ -45,15 +46,12 @@ public class OrderServiceImplTest {
     @Mock
     private Validator<Order> orderValidator;
 
-    @Mock
-    private Validator<Instrument> instrumentValidator;
-
     @InjectMocks
     private OrderServiceImpl orderService;
 
     @After
     public void resetMocks() {
-        reset(orderRepository, orderMapper, orderValidator, instrumentValidator);
+        reset(orderRepository, orderMapper, orderValidator);
     }
 
     @Test
@@ -64,6 +62,14 @@ public class OrderServiceImplTest {
         orderService.add(ORDER);
 
         verify(orderRepository).save(ORDER_ENTITY);
+    }
+
+    @Test
+    public void addShouldThrowInvalidParameterExceptionForNull() {
+        exception.expect(InvalidParameterException.class);
+        doThrow(InvalidParameterException.class).when(orderValidator).validate(null);
+
+        orderService.add(null);
     }
 
     @Test

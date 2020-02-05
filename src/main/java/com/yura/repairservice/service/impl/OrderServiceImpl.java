@@ -30,8 +30,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void add(Order order) {
-        instrumentValidator.validate(order.getInstrument());
         orderValidator.validate(order);
+        instrumentValidator.validate(order.getInstrument());
         repository.save(orderMapper.mapDomainToEntity(order));
     }
 

@@ -5,6 +5,7 @@ import com.yura.repairservice.entity.InstrumentEntity;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class InstrumentMapperTest {
     private static final Instrument INSTRUMENT = getInstrument();
@@ -24,6 +25,20 @@ public class InstrumentMapperTest {
         InstrumentEntity actual = instrumentMapper.mapDomainToEntity(INSTRUMENT);
 
         assertEquals(INSTRUMENT_ENTITY, actual);
+    }
+
+    @Test
+    public void mapEntityToDomainShouldReturnNull() {
+        Instrument actual = instrumentMapper.mapEntityToDomain(null);
+
+        assertNull(actual);
+    }
+
+    @Test
+    public void mapDomainToEntityShouldReturnNull() {
+        InstrumentEntity actual = instrumentMapper.mapDomainToEntity(null);
+
+        assertNull(actual);
     }
 
     private static Instrument getInstrument() {

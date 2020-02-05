@@ -13,6 +13,7 @@ import org.junit.Test;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -54,6 +55,20 @@ public class OrderMapperTest {
         OrderEntity actual = orderMapper.mapDomainToEntity(ORDER);
 
         assertEquals(ORDER_ENTITY, actual);
+    }
+
+    @Test
+    public void mapEntityToDomainShouldReturnNull() {
+        Order actual = orderMapper.mapEntityToDomain(null);
+
+        assertNull(actual);
+    }
+
+    @Test
+    public void mapDomainToEntityShouldReturnNull() {
+        OrderEntity actual = orderMapper.mapDomainToEntity(null);
+
+        assertNull(actual);
     }
 
     private static Order getOrder() {

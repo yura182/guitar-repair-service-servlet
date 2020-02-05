@@ -100,13 +100,13 @@
                 <version>0.7.7.201606060606</version>
                 <configuration>
                     <excludes>
-                        <exclude>domain/*</exclude>
-                        <exclude>context/*</exclude>
-                        <exclude>entity/*</exclude>
-                        <exclude>exception/*</exclude>
-                        <exclude>filter/*</exclude>
-                        <exclude>repository/*</exclude>
-                        <exclude>servlet/*</exclude>
+                        <exclude>com/yura/repairservice/domain/**/*</exclude>
+                        <exclude>com/yura/repairservice/context/*</exclude>
+                        <exclude>com/yura/repairservice/entity/*</exclude>
+                        <exclude>com/yura/repairservice/exception/*</exclude>
+                        <exclude>com/yura/repairservice/filter/**/*</exclude>
+                        <exclude>com/yura/repairservice/repository/**/*</exclude>
+                        <exclude>com/yura/repairservice/servlet/**/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

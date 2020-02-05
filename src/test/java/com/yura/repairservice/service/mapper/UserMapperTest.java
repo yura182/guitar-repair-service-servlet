@@ -6,6 +6,7 @@ import com.yura.repairservice.entity.UserEntity;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class UserMapperTest {
     private static final User USER = getUser();
@@ -25,6 +26,20 @@ public class UserMapperTest {
         UserEntity actual = userMapper.mapDomainToEntity(USER);
 
         assertEquals(USER_ENTITY, actual);
+    }
+
+    @Test
+    public void mapDomainToEntityShouldReturnNull() {
+        UserEntity actual = userMapper.mapDomainToEntity(null);
+
+        assertNull(actual);
+    }
+
+    @Test
+    public void mapEntityToDomainShouldReturnNull() {
+        User actual = userMapper.mapEntityToDomain(null);
+
+        assertNull(actual);
     }
 
     private static User getUser() {

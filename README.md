@@ -41,4 +41,8 @@ ADMIN otec@gmail.com - 12345678
 MASTER top@gmail.com - 12345678
 CLIENT neil@gmail.com - 12345678
 ```
+## Tests coverage
+![image](http://i.piccy.info/i9/94b05a939ecad157cc8c1d18943537d1/1580940314/91832/1360567/coverage.jpg)
+
+## Main Page
 ![image](http://i.piccy.info/i9/94945f3b7a6579486aad3bbc2a7ee99b/1580829639/53445/1360567/guitar.jpg)

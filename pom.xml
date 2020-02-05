@@ -100,7 +100,13 @@
                 <version>0.7.7.201606060606</version>
                 <configuration>
                     <excludes>
-<!--                        TODO-->
+                        <exclude>domain/*</exclude>
+                        <exclude>context/*</exclude>
+                        <exclude>entity/*</exclude>
+                        <exclude>exception/*</exclude>
+                        <exclude>filter/*</exclude>
+                        <exclude>repository/*</exclude>
+                        <exclude>servlet/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

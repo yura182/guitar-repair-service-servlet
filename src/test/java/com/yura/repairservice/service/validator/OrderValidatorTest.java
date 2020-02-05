@@ -11,8 +11,6 @@ import org.junit.rules.ExpectedException;
 
 import java.time.LocalDateTime;
 
-import static org.junit.Assert.*;
-
 public class OrderValidatorTest {
     private final Validator<Order> orderValidator = new OrderValidator();
 

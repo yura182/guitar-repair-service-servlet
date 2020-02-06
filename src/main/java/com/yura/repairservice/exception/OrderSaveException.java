@@ -3,7 +3,6 @@ package com.yura.repairservice.exception;
 public class OrderSaveException extends RuntimeException {
 
     public OrderSaveException() {
-
     }
 
     public OrderSaveException(String message) {

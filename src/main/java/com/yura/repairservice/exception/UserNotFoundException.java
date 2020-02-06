@@ -1,6 +1,7 @@
 package com.yura.repairservice.exception;
 
 public class UserNotFoundException extends RuntimeException {
+
     public UserNotFoundException() {
     }
 

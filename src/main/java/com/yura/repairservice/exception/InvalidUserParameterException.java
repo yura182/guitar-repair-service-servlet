@@ -1,6 +1,7 @@
 package com.yura.repairservice.exception;
 
 public class InvalidUserParameterException extends RuntimeException {
+
     public InvalidUserParameterException() {
     }
 

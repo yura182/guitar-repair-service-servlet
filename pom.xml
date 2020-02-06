@@ -10,6 +10,7 @@
     <packaging>war</packaging>
 
     <dependencies>
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -60,10 +61,12 @@
             <version>2.23.4</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -124,6 +127,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 

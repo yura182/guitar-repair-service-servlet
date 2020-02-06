@@ -46,7 +46,6 @@ public class LoginCommandTest {
     @Test
     public void executeShouldReturnErrorPage() {
         when(request.getParameter(anyString())).thenReturn("parameter");
-        when(request.getSession()).thenReturn(session);
         doThrow(UserNotFoundException.class).when(userService).login(anyString(), anyString());
 
         String expected = "login.jsp";

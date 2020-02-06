@@ -24,7 +24,7 @@ public interface OrderService {
 
     void rejectOrder(Order order, String rejectionReason);
 
-    void processOrder(Order order, User master);
+    boolean processOrder(Order order, User master);
 
     void completeOrder(Order order);
 

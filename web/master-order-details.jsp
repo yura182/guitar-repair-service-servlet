@@ -44,6 +44,11 @@
                 </c:if>
                 <c:remove var="successMessage" scope="session" />
 
+                <c:if test="${not empty sessionScope.errorMessage}">
+                    <p class="text-danger" ><fmt:message key="${sessionScope.errorMessage}"/></p>
+                </c:if>
+                <c:remove var="errorMessage" scope="session" />
+
                 <table class="table table-striped profile">
                     <tbody>
                     <tr>
@@ -119,7 +124,7 @@
                         </div>
                     </div>
                 </c:if>
-                <c:if test="${order.status.name() eq 'PROCESSING'}">
+                <c:if test="${order.status.name() eq 'PROCESSING' && sessionScope.user.id eq order.master.id}">
                     <div class="row text-center">
                         <div class="limiter">
                             <div class="container-login100">

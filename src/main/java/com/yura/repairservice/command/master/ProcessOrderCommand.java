@@ -20,9 +20,14 @@ public class ProcessOrderCommand implements Command {
         Order order = orderService.findById(orderId);
         User master = (User) request.getSession().getAttribute("user");
 
-        orderService.processOrder(order, master);
+        if (orderService.processOrder(order, master)) {
+            request.getSession().setAttribute("successMessage", "process.success");
+        } else {
+            request.getSession().setAttribute("errorMessage", "process.error");
+        }
 
-        request.getSession().setAttribute("successMessage", "process.success");
+
+
 
         return "redirect:master?command=masterOrderDetails&orderId=" + orderId;
     }

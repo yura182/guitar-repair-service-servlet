@@ -8,38 +8,10 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
-
     <error-page>
-        <exception-type>com.yura.repairservice.exception.UserNotFoundException</exception-type>
-        <location>/loginError</location>
-    </error-page>
-
-    <error-page>
-        <exception-type>com.yura.repairservice.exception.AlreadyRegisteredUserException</exception-type>
-        <location>/alreadyRegisteredError</location>
-    </error-page>
-
-    <error-page>
-        <exception-type>com.yura.repairservice.exception.InvalidUserParameterException</exception-type>
-        <location>/registrationError</location>
-    </error-page>
-
-    <error-page>
-        <exception-type>com.yura.repairservice.exception.OrderSaveException</exception-type>
-        <location>/orderError</location>
-    </error-page>
-
-    <error-page>
-        <exception-type>com.yura.repairservice.exception.OrderNotFoundException</exception-type>
+        <exception-type>java.lang.Throwable</exception-type >
         <location>/404.jsp</location>
     </error-page>
-
-    <error-page>
-        <exception-type>com.yura.repairservice.exception.InvalidUserParameterException</exception-type>
-        <location>/404.jsp</location>
-    </error-page>
-
-
 
     <error-page>
         <location>/404.jsp</location>

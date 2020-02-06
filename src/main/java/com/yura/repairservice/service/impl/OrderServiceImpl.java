@@ -90,8 +90,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void processOrder(Order order, User master) {
-        repository.update(orderMapper.mapDomainToEntity(new Order(order, Status.PROCESSING, master)));
+    public boolean processOrder(Order order, User master) {
+        return repository.update(orderMapper.mapDomainToEntity(new Order(order, Status.PROCESSING, master)));
     }
 
     @Override

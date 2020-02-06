@@ -36,10 +36,12 @@ public class RegisterCommand implements Command {
         } catch (InvalidUserParameterException e) {
             LOGGER.warn("Validation error " + e);
             request.setAttribute("errorMessage", "register.error");
+
             return "register.jsp";
         } catch (AlreadyRegisteredUserException e) {
             LOGGER.warn("User with such email already exist " + e);
             request.setAttribute("errorMessage", "register.error.already.registered");
+
             return "register.jsp";
         }
 

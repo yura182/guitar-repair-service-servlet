@@ -1327,6 +1327,7 @@ textarea.input100 {
 .details-link {
   font-size: 16px;
   color: #212529;
+  line-height:normal;
 }
 
 .details-link:hover {

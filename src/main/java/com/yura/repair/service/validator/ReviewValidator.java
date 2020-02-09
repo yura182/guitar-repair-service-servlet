@@ -11,7 +11,7 @@ public class ReviewValidator implements Validator<ReviewDto> {
     public void validate(ReviewDto reviewDto) {
         validateNotNull(reviewDto, "Review is null", LOGGER);
         validateNotNull(reviewDto.getClient(), "Client is null", LOGGER);
-        validateNotNull(reviewDto.getOrderDto(), "Order is null", LOGGER);
+        validateNotNull(reviewDto.getOrder(), "Order is null", LOGGER);
         validateNotNull(reviewDto.getText(), "Text is null", LOGGER);
         validateNotNull(reviewDto.getDate(), "Date is null", LOGGER);
     }

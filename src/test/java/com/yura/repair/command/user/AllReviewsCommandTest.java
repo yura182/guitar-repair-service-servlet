@@ -33,7 +33,7 @@ public class AllReviewsCommandTest {
         when(reviewService.findAll(anyInt(), anyInt())).thenReturn(Collections.emptyList());
         when(reviewService.numberOfEntries()).thenReturn(5);
 
-        String expected = "user-reviews.jsp";
+        String expected = "reviews.jsp";
         String actual = command.execute(request);
 
         assertEquals(expected, actual);

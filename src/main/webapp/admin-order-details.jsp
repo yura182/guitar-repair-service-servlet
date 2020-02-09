@@ -115,7 +115,7 @@
                         <div class="limiter">
                             <div class="container-login100">
                                 <div class="wrap-login100 p-t-50 p-b-90">
-                                    <form class="login100-form validate-form flex-sb flex-w" action="accept-order" method="post">
+                                    <form class="login100-form validate-form flex-sb flex-w" action="admin" method="post">
                                         <input type="hidden" name="command" value="acceptOrder">
                                         <input type="hidden" name="orderId" value="${order.id}">
 
@@ -141,7 +141,7 @@
                         <div class="limiter">
                             <div class="container-login100">
                                 <div class="wrap-login100 p-t-50 p-b-90">
-                                    <form class="login100-form validate-form flex-sb flex-w" action="reject-order" method="post">
+                                    <form class="login100-form validate-form flex-sb flex-w" action="admin" method="post">
                                         <input type="hidden" name="command" value="rejectOrder">
                                         <input type="hidden" name="orderId" value="${order.id}">
 

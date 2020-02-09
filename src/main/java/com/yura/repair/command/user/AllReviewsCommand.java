@@ -24,7 +24,7 @@ public class AllReviewsCommand implements Command, PaginationUtility {
 
         paginate(currentPage, recordsPerPage, reviewService.numberOfEntries(), reviews, "allReviews", request, "reviews");
 
-        return "user-reviews.jsp";
+        return "reviews.jsp";
     }
 
 

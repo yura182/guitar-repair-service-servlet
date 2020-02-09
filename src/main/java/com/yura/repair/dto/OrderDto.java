@@ -101,7 +101,7 @@ public class OrderDto {
         return master;
     }
 
-    public InstrumentDto getInstrumentDto() {
+    public InstrumentDto getInstrument() {
         return instrumentDto;
     }
 

@@ -26,7 +26,7 @@ public class ReviewDto {
         return client;
     }
 
-    public OrderDto getOrderDto() {
+    public OrderDto getOrder() {
         return orderDto;
     }
 

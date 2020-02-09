@@ -34,11 +34,11 @@ import com.yura.repair.service.mapper.*;
 import com.yura.repair.service.validator.*;
 import org.apache.commons.dbcp.BasicDataSource;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ApplicationContextInjector {
     private static final String DATABASE_PROPERTY_FILE = "database";
+
 
     private static final BasicDataSource BASIC_DATA_SOURCE = new BasicDataSource();
     private static final DBConnector CONNECTOR = new DBConnector(DATABASE_PROPERTY_FILE, BASIC_DATA_SOURCE);
@@ -90,15 +90,20 @@ public class ApplicationContextInjector {
     private static final Map<String, Command> COMMAND_NAME_TO_USER_COMMAND = new HashMap<>();
     private static final Map<String, Command> COMMAND_NAME_TO_ADMIN_COMMAND = new HashMap<>();
     private static final Map<String, Command> COMMAND_NAME_TO_MASTER_COMMAND = new HashMap<>();
+    private static final Map<String, Command> COMMAND_NAME_TO_DEFAULT_COMMAND = new HashMap<>();
+
+    private static final List<String> adminPages = new ArrayList<>();
+    private static final List<String> masterPages = new ArrayList<>();
+    private static final List<String> userPages = new ArrayList<>();
 
     static {
-        COMMAND_NAME_TO_USER_COMMAND.put("login", LOGIN_COMMAND);
-        COMMAND_NAME_TO_USER_COMMAND.put("register", REGISTER_COMMAND);
         COMMAND_NAME_TO_USER_COMMAND.put("logout", LOGOUT_COMMAND);
         COMMAND_NAME_TO_USER_COMMAND.put("makeOrder", ADD_ORDER_COMMAND);
         COMMAND_NAME_TO_USER_COMMAND.put("userAllOrders", USER_ALL_ORDERS);
         COMMAND_NAME_TO_USER_COMMAND.put("userOrderDetails", USER_ORDER_DETAILS_COMMAND);
         COMMAND_NAME_TO_USER_COMMAND.put("leaveReview", LEAVE_REVIEW_COMMAND);
+        COMMAND_NAME_TO_USER_COMMAND.put("login", LOGIN_COMMAND);
+        COMMAND_NAME_TO_USER_COMMAND.put("register", REGISTER_COMMAND);
         COMMAND_NAME_TO_USER_COMMAND.put("allReviews", ALL_REVIEWS);
     }
 
@@ -120,6 +125,12 @@ public class ApplicationContextInjector {
         COMMAND_NAME_TO_MASTER_COMMAND.put("masterProcessingOrders", MASTER_PROCESSING_ORDERS_COMMAND);
     }
 
+    static {
+        adminPages.add("/admin");
+        masterPages.add("/master");
+        userPages.addAll(Arrays.asList("/login", "/register", "/reviews", "/user", "/logout"));
+    }
+
     private static volatile ApplicationContextInjector applicationContextInjector;
 
     private ApplicationContextInjector() {
@@ -136,15 +147,15 @@ public class ApplicationContextInjector {
         return applicationContextInjector;
     }
 
-    public Map<String, Command> getUserCommand() {
-        return COMMAND_NAME_TO_USER_COMMAND;
-    }
+    public Map<String, Command> getCommand(String page) {
+        if (adminPages.contains(page)) {
+            return COMMAND_NAME_TO_ADMIN_COMMAND;
+        } else if (masterPages.contains(page)) {
+            return COMMAND_NAME_TO_MASTER_COMMAND;
+        } else if (userPages.contains(page)) {
+            return COMMAND_NAME_TO_USER_COMMAND;
+        }
 
-    public Map<String, Command> getAdminCommand() {
-        return COMMAND_NAME_TO_ADMIN_COMMAND;
-    }
-
-    public Map<String, Command> getMasterCommand() {
-        return COMMAND_NAME_TO_MASTER_COMMAND;
+        return COMMAND_NAME_TO_DEFAULT_COMMAND;
     }
 }

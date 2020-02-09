@@ -39,7 +39,7 @@ public class OrderMapper implements EntityMapper<OrderEntity, OrderDto> {
                 .withId(orderDto.getId())
                 .withUser(userMapper.mapDomainToEntity(orderDto.getClient()))
                 .withMaster(userMapper.mapDomainToEntity(orderDto.getMaster()))
-                .withInstrument(instrumentMapper.mapDomainToEntity(orderDto.getInstrumentDto()))
+                .withInstrument(instrumentMapper.mapDomainToEntity(orderDto.getInstrument()))
                 .withDate(orderDto.getDateTime())
                 .withService(orderDto.getService())
                 .withPrice(orderDto.getPrice())

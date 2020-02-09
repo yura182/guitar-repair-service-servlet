@@ -53,7 +53,7 @@
                                 </div>
 
                                 <div class="info-right">
-                                    <form method="post" action="delete-review">
+                                    <form method="post" action="admin">
                                         <input type="hidden" name="reviewId" value="${review.id}" />
                                         <input type="hidden"  name="command" value="deleteReview" />
 

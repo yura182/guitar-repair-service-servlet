@@ -31,7 +31,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void add(OrderDto orderDto) {
         orderValidator.validate(orderDto);
-        instrumentValidator.validate(orderDto.getInstrumentDto());
+        instrumentValidator.validate(orderDto.getInstrument());
         repository.save(orderMapper.mapDomainToEntity(orderDto));
     }
 

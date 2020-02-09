@@ -23,7 +23,7 @@ public class ReviewMapper implements EntityMapper<ReviewEntity, ReviewDto> {
         return Objects.isNull(entity) ? null : ReviewEntity.builder()
                 .withId(entity.getId())
                 .withClient(userMapper.mapDomainToEntity(entity.getClient()))
-                .withOrder(orderMapper.mapDomainToEntity(entity.getOrderDto()))
+                .withOrder(orderMapper.mapDomainToEntity(entity.getOrder()))
                 .withText(entity.getText())
                 .withDate(entity.getDate())
                 .build();

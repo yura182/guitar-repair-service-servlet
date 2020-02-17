@@ -1,11 +1,12 @@
 package com.yura.repair.command.admin;
 
 import com.yura.repair.command.Command;
+import com.yura.repair.command.MultipleMethodCommand;
 import com.yura.repair.service.ReviewService;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class DeleteReviewCommand implements Command {
+public class DeleteReviewCommand extends MultipleMethodCommand {
     private final ReviewService reviewService;
 
     public DeleteReviewCommand(ReviewService reviewService) {
@@ -13,11 +14,16 @@ public class DeleteReviewCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) {
+    protected String executeGet(HttpServletRequest request) {
+        return null;
+    }
+
+    @Override
+    protected String executePost(HttpServletRequest request) {
         reviewService.delete(Integer.parseInt(request.getParameter("reviewId")));
 
         request.getSession().setAttribute("successMessage", "all.reviews.delete.success");
 
-        return "redirect:admin?command=adminAllReviews&recordsPerPage=3&currentPage=1";
+        return "redirect:admin/reviews?recordsPerPage=3&currentPage=1";
     }
 }

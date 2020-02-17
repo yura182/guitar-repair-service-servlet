@@ -14,9 +14,9 @@
 
     <title><fmt:message key="reviews.title"/></title>
 
-    <link href="${pageContext.request.contextPath}/css/agency.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css"  rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/agency.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -29,7 +29,7 @@
 <body id="page-top">
 
 <!-- Navigation -->
-<c:import url="WEB-INF/pages/menu.jsp"/>
+<c:import url="menu.jsp"/>
 
 
 <section class="page-section" id="services">
@@ -49,14 +49,12 @@
                         <div class="blockquote">
                             <div class="review-admin-info-wrapper">
                                 <div class="info-left">
-                                    <a class="details-link" href="${pageContext.request.contextPath}/admin?command=adminOrderDetails&orderId=${review.order.id}">Order id ${review.order.id}</a>
+                                    <a class="details-link" href="${pageContext.request.contextPath}/admin/order-details?orderId=${review.order.id}">Order id ${review.order.id}</a>
                                 </div>
 
                                 <div class="info-right">
-                                    <form method="post" action="admin">
+                                    <form method="post" action="/admin/delete-review">
                                         <input type="hidden" name="reviewId" value="${review.id}" />
-                                        <input type="hidden"  name="command" value="deleteReview" />
-
                                         <button type="submit" name="submit" value="value" class="link-button"><fmt:message key="reviews.delete"/></button>
                                     </form>
                                 </div>
@@ -72,7 +70,7 @@
                     </div>
                 </c:forEach>
 
-                <c:import url="WEB-INF/pages/pagination.jsp"/>
+                <c:import url="pagination.jsp"/>
             </div>
         </div>
     </div>

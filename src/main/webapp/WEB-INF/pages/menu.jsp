@@ -12,7 +12,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-shrink" id="mainNav">
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="index.jsp">Guitar Service</a>
+        <a class="navbar-brand js-scroll-trigger" href="/">Guitar Service</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars"></i>
@@ -35,13 +35,13 @@
                 </c:if>
                 <c:if test="${sessionScope.user.role.name() eq 'ADMIN'}">
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin?command=allUsers&currentPage=1&recordsPerPage=5"><fmt:message key="menu.all.users"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin/users?currentPage=1&recordsPerPage=5"><fmt:message key="menu.all.users"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin?command=adminAllOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.admin.orders"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin/orders?currentPage=1&recordsPerPage=5"><fmt:message key="menu.admin.orders"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin?command=adminAllReviews&currentPage=1&recordsPerPage=3"><fmt:message key="menu.reviews"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin/reviews?currentPage=1&recordsPerPage=3"><fmt:message key="menu.reviews"/></a>
                     </li>
 
                 </c:if>

@@ -56,13 +56,13 @@
                 </c:if>
                 <c:if test="${sessionScope.user.role.name() eq 'ADMIN'}">
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin?command=allUsers&currentPage=1&recordsPerPage=5"><fmt:message key="menu.all.users"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin/users?currentPage=1&recordsPerPage=5"><fmt:message key="menu.all.users"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin?command=adminAllOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.admin.orders"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin/orders?currentPage=1&recordsPerPage=5"><fmt:message key="menu.admin.orders"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin?command=adminAllReviews&currentPage=1&recordsPerPage=3"><fmt:message key="menu.reviews"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/admin/reviews?currentPage=1&recordsPerPage=3"><fmt:message key="menu.reviews"/></a>
                     </li>
 
                 </c:if>
@@ -122,7 +122,7 @@
         <div class="intro-text">
             <div class="intro-lead-in"><fmt:message key="main.body.welcome"/></div>
             <div class="intro-heading text-uppercase"><fmt:message key="main.body.since"/></div>
-            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="${pageContext.request.contextPath}/client-add-order.jsp"><fmt:message key="main.body.make"/></a>
+            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="${pageContext.request.contextPath}/client/add-order"><fmt:message key="main.body.make"/></a>
         </div>
     </div>
 </header>

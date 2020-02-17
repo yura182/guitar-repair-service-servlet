@@ -109,13 +109,13 @@ public class ApplicationContextInjector {
     }
 
     static {
-        COMMAND_NAME_TO_ADMIN_COMMAND.put("allUsers", All_USERS_COMMAND);
-        COMMAND_NAME_TO_ADMIN_COMMAND.put("adminAllOrders", ALL_ORDERS_COMMAND);
-        COMMAND_NAME_TO_ADMIN_COMMAND.put("adminOrderDetails", ADMIN_ORDER_DETAILS_COMMAND);
-        COMMAND_NAME_TO_ADMIN_COMMAND.put("acceptOrder", ACCEPT_ORDER_COMMAND);
-        COMMAND_NAME_TO_ADMIN_COMMAND.put("rejectOrder", REJECT_ORDER_COMMAND);
-        COMMAND_NAME_TO_ADMIN_COMMAND.put("adminAllReviews", ADMIN_ALL_REVIEWS_COMMAND);
-        COMMAND_NAME_TO_ADMIN_COMMAND.put("deleteReview", DELETE_REVIEW_COMMAND);
+        COMMAND_NAME_TO_ADMIN_COMMAND.put("/admin/users", All_USERS_COMMAND);
+        COMMAND_NAME_TO_ADMIN_COMMAND.put("/admin/orders", ALL_ORDERS_COMMAND);
+        COMMAND_NAME_TO_ADMIN_COMMAND.put("/admin/order-details", ADMIN_ORDER_DETAILS_COMMAND);
+        COMMAND_NAME_TO_ADMIN_COMMAND.put("/admin/accept-order", ACCEPT_ORDER_COMMAND);
+        COMMAND_NAME_TO_ADMIN_COMMAND.put("/admin/reject-order", REJECT_ORDER_COMMAND);
+        COMMAND_NAME_TO_ADMIN_COMMAND.put("/admin/reviews", ADMIN_ALL_REVIEWS_COMMAND);
+        COMMAND_NAME_TO_ADMIN_COMMAND.put("/admin/delete-review", DELETE_REVIEW_COMMAND);
     }
 
     static {
@@ -127,10 +127,11 @@ public class ApplicationContextInjector {
     }
 
     static {
-        adminPages.add("/admin");
+        adminPages.addAll(Arrays.asList("/admin/orders", "/admin/order-details", "/admin/users", "/admin/reviews",
+                "/admin/accept-order", "/admin/reject-order", "/admin/delete-review"));
         masterPages.add("/master");
-        userPages.addAll(Arrays.asList("/login", "/register", "/reviews", "/user", "/logout",
-                "/profile", "/client/all-orders", "/client/order-details", "/client/add-order", "/client/leave-review"));
+        userPages.addAll(Arrays.asList("/login", "/register", "/reviews", "/user", "/logout", "/profile",
+                "/client/all-orders", "/client/order-details", "/client/add-order", "/client/leave-review"));
     }
 
     private static volatile ApplicationContextInjector applicationContextInjector;

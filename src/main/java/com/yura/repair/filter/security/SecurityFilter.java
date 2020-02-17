@@ -26,7 +26,8 @@ public class SecurityFilter implements Filter {
         UserDto userDto = (UserDto) session.getAttribute("user");
 
         if (userDto == null || userDto.getRole() != role) {
-            request.getRequestDispatcher("404").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/pages/404.jsp").forward(request, response);
+            return;
         }
 
         chain.doFilter(request, response);

@@ -1,13 +1,13 @@
 package com.yura.repair.command.admin;
 
 import com.yura.repair.command.Command;
+import com.yura.repair.command.MultipleMethodCommand;
 import com.yura.repair.dto.OrderDto;
 import com.yura.repair.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class RejectOrderCommand implements Command {
-
+public class RejectOrderCommand extends MultipleMethodCommand {
     private final OrderService orderService;
 
     public RejectOrderCommand(OrderService orderService) {
@@ -15,7 +15,12 @@ public class RejectOrderCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) {
+    protected String executeGet(HttpServletRequest request) {
+        return null;
+    }
+
+    @Override
+    protected String executePost(HttpServletRequest request) {
         String reason = request.getParameter("reason");
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         OrderDto orderDto = orderService.findById(orderId);
@@ -24,6 +29,6 @@ public class RejectOrderCommand implements Command {
 
         request.getSession().setAttribute("successMessage", "reject.success");
 
-        return "redirect:admin?command=adminOrderDetails&orderId=" + orderId;
+        return "redirect:admin/order-details?orderId=" + orderId;
     }
 }

@@ -29,7 +29,7 @@
 <body id="page-top">
 
 <!-- Navigation -->
-<c:import url="menu.jsp"/>
+<c:import url="WEB-INF/pages/menu.jsp"/>
 
 
 <section class="page-section" id="services">

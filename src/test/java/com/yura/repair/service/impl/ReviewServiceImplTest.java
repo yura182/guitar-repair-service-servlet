@@ -50,7 +50,7 @@ public class ReviewServiceImplTest {
 
     @Test
     public void addShouldAddReview() {
-        when(reviewMapper.mapDomainToEntity(REVIEW_DTO)).thenReturn(REVIEW_ENTITY);
+        when(reviewMapper.mapDtoToEntity(REVIEW_DTO)).thenReturn(REVIEW_ENTITY);
         when(reviewRepository.save(REVIEW_ENTITY)).thenReturn(true);
 
         reviewService.add(REVIEW_DTO);
@@ -70,7 +70,7 @@ public class ReviewServiceImplTest {
     @Test
     public void findByIdShouldReturnReview() {
         when(reviewRepository.findById(anyInt())).thenReturn(Optional.of(REVIEW_ENTITY));
-        when(reviewMapper.mapEntityToDomain(REVIEW_ENTITY)).thenReturn(REVIEW_DTO);
+        when(reviewMapper.mapEntityToDto(REVIEW_ENTITY)).thenReturn(REVIEW_DTO);
 
         ReviewDto actual = reviewService.findById(1);
 
@@ -101,7 +101,7 @@ public class ReviewServiceImplTest {
         List<ReviewEntity> reviewEntities = Collections.singletonList(REVIEW_ENTITY);
 
         when(reviewRepository.findAll(anyInt(), anyInt())).thenReturn(reviewEntities);
-        when(reviewMapper.mapEntityToDomain(REVIEW_ENTITY)).thenReturn(REVIEW_DTO);
+        when(reviewMapper.mapEntityToDto(REVIEW_ENTITY)).thenReturn(REVIEW_DTO);
 
         List<ReviewDto> actual = reviewService.findAll(1, 5);
 
@@ -126,7 +126,7 @@ public class ReviewServiceImplTest {
         List<ReviewEntity> reviewEntities = Collections.singletonList(REVIEW_ENTITY);
 
         when(reviewRepository.findAllByOrder(anyInt(), anyInt(), anyInt())).thenReturn(reviewEntities);
-        when(reviewMapper.mapEntityToDomain(REVIEW_ENTITY)).thenReturn(REVIEW_DTO);
+        when(reviewMapper.mapEntityToDto(REVIEW_ENTITY)).thenReturn(REVIEW_DTO);
 
         List<ReviewDto> actual = reviewService.findAllByOrder(1, 1, 5);
 
@@ -151,7 +151,7 @@ public class ReviewServiceImplTest {
         List<ReviewEntity> reviewEntities = Collections.singletonList(REVIEW_ENTITY);
 
         when(reviewRepository.findAllByOrder(anyInt(), anyInt(), anyInt())).thenReturn(reviewEntities);
-        when(reviewMapper.mapEntityToDomain(REVIEW_ENTITY)).thenReturn(REVIEW_DTO);
+        when(reviewMapper.mapEntityToDto(REVIEW_ENTITY)).thenReturn(REVIEW_DTO);
 
         List<ReviewDto> actual = reviewService.findAllByOrder(1, 1, 5);
 

@@ -2,9 +2,9 @@ package com.yura.repair.service.impl;
 
 import com.yura.repair.dto.InstrumentDto;
 import com.yura.repair.dto.OrderDto;
-import com.yura.repair.entity.Status;
 import com.yura.repair.dto.UserDto;
 import com.yura.repair.entity.OrderEntity;
+import com.yura.repair.entity.Status;
 import com.yura.repair.exception.OrderNotFoundException;
 import com.yura.repair.repository.OrderRepository;
 import com.yura.repair.service.OrderService;
@@ -32,14 +32,14 @@ public class OrderServiceImpl implements OrderService {
     public void add(OrderDto orderDto) {
         orderValidator.validate(orderDto);
         instrumentValidator.validate(orderDto.getInstrument());
-        repository.save(orderMapper.mapDomainToEntity(orderDto));
+        repository.save(orderMapper.mapDtoToEntity(orderDto));
     }
 
     @Override
     public OrderDto findById(Integer id) {
         return repository
                 .findById(id)
-                .map(orderMapper::mapEntityToDomain)
+                .map(orderMapper::mapEntityToDto)
                 .orElseThrow(() -> new OrderNotFoundException("Order not found with provided id " + id));
     }
 
@@ -48,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
         return repository
                 .findAll(offset, limit)
                 .stream()
-                .map(orderMapper::mapEntityToDomain)
+                .map(orderMapper::mapEntityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
         return repository
                 .findAllByClientId(clientId, offset, limit)
                 .stream()
-                .map(orderMapper::mapEntityToDomain)
+                .map(orderMapper::mapEntityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
         return repository
                 .findAllByMasterId(masterId, offset, limit)
                 .stream()
-                .map(orderMapper::mapEntityToDomain)
+                .map(orderMapper::mapEntityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -75,33 +75,33 @@ public class OrderServiceImpl implements OrderService {
         return repository
                 .findAllByStatus(status, offset, limit)
                 .stream()
-                .map(orderMapper::mapEntityToDomain)
+                .map(orderMapper::mapEntityToDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public void acceptOrder(OrderDto orderDto, Double price) {
-        repository.update(orderMapper.mapDomainToEntity(new OrderDto(orderDto, Status.ACCEPTED, price)));
+        repository.update(orderMapper.mapDtoToEntity(new OrderDto(orderDto, Status.ACCEPTED, price)));
     }
 
     @Override
     public void rejectOrder(OrderDto orderDto, String rejectionReason) {
-        repository.update(orderMapper.mapDomainToEntity(new OrderDto(orderDto, Status.REJECTED, rejectionReason)));
+        repository.update(orderMapper.mapDtoToEntity(new OrderDto(orderDto, Status.REJECTED, rejectionReason)));
     }
 
     @Override
     public boolean processOrder(OrderDto orderDto, UserDto master) {
-        return repository.update(orderMapper.mapDomainToEntity(new OrderDto(orderDto, Status.PROCESSING, master)));
+        return repository.update(orderMapper.mapDtoToEntity(new OrderDto(orderDto, Status.PROCESSING, master)));
     }
 
     @Override
     public void completeOrder(OrderDto orderDto) {
-        repository.update(orderMapper.mapDomainToEntity(new OrderDto(orderDto, Status.COMPLETED)));
+        repository.update(orderMapper.mapDtoToEntity(new OrderDto(orderDto, Status.COMPLETED)));
     }
 
     @Override
     public void setPrice(OrderDto orderDto, Double price) {
-        repository.update(orderMapper.mapDomainToEntity(new OrderDto(orderDto, price)));
+        repository.update(orderMapper.mapDtoToEntity(new OrderDto(orderDto, price)));
     }
 
     @Override

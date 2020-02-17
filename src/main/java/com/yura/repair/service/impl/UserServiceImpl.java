@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
         UserDto userWithEncodedPassword = new UserDto(userDto, passwordEncoder.encode(userDto.getPassword()));
 
-        repository.save(mapper.mapDomainToEntity(userWithEncodedPassword));
+        repository.save(mapper.mapDtoToEntity(userWithEncodedPassword));
         LOGGER.info("User registered " + userDto.getEmail());
     }
 
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     public UserDto login(String email, String password) {
         return repository
                 .findByEmail(email)
-                .map(mapper::mapEntityToDomain)
+                .map(mapper::mapEntityToDto)
                 .filter(user -> Objects.equals(user.getPassword(), passwordEncoder.encode(password)))
                 .orElseThrow(() -> new UserNotFoundException("User not found with " + email + " email and provided password"));
     }
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     public UserDto findById(Integer id) {
         return repository
                 .findById(id)
-                .map(mapper::mapEntityToDomain)
+                .map(mapper::mapEntityToDto)
                 .orElseThrow(() -> new UserNotFoundException("User not found with provided id " + id));
     }
 
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
         return repository
                 .findAll(offset, limit)
                 .stream()
-                .map(mapper::mapEntityToDomain)
+                .map(mapper::mapEntityToDto)
                 .collect(Collectors.toList());
     }
 

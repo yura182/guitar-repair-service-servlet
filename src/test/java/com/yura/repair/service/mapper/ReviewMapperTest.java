@@ -37,35 +37,35 @@ public class ReviewMapperTest {
     }
 
     @Test
-    public void mapDomainToEntityShouldMapToEntity() {
-        when(userMapper.mapDomainToEntity(USER_DTO)).thenReturn(USER_ENTITY);
-        when(orderMapper.mapDomainToEntity(ORDER_DTO_DTO)).thenReturn(ORDER_ENTITY);
+    public void mapDtoToEntityShouldMapToEntity() {
+        when(userMapper.mapDtoToEntity(USER_DTO)).thenReturn(USER_ENTITY);
+        when(orderMapper.mapDtoToEntity(ORDER_DTO_DTO)).thenReturn(ORDER_ENTITY);
 
-        ReviewEntity actual = reviewMapper.mapDomainToEntity(REVIEW_DTO);
+        ReviewEntity actual = reviewMapper.mapDtoToEntity(REVIEW_DTO);
 
         assertEquals(REVIEW_ENTITY, actual);
     }
 
     @Test
-    public void mapEntityToDomainShouldMapToDomain() {
-        when(userMapper.mapEntityToDomain(USER_ENTITY)).thenReturn(USER_DTO);
-        when(orderMapper.mapEntityToDomain(ORDER_ENTITY)).thenReturn(ORDER_DTO_DTO);
+    public void mapEntityToDtoShouldMapToDto() {
+        when(userMapper.mapEntityToDto(USER_ENTITY)).thenReturn(USER_DTO);
+        when(orderMapper.mapEntityToDto(ORDER_ENTITY)).thenReturn(ORDER_DTO_DTO);
 
-        ReviewDto actual = reviewMapper.mapEntityToDomain(REVIEW_ENTITY);
+        ReviewDto actual = reviewMapper.mapEntityToDto(REVIEW_ENTITY);
 
         assertEquals(REVIEW_DTO, actual);
     }
 
     @Test
-    public void mapDomainToEntityShouldReturnNull() {
-        ReviewEntity actual = reviewMapper.mapDomainToEntity(null);
+    public void mapDtoToEntityShouldReturnNull() {
+        ReviewEntity actual = reviewMapper.mapDtoToEntity(null);
 
         assertNull(actual);
     }
 
     @Test
-    public void mapEntityToDomainShouldReturnNull() {
-        ReviewDto actual = reviewMapper.mapEntityToDomain(null);
+    public void mapEntityToDtoShouldReturnNull() {
+        ReviewDto actual = reviewMapper.mapEntityToDto(null);
 
         assertNull(actual);
     }

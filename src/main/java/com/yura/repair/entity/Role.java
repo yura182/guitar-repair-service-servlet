@@ -5,7 +5,7 @@ public enum Role {
     MASTER("role.master"),
     CLIENT("role.client");
 
-    String localeDescription;
+    private String localeDescription;
 
     Role(String localeDescription) {
         this.localeDescription = localeDescription;

@@ -1,7 +1,7 @@
 package com.yura.repair.filter.security;
 
-import com.yura.repair.entity.Role;
 import com.yura.repair.dto.UserDto;
+import com.yura.repair.entity.Role;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +26,7 @@ public class SecurityFilter implements Filter {
         UserDto userDto = (UserDto) session.getAttribute("user");
 
         if (userDto == null || userDto.getRole() != role) {
-            request.getRequestDispatcher("404.jsp").forward(request, response);
+            request.getRequestDispatcher("404").forward(request, response);
         }
 
         chain.doFilter(request, response);

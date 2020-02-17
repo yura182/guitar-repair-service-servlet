@@ -13,9 +13,9 @@
 
     <title><fmt:message key="register.title"/></title>
 
-    <link href="${pageContext.request.contextPath}/css/agency.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css"  rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/agency.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -45,7 +45,6 @@
                 <div class="container-login100">
                     <div class="wrap-login100 p-t-50 p-b-90">
                         <form class="login100-form validate-form flex-sb flex-w"  action="register" method="post">
-                            <input type="hidden" name="command" value="register">
                             <div class="wrap-input100 validate-input m-b-16" data-validate = "Name is required">
                                 <input class="input100" type="text" name="name" id="name"
                                        pattern="[a-zA-Zа-яА-Яієї']{2,25}"

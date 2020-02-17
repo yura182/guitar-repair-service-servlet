@@ -26,7 +26,7 @@ public class InstrumentServiceImpl implements InstrumentService {
         validator.validate(instrumentDto);
 
         return repository
-                .saveAndReturnId(mapper.mapDomainToEntity(instrumentDto))
+                .saveAndReturnId(mapper.mapDtoToEntity(instrumentDto))
                 .orElseThrow(() -> new EntitySavingException("Error during saving Instrument"));
     }
 
@@ -34,7 +34,7 @@ public class InstrumentServiceImpl implements InstrumentService {
     public InstrumentDto findById(Integer id) {
         return repository
                 .findById(id)
-                .map(mapper::mapEntityToDomain)
+                .map(mapper::mapEntityToDto)
                 .orElseThrow(() -> new EntityNotFoundException("Instrument not found"));
     }
 

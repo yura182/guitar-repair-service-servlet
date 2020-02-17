@@ -1,7 +1,7 @@
 package com.yura.repair.repository;
 
-import com.yura.repair.entity.Status;
 import com.yura.repair.entity.OrderEntity;
+import com.yura.repair.entity.Status;
 
 import java.util.List;
 

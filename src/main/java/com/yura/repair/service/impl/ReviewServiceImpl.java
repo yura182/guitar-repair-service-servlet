@@ -26,14 +26,14 @@ public class ReviewServiceImpl implements ReviewService {
     public void add(ReviewDto reviewDto) {
         validator.validate(reviewDto);
 
-        repository.save(mapper.mapDomainToEntity(reviewDto));
+        repository.save(mapper.mapDtoToEntity(reviewDto));
     }
 
     @Override
     public ReviewDto findById(Integer id) {
         return repository
                 .findById(id)
-                .map(mapper::mapEntityToDomain)
+                .map(mapper::mapEntityToDto)
                 .orElseThrow(() -> new EntityNotFoundException("Review not found with provided id " + id));
     }
 
@@ -47,7 +47,7 @@ public class ReviewServiceImpl implements ReviewService {
         return repository
                 .findAll(offset, limit)
                 .stream()
-                .map(mapper::mapEntityToDomain)
+                .map(mapper::mapEntityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -56,7 +56,7 @@ public class ReviewServiceImpl implements ReviewService {
         return repository
                 .findAllByOrder(orderId, offset, limit)
                 .stream()
-                .map(mapper::mapEntityToDomain)
+                .map(mapper::mapEntityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -65,7 +65,7 @@ public class ReviewServiceImpl implements ReviewService {
         return repository
                 .findAllByClient(clientId, offset, limit)
                 .stream()
-                .map(mapper::mapEntityToDomain)
+                .map(mapper::mapEntityToDto)
                 .collect(Collectors.toList());
     }
 

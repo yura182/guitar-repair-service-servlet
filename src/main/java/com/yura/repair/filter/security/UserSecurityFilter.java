@@ -6,7 +6,7 @@ import javax.servlet.DispatcherType;
 import javax.servlet.annotation.WebFilter;
 
 @WebFilter(dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD},
-        urlPatterns = "/user")
+        urlPatterns = "/client/*")
 public class UserSecurityFilter extends SecurityFilter {
 
     public UserSecurityFilter() {

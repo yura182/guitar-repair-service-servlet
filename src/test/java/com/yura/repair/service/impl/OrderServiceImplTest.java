@@ -31,7 +31,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OrderServiceImplTest {
-    private static final OrderDto ORDER_DTO_DTO = getOrderDtoDto();
+    private static final OrderDto ORDER_DTO = getOrderDto();
     private static final OrderEntity ORDER_ENTITY = getOrderEntity();
 
     @Rule
@@ -56,10 +56,10 @@ public class OrderServiceImplTest {
 
     @Test
     public void addShouldAddOrder() {
-        when(orderMapper.mapDomainToEntity(ORDER_DTO_DTO)).thenReturn(ORDER_ENTITY);
+        when(orderMapper.mapDtoToEntity(ORDER_DTO)).thenReturn(ORDER_ENTITY);
         when(orderRepository.save(ORDER_ENTITY)).thenReturn(true);
 
-        orderService.add(ORDER_DTO_DTO);
+        orderService.add(ORDER_DTO);
 
         verify(orderRepository).save(ORDER_ENTITY);
     }
@@ -75,11 +75,11 @@ public class OrderServiceImplTest {
     @Test
     public void findByIdShouldReturnOrder() {
         when(orderRepository.findById(1)).thenReturn(Optional.of(ORDER_ENTITY));
-        when(orderMapper.mapEntityToDomain(ORDER_ENTITY)).thenReturn(ORDER_DTO_DTO);
+        when(orderMapper.mapEntityToDto(ORDER_ENTITY)).thenReturn(ORDER_DTO);
 
         OrderDto actual = orderService.findById(1);
 
-        assertEquals(ORDER_DTO_DTO, actual);
+        assertEquals(ORDER_DTO, actual);
     }
 
     @Test
@@ -93,11 +93,11 @@ public class OrderServiceImplTest {
 
     @Test
     public void findAllShouldReturnListOfOrders() {
-        List<OrderDto> expected = Collections.singletonList(ORDER_DTO_DTO);
+        List<OrderDto> expected = Collections.singletonList(ORDER_DTO);
         List<OrderEntity> orderEntities = Collections.singletonList(ORDER_ENTITY);
 
         when(orderRepository.findAll(anyInt(), anyInt())).thenReturn(orderEntities);
-        when(orderMapper.mapEntityToDomain(ORDER_ENTITY)).thenReturn(ORDER_DTO_DTO);
+        when(orderMapper.mapEntityToDto(ORDER_ENTITY)).thenReturn(ORDER_DTO);
 
         List<OrderDto> actual = orderService.findAll(1, 5);
 
@@ -118,11 +118,11 @@ public class OrderServiceImplTest {
 
     @Test
     public void findByClientShouldReturnListOfOrders() {
-        List<OrderDto> expected = Collections.singletonList(ORDER_DTO_DTO);
+        List<OrderDto> expected = Collections.singletonList(ORDER_DTO);
         List<OrderEntity> orderEntities = Collections.singletonList(ORDER_ENTITY);
 
         when(orderRepository.findAllByClientId(anyInt(), anyInt(), anyInt())).thenReturn(orderEntities);
-        when(orderMapper.mapEntityToDomain(ORDER_ENTITY)).thenReturn(ORDER_DTO_DTO);
+        when(orderMapper.mapEntityToDto(ORDER_ENTITY)).thenReturn(ORDER_DTO);
 
         List<OrderDto> actual = orderService.findByClient(1, 1, 5);
 
@@ -143,11 +143,11 @@ public class OrderServiceImplTest {
 
     @Test
     public void findByMasterShouldReturnListOfOrders() {
-        List<OrderDto> expected = Collections.singletonList(ORDER_DTO_DTO);
+        List<OrderDto> expected = Collections.singletonList(ORDER_DTO);
         List<OrderEntity> orderEntities = Collections.singletonList(ORDER_ENTITY);
 
         when(orderRepository.findAllByMasterId(anyInt(), anyInt(), anyInt())).thenReturn(orderEntities);
-        when(orderMapper.mapEntityToDomain(ORDER_ENTITY)).thenReturn(ORDER_DTO_DTO);
+        when(orderMapper.mapEntityToDto(ORDER_ENTITY)).thenReturn(ORDER_DTO);
 
         List<OrderDto> actual = orderService.findByMaster(1, 1, 5);
 
@@ -168,11 +168,11 @@ public class OrderServiceImplTest {
 
     @Test
     public void findByStatusShouldReturnListOfOrders() {
-        List<OrderDto> expected = Collections.singletonList(ORDER_DTO_DTO);
+        List<OrderDto> expected = Collections.singletonList(ORDER_DTO);
         List<OrderEntity> orderEntities = Collections.singletonList(ORDER_ENTITY);
 
         when(orderRepository.findAllByStatus(any(Status.class), anyInt(), anyInt())).thenReturn(orderEntities);
-        when(orderMapper.mapEntityToDomain(ORDER_ENTITY)).thenReturn(ORDER_DTO_DTO);
+        when(orderMapper.mapEntityToDto(ORDER_ENTITY)).thenReturn(ORDER_DTO);
 
         List<OrderDto> actual = orderService.findByStatus(Status.ACCEPTED, 1, 5);
 
@@ -193,36 +193,36 @@ public class OrderServiceImplTest {
 
     @Test
     public void acceptOrderShouldUpdateOrder() {
-        when(orderMapper.mapDomainToEntity(any(OrderDto.class))).thenReturn(ORDER_ENTITY);
-        orderService.acceptOrder(ORDER_DTO_DTO, 1.1);
+        when(orderMapper.mapDtoToEntity(any(OrderDto.class))).thenReturn(ORDER_ENTITY);
+        orderService.acceptOrder(ORDER_DTO, 1.1);
         verify(orderRepository).update(ORDER_ENTITY);
     }
 
     @Test
     public void rejectOrderShouldUpdateOrder() {
-        when(orderMapper.mapDomainToEntity(any(OrderDto.class))).thenReturn(ORDER_ENTITY);
-        orderService.rejectOrder(ORDER_DTO_DTO, "reason");
+        when(orderMapper.mapDtoToEntity(any(OrderDto.class))).thenReturn(ORDER_ENTITY);
+        orderService.rejectOrder(ORDER_DTO, "reason");
         verify(orderRepository).update(ORDER_ENTITY);
     }
 
     @Test
     public void processOrderShouldUpdateOrder() {
-        when(orderMapper.mapDomainToEntity(any(OrderDto.class))).thenReturn(ORDER_ENTITY);
-        orderService.processOrder(ORDER_DTO_DTO, UserDto.builder().build());
+        when(orderMapper.mapDtoToEntity(any(OrderDto.class))).thenReturn(ORDER_ENTITY);
+        orderService.processOrder(ORDER_DTO, UserDto.builder().build());
         verify(orderRepository).update(ORDER_ENTITY);
     }
 
     @Test
     public void completeOrderShouldUpdateOrder() {
-        when(orderMapper.mapDomainToEntity(any(OrderDto.class))).thenReturn(ORDER_ENTITY);
-        orderService.completeOrder(ORDER_DTO_DTO);
+        when(orderMapper.mapDtoToEntity(any(OrderDto.class))).thenReturn(ORDER_ENTITY);
+        orderService.completeOrder(ORDER_DTO);
         verify(orderRepository).update(ORDER_ENTITY);
     }
 
     @Test
     public void setPriceShouldUpdateOrder() {
-        when(orderMapper.mapDomainToEntity(any(OrderDto.class))).thenReturn(ORDER_ENTITY);
-        orderService.setPrice(ORDER_DTO_DTO, 1.1);
+        when(orderMapper.mapDtoToEntity(any(OrderDto.class))).thenReturn(ORDER_ENTITY);
+        orderService.setPrice(ORDER_DTO, 1.1);
         verify(orderRepository).update(ORDER_ENTITY);
     }
 
@@ -267,7 +267,7 @@ public class OrderServiceImplTest {
     }
 
 
-    private static OrderDto getOrderDtoDto() {
+    private static OrderDto getOrderDto() {
         return OrderDto.builder()
                 .withInstrument(InstrumentDto.builder()
                         .withBrand("Cort")

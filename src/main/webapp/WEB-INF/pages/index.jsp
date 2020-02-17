@@ -15,9 +15,9 @@
     <title><fmt:message key="main.title"/></title>
 
 
-    <link href="${pageContext.request.contextPath}/css/agency.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css"  rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/agency.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -43,11 +43,11 @@
                 </li>
                 <c:if test="${sessionScope.user == null}">
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/login.jsp"><fmt:message key="menu.login"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/login"><fmt:message key="menu.login"/></a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/register.jsp"><fmt:message key="menu.register"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/register"><fmt:message key="menu.register"/></a>
                     </li>
 
                     <li class="nav-item">
@@ -69,10 +69,10 @@
 
                 <c:if test="${sessionScope.user.role.name() eq 'CLIENT'}">
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/user-add-order.jsp"><fmt:message key="menu.order"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/client/add-order"><fmt:message key="menu.order"/></a>
                     </li>
                     <li class="nav-item" >
-                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/user?command=userAllOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.user.orders"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/client/all-orders?currentPage=1&recordsPerPage=5"><fmt:message key="menu.user.orders"/></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/reviews?command=allReviews&currentPage=1&recordsPerPage=3"><fmt:message key="menu.reviews"/></a>
@@ -87,7 +87,7 @@
                         <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/master?command=masterProcessingOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.master.processing.orders"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/reviews?command=allReviews&currentPage=1&recordsPerPage=3"><fmt:message key="menu.reviews"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/reviews?currentPage=1&recordsPerPage=3"><fmt:message key="menu.reviews"/></a>
                     </li>
                 </c:if>
 
@@ -103,11 +103,11 @@
 
                 <c:if test="${sessionScope.user != null}">
                     <li class="nav-item nav-lang">
-                        <a class="nav-link js-scroll-trigger small-name-link" href="${pageContext.request.contextPath}/profile.jsp">${sessionScope.user.email}</a>
+                        <a class="nav-link js-scroll-trigger small-name-link" href="${pageContext.request.contextPath}/profile">${sessionScope.user.email}</a>
                     </li>
 
                     <li class="nav-item nav-lang" >
-                        <a class="nav-link js-scroll-trigger small-name-link" href="${pageContext.request.contextPath}/logout?command=logout"><fmt:message key="menu.logout"/></a>
+                        <a class="nav-link js-scroll-trigger small-name-link" href="${pageContext.request.contextPath}/logout"><fmt:message key="menu.logout"/></a>
                     </li>
                 </c:if>
 
@@ -122,7 +122,7 @@
         <div class="intro-text">
             <div class="intro-lead-in"><fmt:message key="main.body.welcome"/></div>
             <div class="intro-heading text-uppercase"><fmt:message key="main.body.since"/></div>
-            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="${pageContext.request.contextPath}/user-add-order.jsp"><fmt:message key="main.body.make"/></a>
+            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="${pageContext.request.contextPath}/client-add-order.jsp"><fmt:message key="main.body.make"/></a>
         </div>
     </div>
 </header>

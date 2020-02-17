@@ -38,35 +38,35 @@ public class OrderMapperTest {
     }
 
     @Test
-    public void mapEntityToDomainShouldMapToDomain() {
-        when(userMapper.mapEntityToDomain(USER_ENTITY)).thenReturn(USER_DTO);
-        when(instrumentMapper.mapEntityToDomain(INSTRUMENT_ENTITY)).thenReturn(INSTRUMENT_DTO_DTO);
+    public void mapEntityToDtoShouldMapToDto() {
+        when(userMapper.mapEntityToDto(USER_ENTITY)).thenReturn(USER_DTO);
+        when(instrumentMapper.mapEntityToDto(INSTRUMENT_ENTITY)).thenReturn(INSTRUMENT_DTO_DTO);
 
-        OrderDto actual = orderMapper.mapEntityToDomain(ORDER_ENTITY);
+        OrderDto actual = orderMapper.mapEntityToDto(ORDER_ENTITY);
 
         assertEquals(ORDER_DTO_DTO, actual);
     }
 
     @Test
-    public void mapDomainToEntityShouldReturnEntity() {
-        when(userMapper.mapDomainToEntity(USER_DTO)).thenReturn(USER_ENTITY);
-        when(instrumentMapper.mapDomainToEntity(INSTRUMENT_DTO_DTO)).thenReturn(INSTRUMENT_ENTITY);
+    public void mapDtoToEntityShouldReturnEntity() {
+        when(userMapper.mapDtoToEntity(USER_DTO)).thenReturn(USER_ENTITY);
+        when(instrumentMapper.mapDtoToEntity(INSTRUMENT_DTO_DTO)).thenReturn(INSTRUMENT_ENTITY);
 
-        OrderEntity actual = orderMapper.mapDomainToEntity(ORDER_DTO_DTO);
+        OrderEntity actual = orderMapper.mapDtoToEntity(ORDER_DTO_DTO);
 
         assertEquals(ORDER_ENTITY, actual);
     }
 
     @Test
-    public void mapEntityToDomainShouldReturnNull() {
-        OrderDto actual = orderMapper.mapEntityToDomain(null);
+    public void mapEntityToDtoShouldReturnNull() {
+        OrderDto actual = orderMapper.mapEntityToDto(null);
 
         assertNull(actual);
     }
 
     @Test
-    public void mapDomainToEntityShouldReturnNull() {
-        OrderEntity actual = orderMapper.mapDomainToEntity(null);
+    public void mapDtoToEntityShouldReturnNull() {
+        OrderEntity actual = orderMapper.mapDtoToEntity(null);
 
         assertNull(actual);
     }

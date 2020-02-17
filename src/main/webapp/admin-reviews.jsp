@@ -29,7 +29,7 @@
 <body id="page-top">
 
 <!-- Navigation -->
-<c:import url="menu.jsp"/>
+<c:import url="WEB-INF/pages/menu.jsp"/>
 
 
 <section class="page-section" id="services">
@@ -72,7 +72,7 @@
                     </div>
                 </c:forEach>
 
-                <c:import url="pagination.jsp"/>
+                <c:import url="WEB-INF/pages/pagination.jsp"/>
             </div>
         </div>
     </div>

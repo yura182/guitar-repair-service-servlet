@@ -8,7 +8,7 @@ import java.util.Objects;
 public class UserMapper implements EntityMapper<UserEntity, UserDto> {
 
     @Override
-    public UserDto mapEntityToDomain(UserEntity userEntity) {
+    public UserDto mapEntityToDto(UserEntity userEntity) {
         return Objects.isNull(userEntity) ? null : UserDto.builder()
                 .withId(userEntity.getId())
                 .withName(userEntity.getName())
@@ -21,7 +21,7 @@ public class UserMapper implements EntityMapper<UserEntity, UserDto> {
     }
 
     @Override
-    public UserEntity mapDomainToEntity(UserDto userDto) {
+    public UserEntity mapDtoToEntity(UserDto userDto) {
         return Objects.isNull(userDto) ? null : UserEntity.builder()
                 .withId(userDto.getId())
                 .withName(userDto.getName())

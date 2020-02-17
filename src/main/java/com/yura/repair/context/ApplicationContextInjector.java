@@ -39,7 +39,6 @@ import java.util.*;
 public class ApplicationContextInjector {
     private static final String DATABASE_PROPERTY_FILE = "database";
 
-
     private static final BasicDataSource BASIC_DATA_SOURCE = new BasicDataSource();
     private static final DBConnector CONNECTOR = new DBConnector(DATABASE_PROPERTY_FILE, BASIC_DATA_SOURCE);
     private static final PasswordEncoder PASSWORD_ENCODER = new PasswordEncoder();
@@ -72,6 +71,7 @@ public class ApplicationContextInjector {
     private static final Command USER_ORDER_DETAILS_COMMAND = new UserOrderDetailsCommand(ORDER_SERVICE);
     private static final Command LEAVE_REVIEW_COMMAND = new LeaveReviewCommand(REVIEW_SERVICE);
     private static final Command ALL_REVIEWS = new AllReviewsCommand(REVIEW_SERVICE);
+    private static final Command PROFILE_COMMAND = new ProfileCommand();
 
     private static final Command All_USERS_COMMAND = new AllUsersCommand(USER_SERVICE);
     private static final Command ALL_ORDERS_COMMAND = new AdminAllOrdersCommand(ORDER_SERVICE);
@@ -97,14 +97,15 @@ public class ApplicationContextInjector {
     private static final List<String> userPages = new ArrayList<>();
 
     static {
-        COMMAND_NAME_TO_USER_COMMAND.put("logout", LOGOUT_COMMAND);
-        COMMAND_NAME_TO_USER_COMMAND.put("makeOrder", ADD_ORDER_COMMAND);
-        COMMAND_NAME_TO_USER_COMMAND.put("userAllOrders", USER_ALL_ORDERS);
-        COMMAND_NAME_TO_USER_COMMAND.put("userOrderDetails", USER_ORDER_DETAILS_COMMAND);
-        COMMAND_NAME_TO_USER_COMMAND.put("leaveReview", LEAVE_REVIEW_COMMAND);
-        COMMAND_NAME_TO_USER_COMMAND.put("login", LOGIN_COMMAND);
-        COMMAND_NAME_TO_USER_COMMAND.put("register", REGISTER_COMMAND);
-        COMMAND_NAME_TO_USER_COMMAND.put("allReviews", ALL_REVIEWS);
+        COMMAND_NAME_TO_USER_COMMAND.put("/logout", LOGOUT_COMMAND);
+        COMMAND_NAME_TO_USER_COMMAND.put("/client/add-order", ADD_ORDER_COMMAND);
+        COMMAND_NAME_TO_USER_COMMAND.put("/client/all-orders", USER_ALL_ORDERS);
+        COMMAND_NAME_TO_USER_COMMAND.put("/client/order-details", USER_ORDER_DETAILS_COMMAND);
+        COMMAND_NAME_TO_USER_COMMAND.put("/client/leave-review", LEAVE_REVIEW_COMMAND);
+        COMMAND_NAME_TO_USER_COMMAND.put("/login", LOGIN_COMMAND);
+        COMMAND_NAME_TO_USER_COMMAND.put("/register", REGISTER_COMMAND);
+        COMMAND_NAME_TO_USER_COMMAND.put("/reviews", ALL_REVIEWS);
+        COMMAND_NAME_TO_USER_COMMAND.put("/profile", PROFILE_COMMAND);
     }
 
     static {
@@ -128,7 +129,8 @@ public class ApplicationContextInjector {
     static {
         adminPages.add("/admin");
         masterPages.add("/master");
-        userPages.addAll(Arrays.asList("/login", "/register", "/reviews", "/user", "/logout"));
+        userPages.addAll(Arrays.asList("/login", "/register", "/reviews", "/user", "/logout",
+                "/profile", "/client/all-orders", "/client/order-details", "/client/add-order", "/client/leave-review"));
     }
 
     private static volatile ApplicationContextInjector applicationContextInjector;

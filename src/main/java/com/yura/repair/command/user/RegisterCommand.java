@@ -1,6 +1,5 @@
 package com.yura.repair.command.user;
 
-import com.yura.repair.command.Command;
 import com.yura.repair.command.MultipleMethodCommand;
 import com.yura.repair.dto.UserDto;
 import com.yura.repair.entity.Role;
@@ -38,7 +37,7 @@ public class RegisterCommand extends MultipleMethodCommand {
             LOGGER.warn("Validation error " + e);
             request.setAttribute("errorMessage", "register.error");
 
-            return "register.jsp";
+            return "register";
         } catch (AlreadyRegisteredUserException e) {
             LOGGER.warn("User with such email already exist " + e);
             request.setAttribute("errorMessage", "register.error.already.registered");
@@ -48,7 +47,7 @@ public class RegisterCommand extends MultipleMethodCommand {
 
         request.getSession().setAttribute("successMessage", "login.just.registered");
 
-        return "redirect:login";
+        return "redirect:/login";
     }
 
     @Override

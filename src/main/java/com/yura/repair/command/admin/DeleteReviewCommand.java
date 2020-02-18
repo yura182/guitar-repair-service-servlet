@@ -6,7 +6,7 @@ import com.yura.repair.service.ReviewService;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class DeleteReviewCommand extends MultipleMethodCommand {
+public class DeleteReviewCommand implements Command{
     private final ReviewService reviewService;
 
     public DeleteReviewCommand(ReviewService reviewService) {
@@ -14,12 +14,7 @@ public class DeleteReviewCommand extends MultipleMethodCommand {
     }
 
     @Override
-    protected String executeGet(HttpServletRequest request) {
-        return null;
-    }
-
-    @Override
-    protected String executePost(HttpServletRequest request) {
+    public String execute(HttpServletRequest request) {
         reviewService.delete(Integer.parseInt(request.getParameter("reviewId")));
 
         request.getSession().setAttribute("successMessage", "all.reviews.delete.success");

@@ -26,8 +26,7 @@ public class Servlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, Command> commandNameToCommand = ApplicationContextInjector.getInstance().getCommand(req.getRequestURI());
-//        String command = req.getParameter("command");
-        String page = commandNameToCommand.getOrDefault(getPath(req), request -> "404").execute(req);
+        String page = commandNameToCommand.getOrDefault(req.getRequestURI(), request -> "404").execute(req);
 
         if (page.contains("redirect:")) {
             resp.sendRedirect(page.replaceAll("redirect:", ""));
@@ -37,12 +36,6 @@ public class Servlet extends HttpServlet {
     }
 
     private String resolvePath(String path) {
-        System.out.println("/WEB-INF/pages/" + path + ".jsp");
         return "/WEB-INF/pages/" + path + ".jsp";
-    }
-
-    private String getPath(HttpServletRequest req) {
-        System.out.println(req.getRequestURI());
-        return req.getRequestURI();
     }
 }

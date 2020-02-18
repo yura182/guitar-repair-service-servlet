@@ -7,8 +7,7 @@ import com.yura.repair.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class AcceptOrderCommand extends MultipleMethodCommand {
-
+public class AcceptOrderCommand implements Command {
     private final OrderService orderService;
 
     public AcceptOrderCommand(OrderService orderService) {
@@ -16,12 +15,7 @@ public class AcceptOrderCommand extends MultipleMethodCommand {
     }
 
     @Override
-    protected String executeGet(HttpServletRequest request) {
-        return null;
-    }
-
-    @Override
-    protected String executePost(HttpServletRequest request) {
+    public String execute(HttpServletRequest request) {
         Double price = Double.parseDouble(request.getParameter("price"));
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         OrderDto orderDto = orderService.findById(orderId);

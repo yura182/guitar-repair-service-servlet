@@ -42,7 +42,7 @@
 
         <c:if test="${currentPage < numberOfPages}">
             <li class="page-item"><a class="page-link"
-                                     href="${command}&currentPage=${currentPage+1}&recordsPerPage=${recordsPerPage}"><fmt:message key="pagination.next"/></a>
+                                     href="${command}?currentPage=${currentPage+1}&recordsPerPage=${recordsPerPage}"><fmt:message key="pagination.next"/></a>
             </li>
         </c:if>
 

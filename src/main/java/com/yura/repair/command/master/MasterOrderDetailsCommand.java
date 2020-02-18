@@ -7,7 +7,7 @@ import com.yura.repair.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class MasterOrderDetailsCommand extends MultipleMethodCommand {
+public class MasterOrderDetailsCommand implements Command{
     private final OrderService orderService;
 
     public MasterOrderDetailsCommand(OrderService orderService) {
@@ -15,16 +15,11 @@ public class MasterOrderDetailsCommand extends MultipleMethodCommand {
     }
 
     @Override
-    protected String executeGet(HttpServletRequest request) {
+    public String execute(HttpServletRequest request) {
         OrderDto orderDto = orderService.findById(Integer.parseInt(request.getParameter("orderId")));
 
         request.setAttribute("order", orderDto);
 
         return "master-order-details";
-    }
-
-    @Override
-    protected String executePost(HttpServletRequest request) {
-        return null;
     }
 }

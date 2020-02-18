@@ -1,14 +1,13 @@
 package com.yura.repair.command.user;
 
 import com.yura.repair.command.Command;
-import com.yura.repair.command.MultipleMethodCommand;
 import com.yura.repair.dto.OrderDto;
 import com.yura.repair.dto.UserDto;
 import com.yura.repair.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class UserOrderDetailsCommand extends MultipleMethodCommand {
+public class UserOrderDetailsCommand implements Command {
     private final OrderService orderService;
 
     public UserOrderDetailsCommand(OrderService orderService) {
@@ -16,7 +15,7 @@ public class UserOrderDetailsCommand extends MultipleMethodCommand {
     }
 
     @Override
-    protected String executeGet(HttpServletRequest request) {
+    public String execute(HttpServletRequest request) {
         UserDto loggedUser = (UserDto) request.getSession().getAttribute("user");
         OrderDto orderDto = orderService.findById(Integer.parseInt(request.getParameter("orderId")));
 
@@ -27,10 +26,5 @@ public class UserOrderDetailsCommand extends MultipleMethodCommand {
         request.setAttribute("order", orderDto);
 
         return "client-order-details";
-    }
-
-    @Override
-    protected String executePost(HttpServletRequest request) {
-        return null;
     }
 }

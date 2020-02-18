@@ -2,6 +2,7 @@ package com.yura.repair.context;
 
 import com.yura.repair.command.Command;
 import com.yura.repair.command.admin.*;
+import com.yura.repair.command.helper.PaginationUtility;
 import com.yura.repair.command.master.*;
 import com.yura.repair.command.user.*;
 import com.yura.repair.dto.InstrumentDto;
@@ -58,6 +59,8 @@ public class ApplicationContextInjector {
     private static final Validator<OrderDto> ORDER_VALIDATOR = new OrderValidator();
     private static final Validator<ReviewDto> REVIEW_VALIDATOR = new ReviewValidator();
 
+    private static final PaginationUtility PAGINATION = new PaginationUtility();
+
     private static final UserService USER_SERVICE = new UserServiceImpl(USER_REPOSITORY, USER_MAPPER, USER_VALIDATOR, PASSWORD_ENCODER);
     private static final InstrumentService INSTRUMENT_SERVICE = new InstrumentServiceImpl(INSTRUMENT_REPOSITORY, INSTRUMENT_MAPPER, INSTRUMENT_VALIDATOR);
     private static final OrderService ORDER_SERVICE = new OrderServiceImpl(ORDER_REPOSITORY, ORDER_MAPPER, ORDER_VALIDATOR, INSTRUMENT_VALIDATOR);
@@ -67,25 +70,25 @@ public class ApplicationContextInjector {
     private static final Command REGISTER_COMMAND = new RegisterCommand(USER_SERVICE);
     private static final Command LOGOUT_COMMAND = new LogoutCommand();
     private static final Command ADD_ORDER_COMMAND = new MakeOrderCommand(INSTRUMENT_SERVICE, ORDER_SERVICE);
-    private static final Command USER_ALL_ORDERS = new UserOrdersCommand(ORDER_SERVICE);
+    private static final Command USER_ALL_ORDERS = new UserOrdersCommand(ORDER_SERVICE, PAGINATION);
     private static final Command USER_ORDER_DETAILS_COMMAND = new UserOrderDetailsCommand(ORDER_SERVICE);
     private static final Command LEAVE_REVIEW_COMMAND = new LeaveReviewCommand(REVIEW_SERVICE);
-    private static final Command ALL_REVIEWS = new AllReviewsCommand(REVIEW_SERVICE);
+    private static final Command ALL_REVIEWS = new AllReviewsCommand(REVIEW_SERVICE, PAGINATION);
     private static final Command PROFILE_COMMAND = new ProfileCommand();
 
-    private static final Command All_USERS_COMMAND = new AllUsersCommand(USER_SERVICE);
-    private static final Command ALL_ORDERS_COMMAND = new AdminAllOrdersCommand(ORDER_SERVICE);
+    private static final Command All_USERS_COMMAND = new AllUsersCommand(USER_SERVICE, PAGINATION);
+    private static final Command ALL_ORDERS_COMMAND = new AdminAllOrdersCommand(PAGINATION, ORDER_SERVICE);
     private static final Command ADMIN_ORDER_DETAILS_COMMAND = new AdminOrderDetailsCommand(ORDER_SERVICE);
     private static final Command ACCEPT_ORDER_COMMAND = new AcceptOrderCommand(ORDER_SERVICE);
     private static final Command REJECT_ORDER_COMMAND = new RejectOrderCommand(ORDER_SERVICE);
-    private static final Command ADMIN_ALL_REVIEWS_COMMAND = new AdminAllReviewsCommand(REVIEW_SERVICE);
+    private static final Command ADMIN_ALL_REVIEWS_COMMAND = new AdminAllReviewsCommand(REVIEW_SERVICE, PAGINATION);
     private static final Command DELETE_REVIEW_COMMAND = new DeleteReviewCommand(REVIEW_SERVICE);
 
-    private static final Command MASTER_AVAILABLE_ORDERS_COMMAND = new MasterAllAvailableOrdersCommand(ORDER_SERVICE);
+    private static final Command MASTER_AVAILABLE_ORDERS_COMMAND = new MasterAllAvailableOrdersCommand(ORDER_SERVICE, PAGINATION);
     private static final Command MASTER_ORDER_DETAILS_COMMAND = new MasterOrderDetailsCommand(ORDER_SERVICE);
     private static final Command MASTER_PROCESS_ORDER_COMMAND = new ProcessOrderCommand(ORDER_SERVICE);
     private static final Command MASTER_COMPLETE_ORDER_COMMAND = new CompleteOrderCommand(ORDER_SERVICE);
-    private static final Command MASTER_PROCESSING_ORDERS_COMMAND = new MasterProcessingOrdersCommand(ORDER_SERVICE);
+    private static final Command MASTER_PROCESSING_ORDERS_COMMAND = new MasterProcessingOrdersCommand(ORDER_SERVICE, PAGINATION);
 
     private static final Map<String, Command> COMMAND_NAME_TO_USER_COMMAND = new HashMap<>();
     private static final Map<String, Command> COMMAND_NAME_TO_ADMIN_COMMAND = new HashMap<>();

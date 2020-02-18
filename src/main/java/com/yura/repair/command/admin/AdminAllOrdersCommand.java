@@ -1,36 +1,32 @@
 package com.yura.repair.command.admin;
 
 import com.yura.repair.command.Command;
-import com.yura.repair.command.MultipleMethodCommand;
-import com.yura.repair.command.PaginationUtility;
+import com.yura.repair.command.helper.PaginationUtility;
 import com.yura.repair.dto.OrderDto;
 import com.yura.repair.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class AdminAllOrdersCommand  extends MultipleMethodCommand implements PaginationUtility {
-
+public class AdminAllOrdersCommand implements Command{
     private final OrderService orderService;
 
-    public AdminAllOrdersCommand(OrderService orderService) {
+    private final PaginationUtility pagination;
+
+    public AdminAllOrdersCommand(PaginationUtility pagination, OrderService orderService) {
+        this.pagination = pagination;
         this.orderService = orderService;
     }
 
     @Override
-    protected String executeGet(HttpServletRequest request) {
-        int currentPage = getCurrentPage(request);
-        int recordsPerPage = getRecordsPerPage(request);
+    public String execute(HttpServletRequest request) {
+        int currentPage = pagination.getCurrentPage(request);
+        int recordsPerPage = pagination.getRecordsPerPage(request);
 
-        List<OrderDto> orders = orderService.findAll(getOffset(currentPage, recordsPerPage), recordsPerPage);
+        List<OrderDto> orders = orderService.findAll(pagination.getOffset(currentPage, recordsPerPage), recordsPerPage);
 
-        paginate(currentPage, recordsPerPage, orderService.numberOfEntries(), orders, "/admin/all-orders", request, "admin");
+        pagination.paginate(currentPage, recordsPerPage, orderService.numberOfEntries(), orders, "/admin/orders", request);
 
         return "admin-all-orders";
-    }
-
-    @Override
-    protected String executePost(HttpServletRequest request) {
-        return null;
     }
 }

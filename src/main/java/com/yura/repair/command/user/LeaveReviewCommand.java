@@ -1,7 +1,6 @@
 package com.yura.repair.command.user;
 
 import com.yura.repair.command.Command;
-import com.yura.repair.command.MultipleMethodCommand;
 import com.yura.repair.dto.OrderDto;
 import com.yura.repair.dto.ReviewDto;
 import com.yura.repair.dto.UserDto;
@@ -10,7 +9,7 @@ import com.yura.repair.service.ReviewService;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
-public class LeaveReviewCommand extends MultipleMethodCommand {
+public class LeaveReviewCommand implements Command {
     private final ReviewService reviewService;
 
     public LeaveReviewCommand(ReviewService reviewService) {
@@ -18,12 +17,7 @@ public class LeaveReviewCommand extends MultipleMethodCommand {
     }
 
     @Override
-    protected String executeGet(HttpServletRequest request) {
-        return null;
-    }
-
-    @Override
-    protected String executePost(HttpServletRequest request) {
+    public String execute(HttpServletRequest request) {
         UserDto userDto = (UserDto) request.getSession().getAttribute("user");
 
         OrderDto orderDto = OrderDto.builder()

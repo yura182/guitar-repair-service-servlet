@@ -9,10 +9,12 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.yura.repair.constant.AttributeConstant.ATTR_NAME_ERROR;
 import static com.yura.repair.constant.PageConstant.*;
 
 public class LoginCommand extends MultipleMethodCommand {
     private static final Logger LOGGER = LogManager.getLogger(LoginCommand.class);
+    private static final String LOGIN_ERROR_MESSAGE = "login.error";
 
     private final UserService userService;
 
@@ -36,7 +38,7 @@ public class LoginCommand extends MultipleMethodCommand {
             request.getSession().setAttribute("user", userDto);
         } catch (UserNotFoundException e) {
             LOGGER.warn("User not found " + e);
-            request.setAttribute("errorMessage", "login.error");
+            request.setAttribute(ATTR_NAME_ERROR, LOGIN_ERROR_MESSAGE);
 
             return LOGIN_PAGE;
         }

@@ -9,7 +9,11 @@ import com.yura.repair.util.PaginationUtility;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static com.yura.repair.constant.PageConstant.MASTER_PROCESSING_ORDERS_PAGE;
+
 public class MasterProcessingOrdersCommand implements Command {
+    private static final String MASTER_MY_ORDERS_COMMAND = "/master/my-orders";
+
     private final OrderService orderService;
 
     private final PaginationUtility pagination;
@@ -27,8 +31,8 @@ public class MasterProcessingOrdersCommand implements Command {
 
         List<OrderDto> orders = orderService.findByMaster(master.getId(), pagination.getOffset(currentPage, recordsPerPage), recordsPerPage);
 
-        pagination.paginate(currentPage, recordsPerPage, orderService.numberOfEntriesByMasterId(master.getId()), orders, "/master/my-orders", request);
+        pagination.paginate(currentPage, recordsPerPage, orderService.numberOfEntriesByMasterId(master.getId()), orders, MASTER_MY_ORDERS_COMMAND, request);
 
-        return "master-all-processing-orders";
+        return MASTER_PROCESSING_ORDERS_PAGE;
     }
 }

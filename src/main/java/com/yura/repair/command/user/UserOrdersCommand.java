@@ -9,9 +9,10 @@ import com.yura.repair.util.PaginationUtility;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-import static com.yura.repair.constant.PageConstant.CLIENT_ORDER_DETAILS_PAGE;
+import static com.yura.repair.constant.PageConstant.CLIENT_ORDERS_PAGE;
 
 public class UserOrdersCommand implements Command {
+    private static final String CLIENT_ALL_ORDERS_COMMAND = "/client/all-orders";
     private final OrderService orderService;
 
     private final PaginationUtility pagination;
@@ -29,8 +30,8 @@ public class UserOrdersCommand implements Command {
 
         List<OrderDto> orders = orderService.findByClient(userDto.getId(), pagination.getOffset(currentPage, recordsPerPage), recordsPerPage);
 
-        pagination.paginate(currentPage, recordsPerPage, orderService.numberOfEntriesByClientId(userDto.getId()), orders, "/client/all-orders", request);
+        pagination.paginate(currentPage, recordsPerPage, orderService.numberOfEntriesByClientId(userDto.getId()), orders, CLIENT_ALL_ORDERS_COMMAND, request);
 
-        return CLIENT_ORDER_DETAILS_PAGE;
+        return CLIENT_ORDERS_PAGE;
     }
 }

@@ -8,7 +8,11 @@ import com.yura.repair.util.PaginationUtility;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static com.yura.repair.constant.PageConstant.ADMIN_ORDERS_PAGE;
+
 public class AdminAllOrdersCommand implements Command {
+    private static final String ADMIN_ORDERS_COMMAND = "/admin/orders";
+
     private final OrderService orderService;
 
     private final PaginationUtility pagination;
@@ -25,8 +29,8 @@ public class AdminAllOrdersCommand implements Command {
 
         List<OrderDto> orders = orderService.findAll(pagination.getOffset(currentPage, recordsPerPage), recordsPerPage);
 
-        pagination.paginate(currentPage, recordsPerPage, orderService.numberOfEntries(), orders, "/admin/orders", request);
+        pagination.paginate(currentPage, recordsPerPage, orderService.numberOfEntries(), orders, ADMIN_ORDERS_COMMAND, request);
 
-        return "admin-all-orders";
+        return ADMIN_ORDERS_PAGE;
     }
 }

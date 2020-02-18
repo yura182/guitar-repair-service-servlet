@@ -11,6 +11,7 @@ import java.util.List;
 import static com.yura.repair.constant.PageConstant.REVIEWS_PAGE;
 
 public class AllReviewsCommand implements Command {
+    private static final String REVIEWS_COMMAND = "/reviews";
     private final ReviewService reviewService;
 
     private final PaginationUtility pagination;
@@ -27,7 +28,7 @@ public class AllReviewsCommand implements Command {
 
         List<ReviewDto> reviews = reviewService.findAll(pagination.getOffset(currentPage, recordsPerPage), recordsPerPage);
 
-        pagination.paginate(currentPage, recordsPerPage, reviewService.numberOfEntries(), reviews, "/reviews", request);
+        pagination.paginate(currentPage, recordsPerPage, reviewService.numberOfEntries(), reviews, REVIEWS_COMMAND, request);
 
         return REVIEWS_PAGE;
     }

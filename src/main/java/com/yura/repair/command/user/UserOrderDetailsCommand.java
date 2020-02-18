@@ -7,6 +7,8 @@ import com.yura.repair.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.yura.repair.constant.AttributeConstant.ATTR_NAME_ORDER;
+import static com.yura.repair.constant.PageConstant.CLIENT_ORDER_DETAILS_PAGE;
 import static com.yura.repair.constant.PageConstant.ERROR_PAGE;
 
 public class UserOrderDetailsCommand implements Command {
@@ -25,8 +27,8 @@ public class UserOrderDetailsCommand implements Command {
             return ERROR_PAGE;
         }
 
-        request.setAttribute("order", orderDto);
+        request.setAttribute(ATTR_NAME_ORDER, orderDto);
 
-        return "client-order-details";
+        return CLIENT_ORDER_DETAILS_PAGE;
     }
 }

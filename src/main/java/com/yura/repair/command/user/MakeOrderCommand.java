@@ -12,9 +12,13 @@ import com.yura.repair.service.OrderService;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
+import static com.yura.repair.constant.AttributeConstant.ATTR_NAME_ERROR;
+import static com.yura.repair.constant.AttributeConstant.ATTR_NAME_SUCCESS;
 import static com.yura.repair.constant.PageConstant.*;
 
 public class MakeOrderCommand extends MultipleMethodCommand {
+    private static final String ORDER_ERROR_MESSAGE = "order.error";
+    private static final String ORDER_SUCCESS_MESSAGE = "order.success";
     public final InstrumentService instrumentService;
     public final OrderService orderService;
 
@@ -45,11 +49,11 @@ public class MakeOrderCommand extends MultipleMethodCommand {
         try {
             orderService.add(orderDto);
         } catch (InvalidParameterException e) {
-            request.setAttribute("errorMessage", "order.error");
+            request.setAttribute(ATTR_NAME_ERROR, ORDER_ERROR_MESSAGE);
             return ADD_ORDER_PAGE;
         }
 
-        request.getSession().setAttribute("successMessage", "order.success");
+        request.getSession().setAttribute(ATTR_NAME_SUCCESS, ORDER_SUCCESS_MESSAGE);
 
         return REDIRECT + CLIENT_ADD_ORDER_PATH;
     }

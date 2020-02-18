@@ -6,7 +6,13 @@ import com.yura.repair.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.yura.repair.constant.AttributeConstant.ATTR_NAME_SUCCESS;
+import static com.yura.repair.constant.PageConstant.ADMIN_ORDER_PATH;
+import static com.yura.repair.constant.PageConstant.REDIRECT;
+
 public class AcceptOrderCommand implements Command {
+    private static final String ACCEPT_SUCCESS_MESSAGE = "accept.success";
+
     private final OrderService orderService;
 
     public AcceptOrderCommand(OrderService orderService) {
@@ -21,8 +27,8 @@ public class AcceptOrderCommand implements Command {
 
         orderService.acceptOrder(orderDto, price);
 
-        request.getSession().setAttribute("successMessage", "accept.success");
+        request.getSession().setAttribute(ATTR_NAME_SUCCESS, ACCEPT_SUCCESS_MESSAGE);
 
-        return "redirect:/admin/order-details?orderId=" + orderId;
+        return REDIRECT + ADMIN_ORDER_PATH + orderId;
     }
 }

@@ -9,7 +9,11 @@ import com.yura.repair.util.PaginationUtility;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static com.yura.repair.constant.PageConstant.MASTER_AVAILABLE_ORDERS_PAGE;
+
 public class MasterAllAvailableOrdersCommand implements Command {
+    private static final String MASTER_AVAILABLE_ORDERS_COMMAND = "/master/available-orders";
+
     private final OrderService orderService;
 
     private final PaginationUtility pagination;
@@ -25,8 +29,8 @@ public class MasterAllAvailableOrdersCommand implements Command {
         int recordsPerPage = pagination.getRecordsPerPage(request);
 
         List<OrderDto> orders = orderService.findByStatus(Status.ACCEPTED, pagination.getOffset(currentPage, recordsPerPage), recordsPerPage);
-        pagination.paginate(currentPage, recordsPerPage, orderService.numberOfEntriesByStatus(Status.ACCEPTED), orders, "/master/available-orders", request);
+        pagination.paginate(currentPage, recordsPerPage, orderService.numberOfEntriesByStatus(Status.ACCEPTED), orders, MASTER_AVAILABLE_ORDERS_COMMAND, request);
 
-        return "master-all-available-orders";
+        return MASTER_AVAILABLE_ORDERS_PAGE;
     }
 }

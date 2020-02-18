@@ -46,7 +46,7 @@ public class UserOrderDetailsCommandTest {
         when(request.getParameter(anyString())).thenReturn("1");
         when(orderService.findById(anyInt())).thenReturn(OrderDto.builder().withId(1).withUser(userDto).build());
 
-        String expected = "user-order-details.jsp";
+        String expected = "client-order-details.jsp";
         String actual = command.execute(request);
 
         assertEquals(expected, actual);

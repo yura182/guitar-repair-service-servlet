@@ -60,7 +60,7 @@ public class UserServiceImplTest {
     public void registerShouldRegisterUser() {
         when(passwordEncoder.encode(USER_DTO.getPassword())).thenReturn(USER_DTO.getPassword());
         when(userRepository.findByEmail(USER_DTO.getEmail())).thenReturn(Optional.empty());
-        when(userMapper.mapDomainToEntity(USER_DTO)).thenReturn(USER_ENTITY);
+        when(userMapper.mapDtoToEntity(USER_DTO)).thenReturn(USER_ENTITY);
 
         userService.register(USER_DTO);
         verify(userRepository).save(USER_ENTITY);
@@ -89,7 +89,7 @@ public class UserServiceImplTest {
     public void loginShouldLoginUserAndReturnLoggedUser() {
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(USER_ENTITY));
         when(passwordEncoder.encode(anyString())).thenReturn(USER_ENTITY.getPassword());
-        when(userMapper.mapEntityToDomain(USER_ENTITY)).thenReturn(USER_DTO);
+        when(userMapper.mapEntityToDto(USER_ENTITY)).thenReturn(USER_DTO);
 
         UserDto actual = userService.login(USER_DTO.getEmail(), USER_DTO.getPassword());
 
@@ -102,7 +102,7 @@ public class UserServiceImplTest {
         exception.expectMessage("User not found");
 
         when(userRepository.findByEmail(EMAIL)).thenReturn(Optional.empty());
-        when(userMapper.mapEntityToDomain(USER_ENTITY)).thenReturn(USER_DTO);
+        when(userMapper.mapEntityToDto(USER_ENTITY)).thenReturn(USER_DTO);
         when(passwordEncoder.encode(PASSWORD)).thenReturn(PASSWORD);
 
         userService.login(EMAIL, PASSWORD);
@@ -114,7 +114,7 @@ public class UserServiceImplTest {
         exception.expectMessage("User not found");
 
         when(userRepository.findByEmail(EMAIL)).thenReturn(Optional.of(USER_ENTITY));
-        when(userMapper.mapEntityToDomain(USER_ENTITY)).thenReturn(USER_DTO);
+        when(userMapper.mapEntityToDto(USER_ENTITY)).thenReturn(USER_DTO);
         when(passwordEncoder.encode("Wrong password")).thenReturn("Encoded wrong password");
 
         userService.login(EMAIL, "Wrong password");
@@ -123,7 +123,7 @@ public class UserServiceImplTest {
     @Test
     public void findByIdShouldReturnUser() {
         when(userRepository.findById(anyInt())).thenReturn(Optional.of(USER_ENTITY));
-        when(userMapper.mapEntityToDomain(USER_ENTITY)).thenReturn(USER_DTO);
+        when(userMapper.mapEntityToDto(USER_ENTITY)).thenReturn(USER_DTO);
 
         UserDto actual = userService.findById(1);
 
@@ -145,7 +145,7 @@ public class UserServiceImplTest {
         List<UserEntity> userEntities = Collections.singletonList(USER_ENTITY);
 
         when(userRepository.findAll(anyInt(), anyInt())).thenReturn(userEntities);
-        when(userMapper.mapEntityToDomain(USER_ENTITY)).thenReturn(USER_DTO);
+        when(userMapper.mapEntityToDto(USER_ENTITY)).thenReturn(USER_DTO);
 
         List<UserDto> actual = userService.findAll(1, 5);
 

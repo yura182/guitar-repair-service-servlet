@@ -19,22 +19,22 @@ public class ReviewMapper implements EntityMapper<ReviewEntity, ReviewDto> {
     }
 
     @Override
-    public ReviewEntity mapDomainToEntity(ReviewDto entity) {
+    public ReviewEntity mapDtoToEntity(ReviewDto entity) {
         return Objects.isNull(entity) ? null : ReviewEntity.builder()
                 .withId(entity.getId())
-                .withClient(userMapper.mapDomainToEntity(entity.getClient()))
-                .withOrder(orderMapper.mapDomainToEntity(entity.getOrder()))
+                .withClient(userMapper.mapDtoToEntity(entity.getClient()))
+                .withOrder(orderMapper.mapDtoToEntity(entity.getOrder()))
                 .withText(entity.getText())
                 .withDate(entity.getDate())
                 .build();
     }
 
     @Override
-    public ReviewDto mapEntityToDomain(ReviewEntity domain) {
+    public ReviewDto mapEntityToDto(ReviewEntity domain) {
         return Objects.isNull(domain) ? null : ReviewDto.builder()
                 .withId(domain.getId())
-                .withClient(userMapper.mapEntityToDomain(domain.getClient()))
-                .withOrder(orderMapper.mapEntityToDomain(domain.getOrder()))
+                .withClient(userMapper.mapEntityToDto(domain.getClient()))
+                .withOrder(orderMapper.mapEntityToDto(domain.getOrder()))
                 .withText(domain.getText())
                 .withDate(domain.getDate())
                 .build();

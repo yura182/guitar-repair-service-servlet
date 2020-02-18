@@ -2,7 +2,7 @@ package com.yura.repair.service.mapper;
 
 public interface EntityMapper<E, D> {
 
-    D mapEntityToDomain(E entity);
+    D mapEntityToDto(E entity);
 
-    E mapDomainToEntity(D domain);
+    E mapDtoToEntity(D domain);
 }

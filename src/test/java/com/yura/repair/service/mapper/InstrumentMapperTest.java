@@ -14,29 +14,29 @@ public class InstrumentMapperTest {
     private final InstrumentMapper instrumentMapper = new InstrumentMapper();
 
     @Test
-    public void mapEntityToDomainShouldReturnDomain() {
-        InstrumentDto actual = instrumentMapper.mapEntityToDomain(INSTRUMENT_ENTITY);
+    public void mapEntityToDtoShouldReturnDto() {
+        InstrumentDto actual = instrumentMapper.mapEntityToDto(INSTRUMENT_ENTITY);
 
         assertEquals(INSTRUMENT_DTO_DTO, actual);
     }
 
     @Test
-    public void mapDomainToEntityShouldReturnEntity() {
-        InstrumentEntity actual = instrumentMapper.mapDomainToEntity(INSTRUMENT_DTO_DTO);
+    public void mapDtoToEntityShouldReturnEntity() {
+        InstrumentEntity actual = instrumentMapper.mapDtoToEntity(INSTRUMENT_DTO_DTO);
 
         assertEquals(INSTRUMENT_ENTITY, actual);
     }
 
     @Test
-    public void mapEntityToDomainShouldReturnNull() {
-        InstrumentDto actual = instrumentMapper.mapEntityToDomain(null);
+    public void mapEntityToDtoShouldReturnNull() {
+        InstrumentDto actual = instrumentMapper.mapEntityToDto(null);
 
         assertNull(actual);
     }
 
     @Test
-    public void mapDomainToEntityShouldReturnNull() {
-        InstrumentEntity actual = instrumentMapper.mapDomainToEntity(null);
+    public void mapDtoToEntityShouldReturnNull() {
+        InstrumentEntity actual = instrumentMapper.mapDtoToEntity(null);
 
         assertNull(actual);
     }

@@ -8,7 +8,7 @@ public enum Status {
     REJECTED("status.rejected"),
     CANCELED("status.canceled");
 
-    String localeDescription;
+    private String localeDescription;
 
     Status(String localeDescription) {
         this.localeDescription = localeDescription;

@@ -1,31 +1,32 @@
 package com.yura.repair.command.user;
 
 import com.yura.repair.command.Command;
-import com.yura.repair.command.PaginationUtility;
+import com.yura.repair.command.helper.PaginationUtility;
 import com.yura.repair.dto.ReviewDto;
 import com.yura.repair.service.ReviewService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class AllReviewsCommand implements Command, PaginationUtility {
+public class AllReviewsCommand implements Command{
     private final ReviewService reviewService;
 
-    public AllReviewsCommand(ReviewService reviewService) {
+    private final PaginationUtility pagination;
+
+    public AllReviewsCommand(ReviewService reviewService, PaginationUtility pagination) {
         this.reviewService = reviewService;
+        this.pagination = pagination;
     }
 
     @Override
     public String execute(HttpServletRequest request) {
-        int currentPage = getCurrentPage(request);
-        int recordsPerPage = getRecordsPerPage(request);
+        int currentPage = pagination.getCurrentPage(request);
+        int recordsPerPage = pagination.getRecordsPerPage(request);
 
-        List<ReviewDto> reviews = reviewService.findAll(getOffset(currentPage, recordsPerPage), recordsPerPage);
+        List<ReviewDto> reviews = reviewService.findAll(pagination.getOffset(currentPage, recordsPerPage), recordsPerPage);
 
-        paginate(currentPage, recordsPerPage, reviewService.numberOfEntries(), reviews, "allReviews", request, "reviews");
+        pagination.paginate(currentPage, recordsPerPage, reviewService.numberOfEntries(), reviews, "/reviews", request);
 
-        return "reviews.jsp";
+        return "reviews";
     }
-
-
 }

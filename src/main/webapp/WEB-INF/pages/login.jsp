@@ -3,19 +3,19 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
-<html>
 
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Yriy Petrashenko">
 
-    <title><fmt:message key="profile.title"/></title>
+    <title><fmt:message key="login.title"/></title>
 
-    <link href="${pageContext.request.contextPath}/css/agency.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css"  rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/agency.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -30,45 +30,55 @@
 <!-- Navigation -->
 <c:import url="menu.jsp"/>
 
-
+<!-- Login -->
 <section class="page-section" id="services">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase"><fmt:message key="profile.title.body"/></h2>
-                <h3 class="section-subheading text-muted"><fmt:message key="profile.body.subtitle"/></h3>
+                <h2 class="section-heading text-uppercase"><fmt:message key="login.title.body"/></h2>
+                <h3 class="section-subheading text-muted"><fmt:message key="login.body.subtitle"/></h3>
 
-                <table class="table table-striped profile">
-                    <tbody>
-                    <tr>
-                        <c:set var = "user" scope="page" value="${sessionScope.user}"/>
-                        <td ><span class="profile-header" ><fmt:message key="profile.name"/></span> </td>
-                        <td>${user.name}</td>
-                    </tr>
-                    <tr>
-                        <td><span class="profile-header"><fmt:message key="profile.surname"/></span></td>
-                        <td>${user.surname}</td>
-                    </tr>
-                    <tr>
-                        <td><span class="profile-header"><fmt:message key="profile.email"/></span></td>
-                        <td>${user.email}</td>
-                    </tr>
-                    <tr>
-                        <td><span class="profile-header" ><fmt:message key="profile.phone"/></span></td>
-                        <td>${user.phone}</td>
-                    </tr>
-                    <tr>
-                        <td><span class="profile-header" ><fmt:message key="profile.role"/></span></td>
-                        <td><fmt:message key="${user.role.localeDescription}"/></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <c:if test="${not empty sessionScope.successMessage}">
+                    <p class="text-success" ><fmt:message key="${sessionScope.successMessage}"/></p>
+                </c:if>
+                <c:remove var="successMessage" scope="session" />
 
+                <c:if test="${not empty errorMessage}">
+                    <p class="text-danger" ><fmt:message key="${errorMessage}"/></p>
+                </c:if>
 
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="limiter">
+                <div class="container-login100">
+                    <div class="wrap-login100 p-t-50 p-b-90">
+                        <form class="login100-form validate-form flex-sb flex-w" action="login" method="post">
+                            <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
+                                <input class="input100" type="email"  name="email" placeholder="Email" required >
+                                <span class="focus-input100"></span>
+                            </div>
+
+                            <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+                                <input class="input100" type="password"  name="password" placeholder=<fmt:message key="login.password"/> required>
+                                <span class="focus-input100"></span>
+                            </div>
+
+                            <div class="container-login100-form-btn m-t-17">
+                                <button class="login100-form-btn" type="submit" >
+                                    <fmt:message key="login.button"/>
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
+
 
 <!-- Footer -->
 <footer class="bg-light footer">

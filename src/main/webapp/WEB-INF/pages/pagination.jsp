@@ -19,7 +19,7 @@
     <ul class="pagination">
         <c:if test="${currentPage != 1}">
             <li class="page-item"><a class="page-link"
-                                     href="${page}?command=${command}&currentPage=${currentPage-1}&recordsPerPage=${recordsPerPage}"><fmt:message key="pagination.prev"/></a>
+                                     href="${command}?currentPage=${currentPage-1}&recordsPerPage=${recordsPerPage}"><fmt:message key="pagination.prev"/></a>
             </li>
         </c:if>
 
@@ -33,7 +33,7 @@
                     </c:when>
                     <c:otherwise>
                         <li class="page-item"><a class="page-link"
-                                                 href="${page}?command=${command}&currentPage=${i}&recordsPerPage=${recordsPerPage}">${i}</a>
+                                                 href="${command}?currentPage=${i}&recordsPerPage=${recordsPerPage}">${i}</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -42,7 +42,7 @@
 
         <c:if test="${currentPage < numberOfPages}">
             <li class="page-item"><a class="page-link"
-                                     href="${page}?command=${command}&currentPage=${currentPage+1}&recordsPerPage=${recordsPerPage}"><fmt:message key="pagination.next"/></a>
+                                     href="${command}?currentPage=${currentPage+1}&recordsPerPage=${recordsPerPage}"><fmt:message key="pagination.next"/></a>
             </li>
         </c:if>
 

@@ -14,9 +14,9 @@
 
     <title><fmt:message key="order.details.title"/></title>
 
-    <link href="${pageContext.request.contextPath}/css/agency.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css"  rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/agency.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -100,8 +100,7 @@
                     <div class="limiter">
                         <div class="container-login100">
                             <div class="wrap-login100 p-t-50 p-b-90">
-                                <form class="login100-form validate-form flex-sb flex-w" action="user" method="post">
-                                    <input type="hidden" name="command" value="leaveReview">
+                                <form class="login100-form validate-form flex-sb flex-w" action="/client/leave-review" method="post">
                                     <input type="hidden" name="orderId" value="${order.id}">
 
                                     <div class="wrap-input100 validate-input m-b-16 " data-validate = "Text is required">

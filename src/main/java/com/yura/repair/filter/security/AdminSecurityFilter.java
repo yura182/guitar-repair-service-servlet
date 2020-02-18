@@ -6,7 +6,7 @@ import javax.servlet.DispatcherType;
 import javax.servlet.annotation.WebFilter;
 
 @WebFilter(dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD},
-        urlPatterns = {"/admin"})
+        urlPatterns = {"/admin/*"})
 public class AdminSecurityFilter extends SecurityFilter {
 
     public AdminSecurityFilter() {

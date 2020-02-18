@@ -15,29 +15,29 @@ public class UserMapperTest {
     private final EntityMapper<UserEntity, UserDto> userMapper = new UserMapper();
 
     @Test
-    public void mapEntityToDomainShouldMapToDomain() {
-        UserDto actual = userMapper.mapEntityToDomain(USER_ENTITY);
+    public void mapEntityToDtoShouldMapToDto() {
+        UserDto actual = userMapper.mapEntityToDto(USER_ENTITY);
 
         assertEquals(USER_DTO, actual);
     }
 
     @Test
-    public void mapDomainToEntityShouldMapToEntity() {
-        UserEntity actual = userMapper.mapDomainToEntity(USER_DTO);
+    public void mapDtoToEntityShouldMapToEntity() {
+        UserEntity actual = userMapper.mapDtoToEntity(USER_DTO);
 
         assertEquals(USER_ENTITY, actual);
     }
 
     @Test
-    public void mapDomainToEntityShouldReturnNull() {
-        UserEntity actual = userMapper.mapDomainToEntity(null);
+    public void mapDtoToEntityShouldReturnNull() {
+        UserEntity actual = userMapper.mapDtoToEntity(null);
 
         assertNull(actual);
     }
 
     @Test
-    public void mapEntityToDomainShouldReturnNull() {
-        UserDto actual = userMapper.mapEntityToDomain(null);
+    public void mapEntityToDtoShouldReturnNull() {
+        UserDto actual = userMapper.mapEntityToDto(null);
 
         assertNull(actual);
     }

@@ -1,10 +1,6 @@
 package com.yura.repair.repository.impl;
 
-import com.yura.repair.entity.Status;
-import com.yura.repair.entity.Role;
-import com.yura.repair.entity.InstrumentEntity;
-import com.yura.repair.entity.OrderEntity;
-import com.yura.repair.entity.UserEntity;
+import com.yura.repair.entity.*;
 import com.yura.repair.exception.OrderSaveException;
 import com.yura.repair.repository.OrderRepository;
 import com.yura.repair.repository.connector.DBConnector;

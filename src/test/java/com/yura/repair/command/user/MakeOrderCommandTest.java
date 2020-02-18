@@ -48,7 +48,7 @@ public class MakeOrderCommandTest {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("user")).thenReturn(UserDto.builder().withId(1).build());
 
-        String expected = "redirect:user-add-order.jsp";
+        String expected = "redirect:client-add-order.jsp";
         String actual = command.execute(request);
 
         verify(request, times(4)).getParameter(anyString());
@@ -64,7 +64,7 @@ public class MakeOrderCommandTest {
         when(session.getAttribute("user")).thenReturn(UserDto.builder().withId(1).build());
         doThrow(InvalidParameterException.class).when(orderService).add(any(OrderDto.class));
 
-        String expected = "user-add-order.jsp";
+        String expected = "client-add-order.jsp";
         String actual = command.execute(request);
 
         verify(request, times(4)).getParameter(anyString());

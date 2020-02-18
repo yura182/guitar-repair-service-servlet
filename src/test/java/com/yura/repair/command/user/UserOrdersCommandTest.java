@@ -39,7 +39,7 @@ public class UserOrdersCommandTest {
         when(orderService.findByClient(anyInt(), anyInt(), anyInt())).thenReturn(Collections.emptyList());
         when(orderService.numberOfEntriesByClientId(anyInt())).thenReturn(1);
 
-        String expectedPage = "user-all-orders.jsp";
+        String expectedPage = "client-all-orders.jsp";
         String actualPage = userOrdersCommand.execute(request);
 
         assertEquals(expectedPage, actualPage);
@@ -53,7 +53,7 @@ public class UserOrdersCommandTest {
         when(orderService.findByClient(anyInt(), anyInt(), anyInt())).thenReturn(Collections.emptyList());
         when(orderService.numberOfEntriesByClientId(anyInt())).thenReturn(1);
 
-        String expectedPage = "user-all-orders.jsp";
+        String expectedPage = "client-all-orders.jsp";
         String actualPage = userOrdersCommand.execute(request);
 
         assertEquals(expectedPage, actualPage);
@@ -67,7 +67,7 @@ public class UserOrdersCommandTest {
         when(orderService.findByClient(anyInt(), anyInt(), anyInt())).thenReturn(Collections.emptyList());
         when(orderService.numberOfEntriesByClientId(anyInt())).thenReturn(1);
 
-        String expectedPage = "user-all-orders.jsp";
+        String expectedPage = "client-all-orders.jsp";
         String actualPage = userOrdersCommand.execute(request);
 
         assertEquals(expectedPage, actualPage);
@@ -81,7 +81,7 @@ public class UserOrdersCommandTest {
         when(orderService.findByClient(anyInt(), anyInt(), anyInt())).thenReturn(Collections.emptyList());
         when(orderService.numberOfEntriesByClientId(anyInt())).thenReturn(1);
 
-        String expectedPage = "user-all-orders.jsp";
+        String expectedPage = "client-all-orders.jsp";
         String actualPage = userOrdersCommand.execute(request);
 
         assertEquals(expectedPage, actualPage);

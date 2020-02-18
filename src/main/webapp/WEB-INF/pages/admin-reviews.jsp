@@ -1,9 +1,10 @@
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -11,11 +12,11 @@
     <meta name="description" content="">
     <meta name="author" content="Yriy Petrashenko">
 
-    <title><fmt:message key="all.users.title"/></title>
+    <title><fmt:message key="reviews.title"/></title>
 
-    <link href="${pageContext.request.contextPath}/css/agency.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css"  rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/agency.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -35,32 +36,40 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase"><fmt:message key="all.users.title.body"/></h2>
-                <h3 class="section-subheading text-muted"><fmt:message key="all.users.body.subtitle"/></h3>
+                <h2 class="section-heading text-uppercase"><fmt:message key="review.title.body"/></h2>
+                <h3 class="section-subheading text-muted"><fmt:message key="review.body.subtitle"/></h3>
 
-                <table class="table table-striped">
-                    <thead>
-                    <th><span class="profile-header"><fmt:message key="all.users.table.id"/></span></th>
-                    <th><span class="profile-header"><fmt:message key="all.users.table.name"/></span></th>
-                    <th><span class="profile-header"><fmt:message key="all.users.table.surname"/></span></th>
-                    <th><span class="profile-header"><fmt:message key="all.users.table.email"/></span></th>
-                    <th><span class="profile-header"><fmt:message key="all.users.table.phone"/></span></th>
-                    <th><span class="profile-header"><fmt:message key="all.users.table.role"/></span></th>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="user" items="${entities}">
-                        <tr>
-                            <td >${user.id}</td>
-                            <td >${user.name}</td>
-                            <td >${user.surname}</td>
-                            <td>${user.email}</td>
-                            <td>${user.phone}</td>
-                            <td><fmt:message key="${user.role.localeDescription}"/></td>
-                        </tr>
-                        </c:forEach>
+                <c:if test="${not empty sessionScope.successMessage}">
+                    <p class="text-success" ><fmt:message key="${sessionScope.successMessage}"/></p>
+                </c:if>
+                <c:remove var="successMessage" scope="session" />
 
-                    </tbody>
-                </table>
+                <c:forEach var="review" items="${entities}">
+                    <div class="blockquote-wrapper">
+                        <div class="blockquote">
+                            <div class="review-admin-info-wrapper">
+                                <div class="info-left">
+                                    <a class="details-link" href="${pageContext.request.contextPath}/admin/order-details?orderId=${review.order.id}">Order id ${review.order.id}</a>
+                                </div>
+
+                                <div class="info-right">
+                                    <form method="post" action="/admin/delete-review">
+                                        <input type="hidden" name="reviewId" value="${review.id}" />
+                                        <button type="submit" name="submit" value="value" class="link-button"><fmt:message key="reviews.delete"/></button>
+                                    </form>
+                                </div>
+
+                            </div>
+                            <h1>
+                                    ${review.text}
+                            </h1>
+                            <h4>&mdash; ${review.client.name} ${review.client.surname}<br><em><tags:localDateTime date="${review.date}"/></em><br>
+                                <em>${review.client.email}</em>
+                            </h4>
+                        </div>
+                    </div>
+                </c:forEach>
+
                 <c:import url="pagination.jsp"/>
             </div>
         </div>

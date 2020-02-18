@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/admin", "/master", "/login", "/register", "/user", "/reviews", "/logout"})
+@WebServlet(urlPatterns = {"/login", "/register", "/profile", "/reviews", "/logout", "/client/*", "/admin/*", "/master/*"})
 public class Servlet extends HttpServlet {
 
     @Override
@@ -26,15 +26,16 @@ public class Servlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, Command> commandNameToCommand = ApplicationContextInjector.getInstance().getCommand(req.getRequestURI());
-        String command = req.getParameter("command");
-        System.out.println("uri " + req.getRequestURI());
-        System.out.println("command" + command);
-        String page = commandNameToCommand.getOrDefault(command, request -> "404.jsp").execute(req);
+        String page = commandNameToCommand.getOrDefault(req.getRequestURI(), request -> "404").execute(req);
 
         if (page.contains("redirect:")) {
             resp.sendRedirect(page.replaceAll("redirect:", ""));
         } else {
-            req.getRequestDispatcher(page).forward(req, resp);
+            req.getRequestDispatcher(resolvePath(page)).forward(req, resp);
         }
+    }
+
+    private String resolvePath(String path) {
+        return "/WEB-INF/pages/" + path + ".jsp";
     }
 }

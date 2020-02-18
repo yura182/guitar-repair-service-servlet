@@ -19,12 +19,12 @@ public class OrderMapper implements EntityMapper<OrderEntity, OrderDto> {
     }
 
     @Override
-    public OrderDto mapEntityToDomain(OrderEntity orderEntity) {
+    public OrderDto mapEntityToDto(OrderEntity orderEntity) {
         return Objects.isNull(orderEntity) ? null : OrderDto.builder()
                 .withId(orderEntity.getId())
-                .withUser(userMapper.mapEntityToDomain(orderEntity.getClient()))
-                .withMaster(userMapper.mapEntityToDomain(orderEntity.getMaster()))
-                .withInstrument(instrumentMapper.mapEntityToDomain(orderEntity.getInstrument()))
+                .withUser(userMapper.mapEntityToDto(orderEntity.getClient()))
+                .withMaster(userMapper.mapEntityToDto(orderEntity.getMaster()))
+                .withInstrument(instrumentMapper.mapEntityToDto(orderEntity.getInstrument()))
                 .withDate(orderEntity.getDateTime())
                 .withService(orderEntity.getService())
                 .withPrice(orderEntity.getPrice())
@@ -34,12 +34,12 @@ public class OrderMapper implements EntityMapper<OrderEntity, OrderDto> {
     }
 
     @Override
-    public OrderEntity mapDomainToEntity(OrderDto orderDto) {
+    public OrderEntity mapDtoToEntity(OrderDto orderDto) {
         return Objects.isNull(orderDto) ? null : OrderEntity.builder()
                 .withId(orderDto.getId())
-                .withUser(userMapper.mapDomainToEntity(orderDto.getClient()))
-                .withMaster(userMapper.mapDomainToEntity(orderDto.getMaster()))
-                .withInstrument(instrumentMapper.mapDomainToEntity(orderDto.getInstrument()))
+                .withUser(userMapper.mapDtoToEntity(orderDto.getClient()))
+                .withMaster(userMapper.mapDtoToEntity(orderDto.getMaster()))
+                .withInstrument(instrumentMapper.mapDtoToEntity(orderDto.getInstrument()))
                 .withDate(orderDto.getDateTime())
                 .withService(orderDto.getService())
                 .withPrice(orderDto.getPrice())

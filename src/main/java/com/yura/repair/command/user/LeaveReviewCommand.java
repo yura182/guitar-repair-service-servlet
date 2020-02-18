@@ -35,6 +35,6 @@ public class LeaveReviewCommand implements Command {
 
         request.getSession().setAttribute("successMessage", "user.order.details.review.success");
 
-        return "redirect:user?command=userOrderDetails&orderId=" + orderDto.getId();
+        return "redirect:/client/order-details?orderId=" + orderDto.getId();
     }
 }

@@ -8,7 +8,7 @@ import java.util.Objects;
 public class InstrumentMapper implements EntityMapper<InstrumentEntity, InstrumentDto> {
 
     @Override
-    public InstrumentDto mapEntityToDomain(InstrumentEntity instrumentEntity) {
+    public InstrumentDto mapEntityToDto(InstrumentEntity instrumentEntity) {
         return Objects.isNull(instrumentEntity) ? null : InstrumentDto.builder()
                 .withId(instrumentEntity.getId())
                 .withBrand(instrumentEntity.getBrand())
@@ -18,7 +18,7 @@ public class InstrumentMapper implements EntityMapper<InstrumentEntity, Instrume
     }
 
     @Override
-    public InstrumentEntity mapDomainToEntity(InstrumentDto instrumentDto) {
+    public InstrumentEntity mapDtoToEntity(InstrumentDto instrumentDto) {
         return Objects.isNull(instrumentDto) ? null : InstrumentEntity.builder()
                 .withId(instrumentDto.getId())
                 .withBrand(instrumentDto.getBrand())

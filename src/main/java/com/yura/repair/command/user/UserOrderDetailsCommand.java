@@ -14,18 +14,17 @@ public class UserOrderDetailsCommand implements Command {
         this.orderService = orderService;
     }
 
-
     @Override
     public String execute(HttpServletRequest request) {
         UserDto loggedUser = (UserDto) request.getSession().getAttribute("user");
         OrderDto orderDto = orderService.findById(Integer.parseInt(request.getParameter("orderId")));
 
         if (loggedUser == null || !loggedUser.getId().equals(orderDto.getClient().getId())) {
-            return "404.jsp";
+            return "404";
         }
 
         request.setAttribute("order", orderDto);
 
-        return "user-order-details.jsp";
+        return "client-order-details";
     }
 }

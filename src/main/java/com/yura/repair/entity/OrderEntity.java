@@ -26,6 +26,67 @@ public class OrderEntity {
         this.rejectionReason = builder.rejectionReason;
     }
 
+    public OrderEntity(OrderEntity orderEntity, Status status, Double price) {
+        this.id = orderEntity.id;
+        this.client = orderEntity.client;
+        this.master = orderEntity.master;
+        this.instrument = orderEntity.instrument;
+        this.dateTime = orderEntity.dateTime;
+        this.service = orderEntity.service;
+        this.price = price;
+        this.status = status;
+        this.rejectionReason = orderEntity.rejectionReason;
+    }
+
+    public OrderEntity(OrderEntity orderEntity, Status status) {
+        this.id = orderEntity.id;
+        this.client = orderEntity.client;
+        this.master = orderEntity.master;
+        this.instrument = orderEntity.instrument;
+        this.dateTime = orderEntity.dateTime;
+        this.service = orderEntity.service;
+        this.price = orderEntity.price;
+        this.status = status;
+        this.rejectionReason = orderEntity.rejectionReason;
+    }
+
+
+    public OrderEntity(OrderEntity orderEntity, Status status, String rejectionReason) {
+        this.id = orderEntity.id;
+        this.client = orderEntity.client;
+        this.master = orderEntity.master;
+        this.instrument = orderEntity.instrument;
+        this.dateTime = orderEntity.dateTime;
+        this.service = orderEntity.service;
+        this.price = orderEntity.price;
+        this.status = status;
+        this.rejectionReason = rejectionReason;
+    }
+
+    public OrderEntity(OrderEntity orderEntity, Status status, UserEntity master) {
+        this.id = orderEntity.id;
+        this.client = orderEntity.client;
+        this.master = master;
+        this.instrument = orderEntity.instrument;
+        this.dateTime = orderEntity.dateTime;
+        this.service = orderEntity.service;
+        this.price = orderEntity.price;
+        this.status = status;
+        this.rejectionReason = orderEntity.rejectionReason;
+    }
+
+    public OrderEntity(OrderEntity orderEntity, Double price) {
+        this.id = orderEntity.id;
+        this.client = orderEntity.client;
+        this.master = orderEntity.master;
+        this.instrument = orderEntity.instrument;
+        this.dateTime = orderEntity.dateTime;
+        this.service = orderEntity.service;
+        this.price = price;
+        this.status = orderEntity.status;
+        this.rejectionReason = orderEntity.rejectionReason;
+    }
+
     public OrderEntity(OrderEntity orderEntity, InstrumentEntity instrumentEntity) {
         this.id = orderEntity.id;
         this.client = orderEntity.client;

@@ -41,6 +41,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j}</version>
+        </dependency>
+
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${msql}</version>
@@ -109,8 +115,10 @@
                 <version>${jacoco}</version>
                 <configuration>
                     <excludes>
-                        <exclude>com/yura/repair/domain/**/*</exclude>
+                        <exclude>com/yura/repair/dto/*</exclude>
+                        <exclude>com/yura/repair/util/*</exclude>
                         <exclude>com/yura/repair/context/*</exclude>
+                        <exclude>com/yura/repair/constant/*</exclude>
                         <exclude>com/yura/repair/entity/*</exclude>
                         <exclude>com/yura/repair/exception/*</exclude>
                         <exclude>com/yura/repair/filter/**/*</exclude>

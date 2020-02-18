@@ -24,7 +24,7 @@ public interface OrderService {
 
     void rejectOrder(OrderDto orderDto, String rejectionReason);
 
-    boolean processOrder(OrderDto orderDto, UserDto master);
+    void processOrder(OrderDto orderDto, UserDto master);
 
     void completeOrder(OrderDto orderDto);
 
@@ -37,4 +37,8 @@ public interface OrderService {
     Integer numberOfEntriesByMasterId(Integer masterId);
 
     Integer numberOfEntriesByStatus(Status status);
+
+    boolean isNotUserOrder(UserDto userDto, OrderDto orderDto);
+
+    boolean isNotMasterOrder(UserDto loggedMaster, OrderDto orderDto);
 }

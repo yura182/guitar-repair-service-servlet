@@ -16,7 +16,7 @@ The user can leave feedback on completed order.
 Пользователь может оставить Отзыв о выполненных работах. 
 ```
 ## Installation and running
-**Prerequisites**
+**Requirements**
 ```
 JDK 1.8
 Apache Tomcat
@@ -42,7 +42,7 @@ MASTER top@gmail.com - 12345678
 CLIENT neil@gmail.com - 12345678
 ```
 ## Tests coverage
-![image](http://i.piccy.info/i9/10ac91dcfe16d960bacf6a90c5263d0e/1580987095/126593/1360567/coverage.jpg)
+![image](http://i.piccy.info/i9/804c7347da947df1c40be7e73a997861/1582053743/64851/1360567/test.jpg)
 
 ## Main Page
 ![image](http://i.piccy.info/i9/94945f3b7a6579486aad3bbc2a7ee99b/1580829639/53445/1360567/guitar.jpg)

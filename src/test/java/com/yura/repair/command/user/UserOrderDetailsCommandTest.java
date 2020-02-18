@@ -14,8 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
@@ -46,7 +45,7 @@ public class UserOrderDetailsCommandTest {
         when(request.getParameter(anyString())).thenReturn("1");
         when(orderService.findById(anyInt())).thenReturn(OrderDto.builder().withId(1).withUser(userDto).build());
 
-        String expected = "client-order-details.jsp";
+        String expected = "client-order-details";
         String actual = command.execute(request);
 
         assertEquals(expected, actual);
@@ -61,27 +60,14 @@ public class UserOrderDetailsCommandTest {
                 .withId(1)
                 .withUser(UserDto.builder().withId(1).build())
                 .build());
+        when(orderService.isNotUserOrder(any(UserDto.class), any(OrderDto.class))).thenReturn(true);
 
-        String expected = "404.jsp";
+        String expected = "404";
         String actual = command.execute(request);
 
         assertEquals(expected, actual);
     }
 
-    @Test
-    public void executeShouldReturnErrorPageWithNullUser() {
-        when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("user")).thenReturn(null);
-        when(request.getParameter("orderId")).thenReturn("1");
-        when(orderService.findById(anyInt())).thenReturn(OrderDto.builder()
-                .withId(1)
-                .withUser(UserDto.builder().withId(1).build())
-                .build());
 
-        String expected = "404.jsp";
-        String actual = command.execute(request);
-
-        assertEquals(expected, actual);
-    }
 
 }

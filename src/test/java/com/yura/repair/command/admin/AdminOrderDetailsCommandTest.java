@@ -30,7 +30,7 @@ public class AdminOrderDetailsCommandTest {
         when(request.getParameter("orderId")).thenReturn("1");
         when(orderService.findById(1)).thenReturn(OrderDto.builder().build());
 
-        String expected = "admin-order-details.jsp";
+        String expected = "admin-order-details";
         String actual = command.execute(request);
 
         verify(request).setAttribute("order", OrderDto.builder().build());

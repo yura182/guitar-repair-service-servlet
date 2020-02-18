@@ -28,55 +28,6 @@ public class OrderDto {
         this.rejectionReason = builder.rejectionReason;
     }
 
-    public OrderDto(OrderDto orderDto, Status status, Double price) {
-        this.id = orderDto.id;
-        this.client = orderDto.client;
-        this.master = orderDto.master;
-        this.instrumentDto = orderDto.instrumentDto;
-        this.dateTime = orderDto.dateTime;
-        this.service = orderDto.service;
-        this.price = price;
-        this.status = status;
-        this.rejectionReason = orderDto.rejectionReason;
-    }
-
-    public OrderDto(OrderDto orderDto, Status status) {
-        this.id = orderDto.id;
-        this.client = orderDto.client;
-        this.master = orderDto.master;
-        this.instrumentDto = orderDto.instrumentDto;
-        this.dateTime = orderDto.dateTime;
-        this.service = orderDto.service;
-        this.price = orderDto.price;
-        this.status = status;
-        this.rejectionReason = orderDto.rejectionReason;
-    }
-
-
-    public OrderDto(OrderDto orderDto, Status status, String rejectionReason) {
-        this.id = orderDto.id;
-        this.client = orderDto.client;
-        this.master = orderDto.master;
-        this.instrumentDto = orderDto.instrumentDto;
-        this.dateTime = orderDto.dateTime;
-        this.service = orderDto.service;
-        this.price = orderDto.price;
-        this.status = status;
-        this.rejectionReason = rejectionReason;
-    }
-
-    public OrderDto(OrderDto orderDto, Status status, UserDto master) {
-        this.id = orderDto.id;
-        this.client = orderDto.client;
-        this.master = master;
-        this.instrumentDto = orderDto.instrumentDto;
-        this.dateTime = orderDto.dateTime;
-        this.service = orderDto.service;
-        this.price = orderDto.price;
-        this.status = status;
-        this.rejectionReason = orderDto.rejectionReason;
-    }
-
     public OrderDto(OrderDto orderDto, Double price) {
         this.id = orderDto.id;
         this.client = orderDto.client;

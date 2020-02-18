@@ -63,7 +63,7 @@ public class ApplicationContextInjector {
 
     private static final UserService USER_SERVICE = new UserServiceImpl(USER_REPOSITORY, USER_MAPPER, USER_VALIDATOR, PASSWORD_ENCODER);
     private static final InstrumentService INSTRUMENT_SERVICE = new InstrumentServiceImpl(INSTRUMENT_REPOSITORY, INSTRUMENT_MAPPER, INSTRUMENT_VALIDATOR);
-    private static final OrderService ORDER_SERVICE = new OrderServiceImpl(ORDER_REPOSITORY, ORDER_MAPPER, ORDER_VALIDATOR, INSTRUMENT_VALIDATOR);
+    private static final OrderService ORDER_SERVICE = new OrderServiceImpl(ORDER_REPOSITORY, ORDER_MAPPER, USER_MAPPER, ORDER_VALIDATOR, INSTRUMENT_VALIDATOR);
     private static final ReviewService REVIEW_SERVICE = new ReviewServiceImpl(REVIEW_REPOSITORY, COMMENT_MAPPER, REVIEW_VALIDATOR);
 
     private static final Command LOGIN_COMMAND = new LoginCommand(USER_SERVICE);

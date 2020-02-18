@@ -5,6 +5,9 @@ import com.yura.repair.dto.OrderDto;
 import com.yura.repair.dto.UserDto;
 import com.yura.repair.entity.OrderEntity;
 import com.yura.repair.entity.Status;
+import com.yura.repair.entity.UserEntity;
+import com.yura.repair.exception.EntityNotFoundException;
+import com.yura.repair.exception.OrderAlreadyUpdatedException;
 import com.yura.repair.exception.OrderNotFoundException;
 import com.yura.repair.repository.OrderRepository;
 import com.yura.repair.service.OrderService;
@@ -17,13 +20,15 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository repository;
     private final EntityMapper<OrderEntity, OrderDto> orderMapper;
+    private final EntityMapper<UserEntity, UserDto> userMapper;
     private final Validator<OrderDto> orderValidator;
     private final Validator<InstrumentDto> instrumentValidator;
 
     public OrderServiceImpl(OrderRepository repository, EntityMapper<OrderEntity, OrderDto> orderMapper,
-                            Validator<OrderDto> OrderValidator, Validator<InstrumentDto> instrumentValidator) {
+                            EntityMapper<UserEntity, UserDto> userMapper, Validator<OrderDto> OrderValidator, Validator<InstrumentDto> instrumentValidator) {
         this.repository = repository;
         this.orderMapper = orderMapper;
+        this.userMapper = userMapper;
         this.orderValidator = OrderValidator;
         this.instrumentValidator = instrumentValidator;
     }
@@ -81,22 +86,46 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void acceptOrder(OrderDto orderDto, Double price) {
-        repository.update(orderMapper.mapDtoToEntity(new OrderDto(orderDto, Status.ACCEPTED, price)));
+        OrderEntity orderEntity = getEntityById(orderDto.getId());
+
+        if (orderEntity.getStatus() != Status.NEW) {
+            throw new OrderAlreadyUpdatedException("Order already accepted");
+        }
+
+        repository.update(new OrderEntity(orderEntity, Status.ACCEPTED, price));
     }
 
     @Override
     public void rejectOrder(OrderDto orderDto, String rejectionReason) {
-        repository.update(orderMapper.mapDtoToEntity(new OrderDto(orderDto, Status.REJECTED, rejectionReason)));
+        OrderEntity orderEntity = getEntityById(orderDto.getId());
+
+        if (orderEntity.getStatus() != Status.NEW) {
+            throw new OrderAlreadyUpdatedException("Order already accepted");
+        }
+
+        repository.update(new OrderEntity(orderEntity, Status.REJECTED, rejectionReason));
     }
 
     @Override
-    public boolean processOrder(OrderDto orderDto, UserDto master) {
-        return repository.update(orderMapper.mapDtoToEntity(new OrderDto(orderDto, Status.PROCESSING, master)));
+    public void processOrder(OrderDto orderDto, UserDto master) {
+        OrderEntity orderEntity = getEntityById(orderDto.getId());
+
+        if (orderEntity.getStatus() != Status.ACCEPTED) {
+            throw new OrderAlreadyUpdatedException("Order already processed");
+        }
+
+        repository.update(new OrderEntity(orderEntity, Status.PROCESSING, userMapper.mapDtoToEntity(master)));
     }
 
     @Override
     public void completeOrder(OrderDto orderDto) {
-        repository.update(orderMapper.mapDtoToEntity(new OrderDto(orderDto, Status.COMPLETED)));
+        OrderEntity orderEntity = getEntityById(orderDto.getId());
+
+        if (orderEntity.getStatus() != Status.PROCESSING) {
+            throw new OrderAlreadyUpdatedException("Order already completed");
+        }
+
+        repository.update(new OrderEntity(orderEntity, Status.COMPLETED));
     }
 
     @Override
@@ -122,5 +151,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Integer numberOfEntriesByStatus(Status status) {
         return repository.countByStatus(status);
+    }
+
+    @Override
+    public boolean isNotUserOrder(UserDto loggedUser, OrderDto orderDto) {
+        return loggedUser == null || !loggedUser.getId().equals(orderDto.getClient().getId());
+    }
+
+    @Override
+    public boolean isNotMasterOrder(UserDto loggedMaster, OrderDto orderDto) {
+        return orderDto.getMaster() != null && !loggedMaster.getId().equals(orderDto.getMaster().getId());
+    }
+
+    private OrderEntity getEntityById(Integer id) {
+        return repository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Order not found"));
     }
 }

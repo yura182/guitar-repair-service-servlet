@@ -39,6 +39,10 @@
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase"><fmt:message key="all.available.orders.title.body"/></h2>
                 <h3 class="section-subheading text-muted"><fmt:message key="all.available.orders.body.subtitle"/></h3>
+                <c:if test="${not empty sessionScope.errorMessage}">
+                    <p class="text-danger" ><fmt:message key="${sessionScope.errorMessage}"/></p>
+                </c:if>
+                <c:remove var="errorMessage" scope="session" />
 
                 <table class="table table-striped">
                     <thead>

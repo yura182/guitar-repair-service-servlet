@@ -36,11 +36,6 @@ public class MakeOrderCommandTest {
     @InjectMocks
     private MakeOrderCommand command;
 
-    @After
-    public void resetMocks() {
-        reset(orderService, instrumentService, request, session);
-    }
-
     @Test
     public void executeShouldReturnPage() {
         when(request.getParameter(anyString())).thenReturn("param");
@@ -48,7 +43,7 @@ public class MakeOrderCommandTest {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("user")).thenReturn(UserDto.builder().withId(1).build());
 
-        String expected = "redirect:client-add-order.jsp";
+        String expected = "redirect:/client/add-order";
         String actual = command.execute(request);
 
         verify(request, times(4)).getParameter(anyString());
@@ -64,11 +59,21 @@ public class MakeOrderCommandTest {
         when(session.getAttribute("user")).thenReturn(UserDto.builder().withId(1).build());
         doThrow(InvalidParameterException.class).when(orderService).add(any(OrderDto.class));
 
-        String expected = "client-add-order.jsp";
+        String expected = "client-add-order";
         String actual = command.execute(request);
 
         verify(request, times(4)).getParameter(anyString());
         verify(request).setAttribute("errorMessage", "order.error");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void executeShouldReturnAddOrderPage() {
+        when(request.getMethod()).thenReturn("GET");
+
+        String expected = "client-add-order";
+        String actual = command.execute(request);
+
         assertEquals(expected, actual);
     }
 }

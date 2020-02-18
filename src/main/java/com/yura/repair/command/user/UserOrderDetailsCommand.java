@@ -23,7 +23,7 @@ public class UserOrderDetailsCommand implements Command {
         UserDto loggedUser = (UserDto) request.getSession().getAttribute("user");
         OrderDto orderDto = orderService.findById(Integer.parseInt(request.getParameter("orderId")));
 
-        if (loggedUser == null || !loggedUser.getId().equals(orderDto.getClient().getId())) {
+        if (orderService.isNotUserOrder(loggedUser, orderDto)) {
             return ERROR_PAGE;
         }
 

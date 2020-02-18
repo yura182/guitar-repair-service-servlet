@@ -10,7 +10,7 @@ public class PageConstant {
     public static final String PROFILE_PAGE = "profile";
     public static final String REGISTER_PAGE = "register";
     public static final String ERROR_PAGE = "404";
-    public static final String CLIENT_ORDER_DETAILS_PAGE = "client-all-orders";
+    public static final String CLIENT_ORDER_DETAILS_PAGE = "client-order-details";
     public static final String CLIENT_ORDERS_PAGE = "client-all-orders";
 
     public static final String CLIENT_ORDER_PATH = "/client/order-details?orderId=";
@@ -21,6 +21,7 @@ public class PageConstant {
     public static final String MASTER_AVAILABLE_ORDERS_PAGE = "master-all-available-orders";
 
     public static final String MASTER_ORDER_PATH = "/master/order-details?orderId=";
+    public static final String MASTER_AVAILABLE_ORDERS_PATH = "/master/available-orders?currentPage=1&recordsPerPage=5";
 
     public static final String ADMIN_USERS_PAGE = "admin-all-users";
     public static final String ADMIN_ORDER_PAGE = "admin-order-details";

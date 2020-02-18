@@ -36,7 +36,7 @@ public class AcceptOrderCommandTest {
         when(orderService.findById(1)).thenReturn(OrderDto.builder().build());
         when(request.getSession()).thenReturn(session);
 
-        String expected = "redirect:admin?command=adminOrderDetails&orderId=1";
+        String expected = "redirect:/admin/order-details?orderId=1";
         String actual = command.execute(request);
 
         verify(session).setAttribute("successMessage", "accept.success");

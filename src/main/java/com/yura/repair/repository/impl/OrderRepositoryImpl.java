@@ -32,7 +32,7 @@ public class OrderRepositoryImpl extends AbstractRepository<OrderEntity> impleme
     private static final String LIMIT = " LIMIT ?, ?";
     private static final String FIND_ALL_QUERY = FIND_ALL + " ORDER BY o.id DESC " + LIMIT;
     private static final String UPDATE_QUERY = "UPDATE orders SET master_id = ?, client_id = ?, instrument_id = ?," +
-            " date = ?, service = ?, price = ?, status = ?, rejection_reason = ? WHERE id = ? AND status != ?";
+            " date = ?, service = ?, price = ?, status = ?, rejection_reason = ? WHERE id = ?";
     private static final String DELETE_BY_ID_QUERY = "DELETE FROM orders WHERE id = ?";
     private static final String FIND_ALL_BY_CLIENT = FIND_ALL + " WHERE client_id = ? ORDER BY o.id DESC" + LIMIT;
     private static final String FIND_ALL_BY_MASTER = FIND_ALL + " WHERE master_id = ? ORDER BY o.id DESC" + LIMIT;
@@ -122,7 +122,6 @@ public class OrderRepositoryImpl extends AbstractRepository<OrderEntity> impleme
     protected void updateStatementMapper(OrderEntity entity, PreparedStatement preparedStatement) throws SQLException {
         insertStatementMapper(entity, preparedStatement);
         preparedStatement.setInt(9, entity.getId());
-        preparedStatement.setString(10, entity.getStatus().name());
     }
 
     @Override

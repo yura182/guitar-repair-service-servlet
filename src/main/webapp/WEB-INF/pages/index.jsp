@@ -81,10 +81,10 @@
 
                 <c:if test="${sessionScope.user.role.name() eq 'MASTER'}">
                     <li class="nav-item" >
-                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/master?command=masterAllAvailableOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.master.available.orders"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/master/available-orders?currentPage=1&recordsPerPage=5"><fmt:message key="menu.master.available.orders"/></a>
                     </li>
                     <li class="nav-item" >
-                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/master?command=masterProcessingOrders&currentPage=1&recordsPerPage=5"><fmt:message key="menu.master.processing.orders"/></a>
+                        <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/master/my-orders?currentPage=1&recordsPerPage=5"><fmt:message key="menu.master.processing.orders"/></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/reviews?currentPage=1&recordsPerPage=3"><fmt:message key="menu.reviews"/></a>

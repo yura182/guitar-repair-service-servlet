@@ -1,12 +1,13 @@
 package com.yura.repair.command.master;
 
 import com.yura.repair.command.Command;
+import com.yura.repair.command.MultipleMethodCommand;
 import com.yura.repair.dto.OrderDto;
 import com.yura.repair.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CompleteOrderCommand implements Command {
+public class CompleteOrderCommand extends MultipleMethodCommand {
 
     private final OrderService orderService;
 
@@ -15,7 +16,12 @@ public class CompleteOrderCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) {
+    protected String executeGet(HttpServletRequest request) {
+        return null;
+    }
+
+    @Override
+    protected String executePost(HttpServletRequest request) {
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         OrderDto orderDto = orderService.findById(orderId);
 
@@ -23,6 +29,6 @@ public class CompleteOrderCommand implements Command {
 
         request.getSession().setAttribute("successMessage", "complete.success");
 
-        return "redirect:master?command=masterOrderDetails&orderId=" + orderId;
+        return "redirect:/master/order-details?orderId=" + orderId;
     }
 }

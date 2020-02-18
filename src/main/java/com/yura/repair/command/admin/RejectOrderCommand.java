@@ -29,6 +29,6 @@ public class RejectOrderCommand extends MultipleMethodCommand {
 
         request.getSession().setAttribute("successMessage", "reject.success");
 
-        return "redirect:admin/order-details?orderId=" + orderId;
+        return "redirect:/admin/order-details?orderId=" + orderId;
     }
 }

@@ -24,6 +24,6 @@ public class DeleteReviewCommand extends MultipleMethodCommand {
 
         request.getSession().setAttribute("successMessage", "all.reviews.delete.success");
 
-        return "redirect:admin/reviews?recordsPerPage=3&currentPage=1";
+        return "redirect:/admin/reviews?recordsPerPage=3&currentPage=1";
     }
 }

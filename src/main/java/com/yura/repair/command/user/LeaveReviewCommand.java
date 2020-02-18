@@ -41,6 +41,6 @@ public class LeaveReviewCommand extends MultipleMethodCommand {
 
         request.getSession().setAttribute("successMessage", "user.order.details.review.success");
 
-        return "redirect://client/order-details?orderId=" + orderDto.getId();
+        return "redirect:/client/order-details?orderId=" + orderDto.getId();
     }
 }

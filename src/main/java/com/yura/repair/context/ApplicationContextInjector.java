@@ -97,13 +97,13 @@ public class ApplicationContextInjector {
     private static final List<String> userPages = new ArrayList<>();
 
     static {
-        COMMAND_NAME_TO_USER_COMMAND.put("/logout", LOGOUT_COMMAND);
         COMMAND_NAME_TO_USER_COMMAND.put("/client/add-order", ADD_ORDER_COMMAND);
         COMMAND_NAME_TO_USER_COMMAND.put("/client/all-orders", USER_ALL_ORDERS);
         COMMAND_NAME_TO_USER_COMMAND.put("/client/order-details", USER_ORDER_DETAILS_COMMAND);
         COMMAND_NAME_TO_USER_COMMAND.put("/client/leave-review", LEAVE_REVIEW_COMMAND);
         COMMAND_NAME_TO_USER_COMMAND.put("/login", LOGIN_COMMAND);
         COMMAND_NAME_TO_USER_COMMAND.put("/register", REGISTER_COMMAND);
+        COMMAND_NAME_TO_USER_COMMAND.put("/logout", LOGOUT_COMMAND);
         COMMAND_NAME_TO_USER_COMMAND.put("/reviews", ALL_REVIEWS);
         COMMAND_NAME_TO_USER_COMMAND.put("/profile", PROFILE_COMMAND);
     }
@@ -119,17 +119,18 @@ public class ApplicationContextInjector {
     }
 
     static {
-        COMMAND_NAME_TO_MASTER_COMMAND.put("masterAllAvailableOrders", MASTER_AVAILABLE_ORDERS_COMMAND);
-        COMMAND_NAME_TO_MASTER_COMMAND.put("masterOrderDetails", MASTER_ORDER_DETAILS_COMMAND);
-        COMMAND_NAME_TO_MASTER_COMMAND.put("processOrder", MASTER_PROCESS_ORDER_COMMAND);
-        COMMAND_NAME_TO_MASTER_COMMAND.put("completeOrder", MASTER_COMPLETE_ORDER_COMMAND);
-        COMMAND_NAME_TO_MASTER_COMMAND.put("masterProcessingOrders", MASTER_PROCESSING_ORDERS_COMMAND);
+        COMMAND_NAME_TO_MASTER_COMMAND.put("/master/available-orders", MASTER_AVAILABLE_ORDERS_COMMAND);
+        COMMAND_NAME_TO_MASTER_COMMAND.put("/master/order-details", MASTER_ORDER_DETAILS_COMMAND);
+        COMMAND_NAME_TO_MASTER_COMMAND.put("/master/process-order", MASTER_PROCESS_ORDER_COMMAND);
+        COMMAND_NAME_TO_MASTER_COMMAND.put("/master/complete-order", MASTER_COMPLETE_ORDER_COMMAND);
+        COMMAND_NAME_TO_MASTER_COMMAND.put("/master/my-orders", MASTER_PROCESSING_ORDERS_COMMAND);
     }
 
     static {
         adminPages.addAll(Arrays.asList("/admin/orders", "/admin/order-details", "/admin/users", "/admin/reviews",
                 "/admin/accept-order", "/admin/reject-order", "/admin/delete-review"));
-        masterPages.add("/master");
+        masterPages.addAll(Arrays.asList("/master/available-orders", "/master/my-orders", "/master/order-details",
+                "/master/complete-order", "/master/process-order"));
         userPages.addAll(Arrays.asList("/login", "/register", "/reviews", "/user", "/logout", "/profile",
                 "/client/all-orders", "/client/order-details", "/client/add-order", "/client/leave-review"));
     }

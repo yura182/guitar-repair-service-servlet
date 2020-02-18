@@ -14,9 +14,9 @@
 
     <title><fmt:message key="order.details.title"/></title>
 
-    <link href="${pageContext.request.contextPath}/css/agency.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css"  rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/agency.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -29,7 +29,7 @@
 <body id="page-top">
 
 <!-- Navigation -->
-<c:import url="WEB-INF/pages/menu.jsp"/>
+<c:import url="menu.jsp"/>
 
 
 <section class="page-section" id="services">
@@ -108,10 +108,8 @@
                         <div class="limiter">
                             <div class="container-login100">
                                 <div class="wrap-login100 p-t-50 p-b-90">
-                                    <form class="login100-form validate-form flex-sb flex-w" action="master" method="post">
-                                        <input type="hidden" name="command" value="processOrder">
+                                    <form class="login100-form validate-form flex-sb flex-w" action="/master/process-order" method="post">
                                         <input type="hidden" name="orderId" value="${order.id}">
-
                                         <div class="container-login100-form-btn m-t-17 order-details-button-master">
                                             <button class="login100-form-btn" type="submit" >
                                                 <fmt:message key="process.button"/>
@@ -129,10 +127,8 @@
                         <div class="limiter">
                             <div class="container-login100">
                                 <div class="wrap-login100 p-t-50 p-b-90">
-                                    <form class="login100-form validate-form flex-sb flex-w" action="master" method="post">
-                                        <input type="hidden" name="command" value="completeOrder">
+                                    <form class="login100-form validate-form flex-sb flex-w" action="/master/complete-order" method="post">
                                         <input type="hidden" name="orderId" value="${order.id}">
-
                                         <div class="container-login100-form-btn m-t-17 order-details-button-master">
                                             <button class="login100-form-btn" type="submit" >
                                                 <fmt:message key="complete.button"/>

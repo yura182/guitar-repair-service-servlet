@@ -6,8 +6,9 @@ import javax.servlet.DispatcherType;
 import javax.servlet.annotation.WebFilter;
 
 @WebFilter(dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD},
-        urlPatterns = "/master")
+        urlPatterns = "/master/*")
 public class MasterSecurityFilter extends SecurityFilter {
+
     public MasterSecurityFilter() {
         super(Role.MASTER);
     }

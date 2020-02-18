@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/login", "/register", "/profile", "/reviews", "/logout", "/client/*", "/admin/*"})
+@WebServlet(urlPatterns = {"/login", "/register", "/profile", "/reviews", "/logout", "/client/*", "/admin/*", "/master/*"})
 public class Servlet extends HttpServlet {
 
     @Override

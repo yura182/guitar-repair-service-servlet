@@ -15,9 +15,9 @@
 
     <title><fmt:message key="all.orders.title"/></title>
 
-    <link href="${pageContext.request.contextPath}/css/agency.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css"  rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css"  rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/agency.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -30,7 +30,7 @@
 <body id="page-top">
 
 <!-- Navigation -->
-<c:import url="WEB-INF/pages/menu.jsp"/>
+<c:import url="menu.jsp"/>
 
 
 <section class="page-section" id="services">
@@ -60,13 +60,13 @@
                             <td>${order.service}</td>
                             <td><fmt:message key="${order.status.localeDescription}"/></td>
                             <td>
-                                <a class="details-link" href="${pageContext.request.contextPath}/master?command=masterOrderDetails&orderId=${order.id}"><fmt:message key="user.orders.details"/></a>
+                                <a class="details-link" href="${pageContext.request.contextPath}/master/order-details?orderId=${order.id}"><fmt:message key="user.orders.details"/></a>
                             </td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
-                <c:import url="WEB-INF/pages/pagination.jsp"/>
+                <c:import url="pagination.jsp"/>
             </div>
         </div>
     </div>

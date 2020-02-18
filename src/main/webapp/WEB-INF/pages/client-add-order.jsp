@@ -98,10 +98,10 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-4">
-
+                <span class="copyright">Copyright &copy; Guitar Service 2020</span>
             </div>
             <div class="col-md-4">
-                <span class="copyright">Copyright &copy; Guitar Service 2020</span>
+                <img src="${pageContext.request.contextPath}/img/brands.jpg">
             </div>
             <div class="col-md-4">
                 <ul class="list-inline quicklinks">

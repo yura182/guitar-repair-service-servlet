@@ -35,7 +35,7 @@ public class RegisterCommandTest {
     public void executeShouldReturnPage() {
         when(request.getParameter(anyString())).thenReturn("param");
         when(request.getSession()).thenReturn(session);
-        String expected = "redirect:login.jsp";
+        String expected = "redirect:login";
         String actual = command.execute(request);
 
         verify(request, times(5)).getParameter(anyString());
@@ -48,7 +48,7 @@ public class RegisterCommandTest {
         when(request.getParameter(anyString())).thenReturn("param");
         doThrow(InvalidUserParameterException.class).when(userService).register(any(UserDto.class));
 
-        String expected = "register.jsp";
+        String expected = "register";
         String actual = command.execute(request);
 
         verify(request).setAttribute("errorMessage", "register.error");
@@ -60,10 +60,34 @@ public class RegisterCommandTest {
         when(request.getParameter(anyString())).thenReturn("param");
         doThrow(AlreadyRegisteredUserException.class).when(userService).register(any(UserDto.class));
 
-        String expected = "register.jsp";
+        String expected = "register";
         String actual = command.execute(request);
 
         verify(request).setAttribute("errorMessage", "register.error.already.registered");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void executeShouldReturnRegisterPage() {
+        when(request.getMethod()).thenReturn("GET");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(null);
+
+        String expected = "register";
+        String actual = command.execute(request);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void executeShouldReturnMainPage() {
+        when(request.getMethod()).thenReturn("GET");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(UserDto.builder().build());
+
+        String expected = "redirect:/";
+        String actual = command.execute(request);
+
         assertEquals(expected, actual);
     }
 }

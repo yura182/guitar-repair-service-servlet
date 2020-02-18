@@ -1,6 +1,7 @@
 package com.yura.repair.command.admin;
 
 import com.yura.repair.service.UserService;
+import com.yura.repair.util.PaginationUtility;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -23,16 +24,18 @@ public class AllUsersCommandTest {
     @Mock
     private HttpServletRequest request;
 
+    @Mock
+    private PaginationUtility paginationUtility;
+
     @InjectMocks
     private AllUsersCommand command;
 
     @Test
     public void executeShouldReturnPage() {
-        when(request.getParameter(anyString())).thenReturn("1");
         when(userService.findAll(anyInt(), anyInt())).thenReturn(Collections.emptyList());
         when(userService.numberOfEntries()).thenReturn(1);
 
-        String expected = "admin-all-users.jsp";
+        String expected = "admin-all-users";
         String actual = command.execute(request);
 
         assertEquals(expected, actual);

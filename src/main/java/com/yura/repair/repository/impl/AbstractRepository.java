@@ -1,5 +1,6 @@
 package com.yura.repair.repository.impl;
 
+import com.yura.repair.entity.Status;
 import com.yura.repair.exception.DBRuntimeException;
 import com.yura.repair.repository.CrudRepository;
 import com.yura.repair.repository.connector.DBConnector;

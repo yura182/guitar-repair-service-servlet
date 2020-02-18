@@ -48,10 +48,34 @@ public class LoginCommandTest {
         when(request.getParameter(anyString())).thenReturn("parameter");
         doThrow(UserNotFoundException.class).when(userService).login(anyString(), anyString());
 
-        String expected = "login.jsp";
+        String expected = "login";
         String actual = command.execute(request);
 
         verify(request).setAttribute("errorMessage", "login.error");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void executeShouldReturnLoginPage() {
+        when(request.getMethod()).thenReturn("GET");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(null);
+
+        String expected = "login";
+        String actual = command.execute(request);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void executeShouldReturnMainPage() {
+        when(request.getMethod()).thenReturn("GET");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(UserDto.builder().build());
+
+        String expected = "redirect:/";
+        String actual = command.execute(request);
+
         assertEquals(expected, actual);
     }
 }

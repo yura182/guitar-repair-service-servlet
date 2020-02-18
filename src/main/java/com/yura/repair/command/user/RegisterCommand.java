@@ -11,8 +11,15 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.yura.repair.constant.AttributeConstant.ATTR_NAME_ERROR;
+import static com.yura.repair.constant.AttributeConstant.ATTR_NAME_SUCCESS;
+import static com.yura.repair.constant.PageConstant.*;
+
 public class RegisterCommand extends MultipleMethodCommand {
     private static final Logger LOGGER = LogManager.getLogger(RegisterCommand.class);
+    private static final String REGISTER_ERROR_MESSAGE = "register.error";
+    private static final String ERROR_ALREADY_REGISTERED_MESSAGE = "register.error.already.registered";
+    private static final String JUST_REGISTERED_MESSAGE = "login.just.registered";
 
     private final UserService userService;
 
@@ -35,28 +42,28 @@ public class RegisterCommand extends MultipleMethodCommand {
             userService.register(userDto);
         } catch (InvalidUserParameterException e) {
             LOGGER.warn("Validation error " + e);
-            request.setAttribute("errorMessage", "register.error");
+            request.setAttribute(ATTR_NAME_ERROR, REGISTER_ERROR_MESSAGE);
 
-            return "register";
+            return REGISTER_PAGE;
         } catch (AlreadyRegisteredUserException e) {
             LOGGER.warn("User with such email already exist " + e);
-            request.setAttribute("errorMessage", "register.error.already.registered");
+            request.setAttribute(ATTR_NAME_ERROR, ERROR_ALREADY_REGISTERED_MESSAGE);
 
-            return "register";
+            return REGISTER_PAGE;
         }
 
-        request.getSession().setAttribute("successMessage", "login.just.registered");
+        request.getSession().setAttribute(ATTR_NAME_SUCCESS, JUST_REGISTERED_MESSAGE);
 
-        return "redirect:/login";
+        return REDIRECT + LOGIN_PAGE;
     }
 
     @Override
     protected String executeGet(HttpServletRequest request) {
         if (request.getSession().getAttribute("user") != null) {
-            return "redirect:/";
+            return REDIRECT + HOME_PAGE;
         }
 
-        return "register";
+        return REGISTER_PAGE;
     }
 
 }

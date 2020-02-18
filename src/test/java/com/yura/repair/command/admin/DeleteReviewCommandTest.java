@@ -33,7 +33,7 @@ public class DeleteReviewCommandTest {
         when(request.getParameter("reviewId")).thenReturn("1");
         when(request.getSession()).thenReturn(session);
 
-        String expected = "redirect:admin?command=adminAllReviews&recordsPerPage=3&currentPage=1";
+        String expected = "redirect:/admin/reviews?recordsPerPage=3&currentPage=1";
         String actual = command.execute(request);
 
         verify(session).setAttribute("successMessage", "all.reviews.delete.success");

@@ -51,11 +51,6 @@ public class UserServiceImplTest {
     @InjectMocks
     private UserServiceImpl userService;
 
-    @After
-    public void resetMocks() {
-        reset(userRepository, userMapper, userValidator, passwordEncoder);
-    }
-
     @Test
     public void registerShouldRegisterUser() {
         when(passwordEncoder.encode(USER_DTO.getPassword())).thenReturn(USER_DTO.getPassword());
@@ -102,8 +97,6 @@ public class UserServiceImplTest {
         exception.expectMessage("User not found");
 
         when(userRepository.findByEmail(EMAIL)).thenReturn(Optional.empty());
-        when(userMapper.mapEntityToDto(USER_ENTITY)).thenReturn(USER_DTO);
-        when(passwordEncoder.encode(PASSWORD)).thenReturn(PASSWORD);
 
         userService.login(EMAIL, PASSWORD);
     }

@@ -8,6 +8,7 @@ import com.yura.repair.entity.InstrumentEntity;
 import com.yura.repair.entity.OrderEntity;
 import com.yura.repair.entity.UserEntity;
 import com.yura.repair.exception.InvalidParameterException;
+import com.yura.repair.exception.OrderAlreadyUpdatedException;
 import com.yura.repair.exception.OrderNotFoundException;
 import com.yura.repair.repository.OrderRepository;
 import com.yura.repair.service.mapper.EntityMapper;
@@ -26,7 +27,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -48,11 +49,6 @@ public class OrderServiceImplTest {
 
     @InjectMocks
     private OrderServiceImpl orderService;
-
-    @After
-    public void resetMocks() {
-        reset(orderRepository, orderMapper, orderValidator);
-    }
 
     @Test
     public void addShouldAddOrder() {
@@ -193,30 +189,83 @@ public class OrderServiceImplTest {
 
     @Test
     public void acceptOrderShouldUpdateOrder() {
-        when(orderMapper.mapDtoToEntity(any(OrderDto.class))).thenReturn(ORDER_ENTITY);
+        when(orderRepository.findById(anyInt())).thenReturn(Optional.of(ORDER_ENTITY));
+
         orderService.acceptOrder(ORDER_DTO, 1.1);
-        verify(orderRepository).update(ORDER_ENTITY);
+
+        verify(orderRepository).update(any(OrderEntity.class));
+    }
+
+    @Test
+    public void acceptOrderShouldThrowOrderAlreadyUpdatedException() {
+        exception.expect(OrderAlreadyUpdatedException.class);
+        exception.expectMessage("Order already accepted");
+        OrderEntity orderEntity = new OrderEntity(ORDER_ENTITY, Status.ACCEPTED);
+
+        when(orderRepository.findById(anyInt())).thenReturn(Optional.of(orderEntity));
+
+        orderService.acceptOrder(ORDER_DTO, 1.1);
     }
 
     @Test
     public void rejectOrderShouldUpdateOrder() {
-        when(orderMapper.mapDtoToEntity(any(OrderDto.class))).thenReturn(ORDER_ENTITY);
+        when(orderRepository.findById(anyInt())).thenReturn(Optional.of(ORDER_ENTITY));
+
         orderService.rejectOrder(ORDER_DTO, "reason");
-        verify(orderRepository).update(ORDER_ENTITY);
+
+        verify(orderRepository).update(any(OrderEntity.class));
+    }
+
+    @Test
+    public void rejectOrderShouldThrowOrderAlreadyUpdatedException() {
+        exception.expect(OrderAlreadyUpdatedException.class);
+        exception.expectMessage("Order already accepted");
+        OrderEntity orderEntity = new OrderEntity(ORDER_ENTITY, Status.ACCEPTED);
+
+        when(orderRepository.findById(anyInt())).thenReturn(Optional.of(orderEntity));
+
+        orderService.rejectOrder(ORDER_DTO, "reason");
     }
 
     @Test
     public void processOrderShouldUpdateOrder() {
-        when(orderMapper.mapDtoToEntity(any(OrderDto.class))).thenReturn(ORDER_ENTITY);
+        OrderEntity orderEntity = new OrderEntity(ORDER_ENTITY, Status.ACCEPTED);
+        when(orderRepository.findById(anyInt())).thenReturn(Optional.of(orderEntity));
+
         orderService.processOrder(ORDER_DTO, UserDto.builder().build());
-        verify(orderRepository).update(ORDER_ENTITY);
+
+        verify(orderRepository).update(any(OrderEntity.class));
+    }
+
+    @Test
+    public void processOrderShouldThrowOrderAlreadyUpdatedException() {
+        exception.expect(OrderAlreadyUpdatedException.class);
+        exception.expectMessage("Order already processed");
+
+        when(orderRepository.findById(anyInt())).thenReturn(Optional.of(ORDER_ENTITY));
+
+        orderService.processOrder(ORDER_DTO, UserDto.builder().build());
     }
 
     @Test
     public void completeOrderShouldUpdateOrder() {
-        when(orderMapper.mapDtoToEntity(any(OrderDto.class))).thenReturn(ORDER_ENTITY);
+        OrderEntity orderEntity = new OrderEntity(ORDER_ENTITY, Status.PROCESSING);
+        when(orderRepository.findById(anyInt())).thenReturn(Optional.of(orderEntity));
+
         orderService.completeOrder(ORDER_DTO);
-        verify(orderRepository).update(ORDER_ENTITY);
+
+        verify(orderRepository).update(any(OrderEntity.class));
+    }
+
+    @Test
+    public void completeOrderShouldThrowOrderAlreadyUpdatedException() {
+        exception.expect(OrderAlreadyUpdatedException.class);
+        exception.expectMessage("Order already completed");
+
+        OrderEntity orderEntity = new OrderEntity(ORDER_ENTITY, Status.COMPLETED);
+        when(orderRepository.findById(anyInt())).thenReturn(Optional.of(orderEntity));
+
+        orderService.completeOrder(ORDER_DTO);
     }
 
     @Test
@@ -266,9 +315,48 @@ public class OrderServiceImplTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void isNotUserOrderShouldReturnFalse() {
+        boolean actual = orderService.isNotUserOrder(UserDto.builder().withId(1).build(), ORDER_DTO);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void isNotUserOrderShouldReturnTrue() {
+        boolean actual = orderService.isNotUserOrder(UserDto.builder().withId(2).build(), ORDER_DTO);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void isNotUserOrderShouldReturnTrueForNull() {
+        boolean actual = orderService.isNotUserOrder(null, ORDER_DTO);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void isNotMasterOrderShouldReturnFalse() {
+        boolean actual = orderService.isNotMasterOrder(UserDto.builder().withId(1).build(), ORDER_DTO);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void isNotMasterOrderShouldReturnTrue() {
+        boolean actual = orderService.isNotMasterOrder(UserDto.builder().withId(2).build(), ORDER_DTO);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void isNotMasterOrderShouldReturnFalseForNull() {
+        OrderDto orderDto = OrderDto.builder().build();
+        boolean actual = orderService.isNotMasterOrder(UserDto.builder().withId(1).build(), orderDto);
+        assertFalse(actual);
+    }
+
+
 
     private static OrderDto getOrderDto() {
         return OrderDto.builder()
+                .withId(1)
                 .withInstrument(InstrumentDto.builder()
                         .withBrand("Cort")
                         .withModel("123")
@@ -277,9 +365,11 @@ public class OrderServiceImplTest {
                 .withStatus(Status.NEW)
                 .withDate(LocalDateTime.of(1990, 12, 12, 12, 12))
                 .withUser(UserDto.builder()
+                        .withId(1)
                         .withName("Yura")
                         .build())
                 .withService("Service")
+                .withMaster(UserDto.builder().withId(1).build())
                 .build();
     }
 

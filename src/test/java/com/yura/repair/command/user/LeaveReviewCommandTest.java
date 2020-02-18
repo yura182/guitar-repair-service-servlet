@@ -37,7 +37,7 @@ public class LeaveReviewCommandTest {
         when(request.getParameter(anyString())).thenReturn("parameter");
         when(request.getParameter("orderId")).thenReturn("1");
 
-        String expected = "redirect:user?command=userOrderDetails&orderId=1";
+        String expected = "redirect:/client/order-details?orderId=1";
         String actual = command.execute(request);
 
         verify(session).setAttribute("successMessage", "user.order.details.review.success");

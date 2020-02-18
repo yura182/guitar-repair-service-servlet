@@ -1,11 +1,13 @@
 package com.yura.repair.command.admin;
 
 import com.yura.repair.command.Command;
-import com.yura.repair.command.MultipleMethodCommand;
 import com.yura.repair.dto.OrderDto;
 import com.yura.repair.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
+
+import static com.yura.repair.constant.AttributeConstant.ATTR_NAME_ORDER;
+import static com.yura.repair.constant.PageConstant.ADMIN_ORDER_PAGE;
 
 public class AdminOrderDetailsCommand implements Command {
     private final OrderService orderService;
@@ -18,8 +20,8 @@ public class AdminOrderDetailsCommand implements Command {
     public String execute(HttpServletRequest request) {
         OrderDto orderDto = orderService.findById(Integer.parseInt(request.getParameter("orderId")));
 
-        request.setAttribute("order", orderDto);
+        request.setAttribute(ATTR_NAME_ORDER, orderDto);
 
-        return "admin-order-details";
+        return ADMIN_ORDER_PAGE;
     }
 }

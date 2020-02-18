@@ -1,13 +1,17 @@
 package com.yura.repair.command.master;
 
 import com.yura.repair.command.Command;
-import com.yura.repair.command.MultipleMethodCommand;
 import com.yura.repair.dto.OrderDto;
+import com.yura.repair.dto.UserDto;
 import com.yura.repair.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class MasterOrderDetailsCommand implements Command{
+import static com.yura.repair.constant.AttributeConstant.ATTR_NAME_ORDER;
+import static com.yura.repair.constant.PageConstant.ERROR_PAGE;
+import static com.yura.repair.constant.PageConstant.MASTER_ORDER_PAGE;
+
+public class MasterOrderDetailsCommand implements Command {
     private final OrderService orderService;
 
     public MasterOrderDetailsCommand(OrderService orderService) {
@@ -16,10 +20,15 @@ public class MasterOrderDetailsCommand implements Command{
 
     @Override
     public String execute(HttpServletRequest request) {
-        OrderDto orderDto = orderService.findById(Integer.parseInt(request.getParameter("orderId")));
+        OrderDto order = orderService.findById(Integer.parseInt(request.getParameter("orderId")));
+        UserDto loggedMaster = (UserDto) request.getSession().getAttribute("user");
 
-        request.setAttribute("order", orderDto);
+        if (orderService.isNotMasterOrder(loggedMaster, order)) {
+            return ERROR_PAGE;
+        }
 
-        return "master-order-details";
+        request.setAttribute(ATTR_NAME_ORDER, order);
+
+        return MASTER_ORDER_PAGE;
     }
 }

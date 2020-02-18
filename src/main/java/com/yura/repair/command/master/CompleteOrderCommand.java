@@ -6,7 +6,13 @@ import com.yura.repair.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CompleteOrderCommand implements Command{
+import static com.yura.repair.constant.AttributeConstant.ATTR_NAME_SUCCESS;
+import static com.yura.repair.constant.PageConstant.MASTER_ORDER_PATH;
+import static com.yura.repair.constant.PageConstant.REDIRECT;
+
+public class CompleteOrderCommand implements Command {
+    private static final String COMPLETE_SUCCESS_MESSAGE = "complete.success";
+
     private final OrderService orderService;
 
     public CompleteOrderCommand(OrderService orderService) {
@@ -20,8 +26,8 @@ public class CompleteOrderCommand implements Command{
 
         orderService.completeOrder(orderDto);
 
-        request.getSession().setAttribute("successMessage", "complete.success");
+        request.getSession().setAttribute(ATTR_NAME_SUCCESS, COMPLETE_SUCCESS_MESSAGE);
 
-        return "redirect:/master/order-details?orderId=" + orderId;
+        return REDIRECT + MASTER_ORDER_PATH + orderId;
     }
 }

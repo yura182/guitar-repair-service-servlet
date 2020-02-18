@@ -2,7 +2,6 @@ package com.yura.repair.context;
 
 import com.yura.repair.command.Command;
 import com.yura.repair.command.admin.*;
-import com.yura.repair.command.helper.PaginationUtility;
 import com.yura.repair.command.master.*;
 import com.yura.repair.command.user.*;
 import com.yura.repair.dto.InstrumentDto;
@@ -33,6 +32,7 @@ import com.yura.repair.service.impl.ReviewServiceImpl;
 import com.yura.repair.service.impl.UserServiceImpl;
 import com.yura.repair.service.mapper.*;
 import com.yura.repair.service.validator.*;
+import com.yura.repair.util.PaginationUtility;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.util.*;
@@ -63,7 +63,7 @@ public class ApplicationContextInjector {
 
     private static final UserService USER_SERVICE = new UserServiceImpl(USER_REPOSITORY, USER_MAPPER, USER_VALIDATOR, PASSWORD_ENCODER);
     private static final InstrumentService INSTRUMENT_SERVICE = new InstrumentServiceImpl(INSTRUMENT_REPOSITORY, INSTRUMENT_MAPPER, INSTRUMENT_VALIDATOR);
-    private static final OrderService ORDER_SERVICE = new OrderServiceImpl(ORDER_REPOSITORY, ORDER_MAPPER, ORDER_VALIDATOR, INSTRUMENT_VALIDATOR);
+    private static final OrderService ORDER_SERVICE = new OrderServiceImpl(ORDER_REPOSITORY, ORDER_MAPPER, USER_MAPPER, ORDER_VALIDATOR, INSTRUMENT_VALIDATOR);
     private static final ReviewService REVIEW_SERVICE = new ReviewServiceImpl(REVIEW_REPOSITORY, COMMENT_MAPPER, REVIEW_VALIDATOR);
 
     private static final Command LOGIN_COMMAND = new LoginCommand(USER_SERVICE);

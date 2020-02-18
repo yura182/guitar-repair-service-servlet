@@ -9,7 +9,13 @@ import com.yura.repair.service.ReviewService;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
+import static com.yura.repair.constant.AttributeConstant.ATTR_NAME_SUCCESS;
+import static com.yura.repair.constant.PageConstant.CLIENT_ORDER_PATH;
+import static com.yura.repair.constant.PageConstant.REDIRECT;
+
 public class LeaveReviewCommand implements Command {
+    private static final String ORDER_DETAILS_REVIEW_SUCCESS_MESSAGE = "user.order.details.review.success";
+
     private final ReviewService reviewService;
 
     public LeaveReviewCommand(ReviewService reviewService) {
@@ -33,8 +39,8 @@ public class LeaveReviewCommand implements Command {
 
         reviewService.add(reviewDto);
 
-        request.getSession().setAttribute("successMessage", "user.order.details.review.success");
+        request.getSession().setAttribute(ATTR_NAME_SUCCESS, ORDER_DETAILS_REVIEW_SUCCESS_MESSAGE);
 
-        return "redirect:/client/order-details?orderId=" + orderDto.getId();
+        return REDIRECT + CLIENT_ORDER_PATH + orderDto.getId();
     }
 }

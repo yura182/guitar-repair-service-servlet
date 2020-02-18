@@ -42,11 +42,6 @@ public class InstrumentServiceImplTest {
     @InjectMocks
     private InstrumentServiceImpl instrumentService;
 
-    @After
-    public void resetMocks() {
-        reset(instrumentRepository, instrumentMapper, instrumentValidator);
-    }
-
     @Test
     public void addShouldReturnIdOfAddedInstrument() {
         when(instrumentMapper.mapDtoToEntity(INSTRUMENT_DTO)).thenReturn(INSTRUMENT_ENTITY);
@@ -62,8 +57,6 @@ public class InstrumentServiceImplTest {
     public void addShouldThrowEntitySavingException() {
         exception.expect(EntitySavingException.class);
         exception.expectMessage("Error during saving Instrument");
-
-        when(instrumentRepository.saveAndReturnId(INSTRUMENT_ENTITY)).thenReturn(Optional.empty());
 
         instrumentService.add(INSTRUMENT_DTO);
     }

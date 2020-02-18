@@ -9,6 +9,9 @@ import com.yura.repair.service.ReviewService;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
+import static com.yura.repair.constant.PageConstant.CLIENT_ORDER_PATH;
+import static com.yura.repair.constant.PageConstant.REDIRECT;
+
 public class LeaveReviewCommand implements Command {
     private final ReviewService reviewService;
 
@@ -35,6 +38,6 @@ public class LeaveReviewCommand implements Command {
 
         request.getSession().setAttribute("successMessage", "user.order.details.review.success");
 
-        return "redirect:/client/order-details?orderId=" + orderDto.getId();
+        return REDIRECT + CLIENT_ORDER_PATH + orderDto.getId();
     }
 }

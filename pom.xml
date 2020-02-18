@@ -9,56 +9,66 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <javax.servlet>4.0.1</javax.servlet>
+        <log4j>2.6.1</log4j>
+        <msql>8.0.18</msql>
+        <jstl>1.2</jstl>
+        <dbcp>1.4</dbcp>
+        <junit>4.12</junit>
+        <mockito>2.23.4</mockito>
+        <maven.source.target>1.8</maven.source.target>
+        <maven.compiler.plugin>3.8.1</maven.compiler.plugin>
+        <maven.war.plugin>3.2.3</maven.war.plugin>
+        <tomcat.plugin>2.2</tomcat.plugin>
+        <jacoco>0.7.7.201606060606</jacoco>
+    </properties>
+
     <dependencies>
 
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
+            <version>${javax.servlet}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.6.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.6.1</version>
+            <version>${log4j}</version>
         </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.18</version>
+            <version>${msql}</version>
         </dependency>
 
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <version>${jstl}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
+            <version>${dbcp}</version>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.23.4</version>
+            <version>${mockito}</version>
             <scope>test</scope>
         </dependency>
 
@@ -70,23 +80,23 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${maven.compiler.plugin}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${maven.source.target}</source>
+                    <target>${maven.source.target}</target>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.3</version>
+                <version>${maven.war.plugin}</version>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
+                <version>${tomcat.plugin}</version>
                 <configuration>
                     <port>8080</port>
                     <path>/</path>
@@ -96,7 +106,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.7.201606060606</version>
+                <version>${jacoco}</version>
                 <configuration>
                     <excludes>
                         <exclude>com/yura/repair/domain/**/*</exclude>
@@ -126,9 +136,5 @@
 
         </plugins>
     </build>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 
 </project>

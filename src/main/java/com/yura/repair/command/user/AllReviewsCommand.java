@@ -1,14 +1,16 @@
 package com.yura.repair.command.user;
 
 import com.yura.repair.command.Command;
-import com.yura.repair.command.helper.PaginationUtility;
 import com.yura.repair.dto.ReviewDto;
 import com.yura.repair.service.ReviewService;
+import com.yura.repair.util.PaginationUtility;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class AllReviewsCommand implements Command{
+import static com.yura.repair.constant.PageConstant.REVIEWS_PAGE;
+
+public class AllReviewsCommand implements Command {
     private final ReviewService reviewService;
 
     private final PaginationUtility pagination;
@@ -27,6 +29,6 @@ public class AllReviewsCommand implements Command{
 
         pagination.paginate(currentPage, recordsPerPage, reviewService.numberOfEntries(), reviews, "/reviews", request);
 
-        return "reviews";
+        return REVIEWS_PAGE;
     }
 }

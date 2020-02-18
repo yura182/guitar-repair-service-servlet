@@ -12,6 +12,8 @@ import com.yura.repair.service.OrderService;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
+import static com.yura.repair.constant.PageConstant.*;
+
 public class MakeOrderCommand extends MultipleMethodCommand {
     public final InstrumentService instrumentService;
     public final OrderService orderService;
@@ -23,7 +25,7 @@ public class MakeOrderCommand extends MultipleMethodCommand {
 
     @Override
     protected String executeGet(HttpServletRequest request) {
-        return "client-add-order";
+        return ADD_ORDER_PAGE;
     }
 
     @Override
@@ -44,11 +46,11 @@ public class MakeOrderCommand extends MultipleMethodCommand {
             orderService.add(orderDto);
         } catch (InvalidParameterException e) {
             request.setAttribute("errorMessage", "order.error");
-            return "client-add-order";
+            return ADD_ORDER_PAGE;
         }
 
         request.getSession().setAttribute("successMessage", "order.success");
 
-        return "redirect:/client/add-order";
+        return REDIRECT + CLIENT_ADD_ORDER_PATH;
     }
 }

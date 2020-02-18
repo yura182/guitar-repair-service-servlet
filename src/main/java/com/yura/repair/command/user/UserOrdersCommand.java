@@ -1,13 +1,15 @@
 package com.yura.repair.command.user;
 
 import com.yura.repair.command.Command;
-import com.yura.repair.command.helper.PaginationUtility;
 import com.yura.repair.dto.OrderDto;
 import com.yura.repair.dto.UserDto;
 import com.yura.repair.service.OrderService;
+import com.yura.repair.util.PaginationUtility;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+
+import static com.yura.repair.constant.PageConstant.CLIENT_ORDER_DETAILS_PAGE;
 
 public class UserOrdersCommand implements Command {
     private final OrderService orderService;
@@ -29,6 +31,6 @@ public class UserOrdersCommand implements Command {
 
         pagination.paginate(currentPage, recordsPerPage, orderService.numberOfEntriesByClientId(userDto.getId()), orders, "/client/all-orders", request);
 
-        return "client-all-orders";
+        return CLIENT_ORDER_DETAILS_PAGE;
     }
 }

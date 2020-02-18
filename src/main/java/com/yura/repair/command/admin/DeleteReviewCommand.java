@@ -1,12 +1,11 @@
 package com.yura.repair.command.admin;
 
 import com.yura.repair.command.Command;
-import com.yura.repair.command.MultipleMethodCommand;
 import com.yura.repair.service.ReviewService;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class DeleteReviewCommand implements Command{
+public class DeleteReviewCommand implements Command {
     private final ReviewService reviewService;
 
     public DeleteReviewCommand(ReviewService reviewService) {

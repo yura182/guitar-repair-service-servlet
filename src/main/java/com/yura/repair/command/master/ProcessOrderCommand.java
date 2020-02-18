@@ -1,7 +1,6 @@
 package com.yura.repair.command.master;
 
 import com.yura.repair.command.Command;
-import com.yura.repair.command.MultipleMethodCommand;
 import com.yura.repair.dto.OrderDto;
 import com.yura.repair.dto.UserDto;
 import com.yura.repair.service.OrderService;

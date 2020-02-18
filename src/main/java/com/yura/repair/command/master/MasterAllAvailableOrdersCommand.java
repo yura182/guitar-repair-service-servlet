@@ -1,15 +1,15 @@
 package com.yura.repair.command.master;
 
 import com.yura.repair.command.Command;
-import com.yura.repair.command.helper.PaginationUtility;
 import com.yura.repair.dto.OrderDto;
 import com.yura.repair.entity.Status;
 import com.yura.repair.service.OrderService;
+import com.yura.repair.util.PaginationUtility;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class MasterAllAvailableOrdersCommand implements Command{
+public class MasterAllAvailableOrdersCommand implements Command {
     private final OrderService orderService;
 
     private final PaginationUtility pagination;

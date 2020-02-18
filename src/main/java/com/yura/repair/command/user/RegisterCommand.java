@@ -11,6 +11,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.yura.repair.constant.PageConstant.*;
+
 public class RegisterCommand extends MultipleMethodCommand {
     private static final Logger LOGGER = LogManager.getLogger(RegisterCommand.class);
 
@@ -37,26 +39,26 @@ public class RegisterCommand extends MultipleMethodCommand {
             LOGGER.warn("Validation error " + e);
             request.setAttribute("errorMessage", "register.error");
 
-            return "register";
+            return REGISTER_PAGE;
         } catch (AlreadyRegisteredUserException e) {
             LOGGER.warn("User with such email already exist " + e);
             request.setAttribute("errorMessage", "register.error.already.registered");
 
-            return "register";
+            return REGISTER_PAGE;
         }
 
         request.getSession().setAttribute("successMessage", "login.just.registered");
 
-        return "redirect:/login";
+        return REDIRECT + LOGIN_PAGE;
     }
 
     @Override
     protected String executeGet(HttpServletRequest request) {
         if (request.getSession().getAttribute("user") != null) {
-            return "redirect:/";
+            return REDIRECT + HOME_PAGE;
         }
 
-        return "register";
+        return REGISTER_PAGE;
     }
 
 }

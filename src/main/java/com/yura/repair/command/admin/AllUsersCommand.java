@@ -1,14 +1,14 @@
 package com.yura.repair.command.admin;
 
 import com.yura.repair.command.Command;
-import com.yura.repair.command.helper.PaginationUtility;
 import com.yura.repair.dto.UserDto;
 import com.yura.repair.service.UserService;
+import com.yura.repair.util.PaginationUtility;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class AllUsersCommand implements Command{
+public class AllUsersCommand implements Command {
     private final UserService userService;
 
     private final PaginationUtility pagination;

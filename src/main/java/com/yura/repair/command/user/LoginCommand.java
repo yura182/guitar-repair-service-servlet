@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.yura.repair.constant.PageConstant.*;
+
 public class LoginCommand extends MultipleMethodCommand {
     private static final Logger LOGGER = LogManager.getLogger(LoginCommand.class);
 
@@ -21,10 +23,10 @@ public class LoginCommand extends MultipleMethodCommand {
     @Override
     protected String executeGet(HttpServletRequest request) {
         if (request.getSession().getAttribute("user") != null) {
-            return "redirect:/";
+            return REDIRECT + HOME_PAGE;
         }
 
-        return "login";
+        return LOGIN_PAGE;
     }
 
     @Override
@@ -36,9 +38,9 @@ public class LoginCommand extends MultipleMethodCommand {
             LOGGER.warn("User not found " + e);
             request.setAttribute("errorMessage", "login.error");
 
-            return "login";
+            return LOGIN_PAGE;
         }
 
-        return "redirect:/";
+        return REDIRECT + HOME_PAGE;
     }
 }

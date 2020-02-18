@@ -4,6 +4,9 @@ import com.yura.repair.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.yura.repair.constant.PageConstant.HOME_PAGE;
+import static com.yura.repair.constant.PageConstant.REDIRECT;
+
 public class LogoutCommand implements Command {
 
     @Override
@@ -11,6 +14,6 @@ public class LogoutCommand implements Command {
         if (request.getSession().getAttribute("user") != null) {
             request.getSession().removeAttribute("user");
         }
-        return "redirect:/";
+        return REDIRECT + HOME_PAGE;
     }
 }

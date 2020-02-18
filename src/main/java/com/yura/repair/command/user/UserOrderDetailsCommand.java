@@ -7,6 +7,8 @@ import com.yura.repair.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.yura.repair.constant.PageConstant.ERROR_PAGE;
+
 public class UserOrderDetailsCommand implements Command {
     private final OrderService orderService;
 
@@ -20,7 +22,7 @@ public class UserOrderDetailsCommand implements Command {
         OrderDto orderDto = orderService.findById(Integer.parseInt(request.getParameter("orderId")));
 
         if (loggedUser == null || !loggedUser.getId().equals(orderDto.getClient().getId())) {
-            return "404";
+            return ERROR_PAGE;
         }
 
         request.setAttribute("order", orderDto);

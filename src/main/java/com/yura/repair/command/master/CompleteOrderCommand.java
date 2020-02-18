@@ -6,7 +6,7 @@ import com.yura.repair.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CompleteOrderCommand implements Command{
+public class CompleteOrderCommand implements Command {
     private final OrderService orderService;
 
     public CompleteOrderCommand(OrderService orderService) {

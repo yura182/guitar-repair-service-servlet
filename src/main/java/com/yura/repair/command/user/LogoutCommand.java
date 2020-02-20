@@ -12,7 +12,7 @@ public class LogoutCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         if (request.getSession().getAttribute("user") != null) {
-            request.getSession().removeAttribute("user");
+            request.getSession().invalidate();
         }
         return REDIRECT + HOME_PAGE;
     }

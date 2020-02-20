@@ -12,19 +12,27 @@ import java.util.ResourceBundle;
 public class DBConnector {
     private static final Logger LOGGER = LogManager.getLogger(DBConnector.class);
 
+    private static final String DB_DRIVER_KEY = "db.driver";
+    private static final String DB_URL_KEY = "db.url";
+    private static final String DB_USER_KEY = "db.user";
+    private static final String DB_PASSWORD_KEY = "db.password";
+    private static final String DB_MIN_IDLE_KEY = "db.minIdle";
+    private static final String DB_MAX_IDLE_KEY = "db.maxIdle";
+    private static final String DB_MAX_OPEN_STATEMENT_KEY = "db.maxOpenStatement";
+
     private final BasicDataSource pool;
 
     public DBConnector(String configFileName, BasicDataSource pool) {
         this.pool = pool;
         ResourceBundle bundle = ResourceBundle.getBundle(configFileName);
 
-        pool.setDriverClassName(bundle.getString("db.driver"));
-        pool.setUrl(bundle.getString("db.url"));
-        pool.setUsername(bundle.getString("db.user"));
-        pool.setPassword(bundle.getString("db.password"));
-        pool.setMinIdle(Integer.parseInt(bundle.getString("db.minIdle")));
-        pool.setMaxIdle(Integer.parseInt(bundle.getString("db.maxIdle")));
-        pool.setMaxOpenPreparedStatements(Integer.parseInt(bundle.getString("db.maxOpenStatement")));
+        pool.setDriverClassName(bundle.getString(DB_DRIVER_KEY));
+        pool.setUrl(bundle.getString(DB_URL_KEY));
+        pool.setUsername(bundle.getString(DB_USER_KEY));
+        pool.setPassword(bundle.getString(DB_PASSWORD_KEY));
+        pool.setMinIdle(Integer.parseInt(bundle.getString(DB_MIN_IDLE_KEY)));
+        pool.setMaxIdle(Integer.parseInt(bundle.getString(DB_MAX_IDLE_KEY)));
+        pool.setMaxOpenPreparedStatements(Integer.parseInt(bundle.getString(DB_MAX_OPEN_STATEMENT_KEY)));
     }
 
     public Connection getConnection() {

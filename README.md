@@ -31,6 +31,8 @@ Clone project to your local repository
 Run scripts from /resources/db/ folder to create database and tables (dbCreation.sql) 
 and to insert data (dbInsertion.sql)
 
+Update DB login and password in /resources/database.properties
+
 From project root folder run - mvn tomcat7:run
 
 Use http://localhost:8080/ to view website

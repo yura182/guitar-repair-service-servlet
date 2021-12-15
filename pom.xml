@@ -16,7 +16,7 @@
         <msql>8.0.18</msql>
         <jstl>1.2</jstl>
         <dbcp>1.4</dbcp>
-        <junit>4.12</junit>
+        <junit>4.13.1</junit>
         <mockito>2.23.4</mockito>
         <maven.source.target>1.8</maven.source.target>
         <maven.compiler.plugin>3.8.1</maven.compiler.plugin>
